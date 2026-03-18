@@ -14,7 +14,7 @@
 | **[Replay]** | 使用 PCAP/樣本重播驗證 |
 | **[Simulation]** | 模擬資料驗證邏輯正確性 |
 
-**詳細對照表**：請見 [TEST_MODE_CLARIFICATION.md](TEST_MODE_CLARIFICATION.md)
+**詳細對照表**：請見 [docs/TEST_MODE_CLARIFICATION.md](docs/TEST_MODE_CLARIFICATION.md)
 
 ### 關鍵指標誠實標示
 
@@ -87,7 +87,22 @@ python tests/test_mode_verification.py
 
 ---
 
+## 專案結構
+
+```
+├── README.md           # 本文件
+├── requirements.txt
+├── docs/               # 文件與報告
+├── reports/            # 測試報告產出
+├── scripts/            # 部署與啟動腳本
+├── engines/            # 實際引擎 (ML/PCAP/沙箱/Volatility)
+├── tests/              # 驗證測試
+├── performance/        # 效能實測
+├── packet_capture/     # 封包擷取
+└── go/                 # Go 高效能核心
+```
+
 ## 報告
 
-- [TEST_MODE_CLARIFICATION.md](TEST_MODE_CLARIFICATION.md) - 測試模式分層
-- [系統能力與效能報告.md](系統能力與效能報告.md) - 能力與效能（含模式標示）
+- [docs/TEST_MODE_CLARIFICATION.md](docs/TEST_MODE_CLARIFICATION.md) - 測試模式分層
+- [docs/系統能力與效能報告.md](docs/系統能力與效能報告.md) - 能力與效能（含模式標示）

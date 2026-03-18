@@ -1005,7 +1005,9 @@ class NationalDefenseGradeTest:
             "requirements": self.requirements
         }
         
-        filename = f"national_defense_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        from pathlib import Path
+        Path("reports").mkdir(exist_ok=True)
+        filename = f"reports/national_defense_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
         

@@ -22,7 +22,12 @@ env/
 playbook_logs/
 soar_execution.log
 
-# 保留重要 JSON 設定
+# 執行時產生的資料
+*.db
+*.log
+
+# 報告產出（可選：若不想追蹤生成的報告可取消註解）
+# reports/
 
 # 系統
 .DS_Store

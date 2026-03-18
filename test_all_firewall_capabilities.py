@@ -516,7 +516,9 @@ class FirewallCapabilityTester:
             "detailed_results": self.test_results
         }
         
-        filename = f"firewall_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        from pathlib import Path
+        Path("reports").mkdir(exist_ok=True)
+        filename = f"reports/firewall_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
         

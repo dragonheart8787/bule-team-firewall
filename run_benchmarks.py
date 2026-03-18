@@ -94,7 +94,8 @@ def main():
         results["packet_capture"] = {"error": str(e)}
     
     # 儲存報告
-    report_path = Path("./benchmark_report.json")
+    Path("reports").mkdir(exist_ok=True)
+    report_path = Path("reports/benchmark_report.json")
     with open(report_path, 'w', encoding='utf-8') as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
     

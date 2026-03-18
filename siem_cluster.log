@@ -1,6 +1,0 @@
-2025-10-12 13:12:48,971 - WARNING - Master node siem-node-1 is down!
-2025-10-12 13:12:48,971 - INFO - Initiating failover...
-2025-10-12 13:12:48,971 - CRITICAL - No available standby nodes for failover!
-2025-10-12 13:13:28,704 - WARNING - Master node siem-node-1 is down!
-2025-10-12 13:13:28,704 - INFO - Initiating failover...
-2025-10-12 13:13:28,704 - CRITICAL - No available standby nodes for failover!
