@@ -1,0 +1,78 @@
+{
+  "transmissions": [
+    {
+      "id": "29992241dcbcde91564a71aab0a00d99",
+      "timestamp": "2025-10-11T23:25:57.478626",
+      "user": "admin",
+      "data_type": "LOGIN_EVENT",
+      "data": "7be310b9a2c5f893414fe9a88cee1ac14a192777ddddba275ec63a876188b566",
+      "checksum": "56e0737dcb9541fba892d9dfc1853bb8",
+      "status": "PENDING",
+      "received_at": "2025-10-11T23:25:57.484291",
+      "server_id": "CENTRAL-001"
+    },
+    {
+      "id": "edba5fc6cccfa358c50efaa27a6e0103",
+      "timestamp": "2025-10-11T23:25:57.546326",
+      "user": "admin",
+      "data_type": "DATA_ACCESS",
+      "data": "1ad2626f4ad798fe53bd648cf188bcf37a7f66ccde969b98ccd1423c340d3222",
+      "checksum": "4893959cc8c7eeaf8a0de54930d3b980",
+      "status": "PENDING",
+      "received_at": "2025-10-11T23:25:57.550847",
+      "server_id": "CENTRAL-001"
+    },
+    {
+      "id": "9f08d71e7c49d89bc8d0af2cf1682efc",
+      "timestamp": "2025-10-11T23:28:03.215225",
+      "user": "admin",
+      "data_type": "DATA_MODIFICATION",
+      "data": "88e7445efe2bc4d2b8d32eba7144550da4f41f7053510d529db079dd649576d7",
+      "checksum": "2860e3b081e6a341d5202d8d8b6486e0",
+      "status": "PENDING",
+      "received_at": "2025-10-11T23:28:03.222291",
+      "server_id": "CENTRAL-001"
+    },
+    {
+      "id": "cd87fa4af68e6b1a44fb352e78cd7c20",
+      "timestamp": "2025-10-11T23:28:06.157874",
+      "user": "admin",
+      "data_type": "DATA_ACCESS",
+      "data": "3faf2db8061c1d8d86b923c458e1b09b9b3049b739600557d6cacba9c9047aca",
+      "checksum": "77738f4f94ccffea1adbaef33c557397",
+      "status": "PENDING",
+      "received_at": "2025-10-11T23:28:06.179237",
+      "server_id": "CENTRAL-001"
+    },
+    {
+      "id": "146cdc292aa144308f87b98bd7c8f677",
+      "timestamp": "2025-10-11T23:28:43.624279",
+      "user": "admin",
+      "data_type": "DATA_ACCESS",
+      "data": "3faf2db8061c1d8d86b923c458e1b09b9b3049b739600557d6cacba9c9047aca",
+      "checksum": "77738f4f94ccffea1adbaef33c557397",
+      "status": "PENDING",
+      "received_at": "2025-10-11T23:28:43.631794",
+      "server_id": "CENTRAL-001"
+    },
+    {
+      "id": "824156e978f11d9eee5a901251a928fd",
+      "timestamp": "2025-10-11T23:28:45.458946",
+      "user": "admin",
+      "data_type": "LOGOUT_EVENT",
+      "data": "bb13e0f28911bee701f159c5c1f874e9546b00aaecca6546c053e2f67dfbe080",
+      "checksum": "4889694e41fa7cbba477f3b772679033",
+      "status": "PENDING",
+      "received_at": "2025-10-11T23:28:45.460972",
+      "server_id": "CENTRAL-001"
+    }
+  ],
+  "statistics": {
+    "total_transmissions": 6,
+    "type_LOGIN_EVENT": 1,
+    "type_DATA_ACCESS": 3,
+    "type_DATA_MODIFICATION": 1,
+    "type_LOGOUT_EVENT": 1
+  },
+  "last_updated": "2025-10-11T23:28:45.460972"
+}

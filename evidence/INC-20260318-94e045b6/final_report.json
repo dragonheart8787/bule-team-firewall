@@ -1,0 +1,78 @@
+{
+  "report_type": "Final Incident Report",
+  "incident_id": "INC-20260318-94e045b6",
+  "generated_at": "2026-03-18T11:28:18.874976+00:00",
+  "incident_summary": {
+    "type": "ADVANCED_PERSISTENT_THREAT",
+    "description": "Suspected APT attack with credential theft and lateral movement",
+    "severity": "CRITICAL",
+    "status": "CLOSED",
+    "created_at": "2026-03-18T11:28:18.810353+00:00",
+    "closed_at": "2026-03-18T11:28:18.874562+00:00",
+    "closed_by": "Chief Forensics Analyst",
+    "duration": "0.00 hours"
+  },
+  "evidence_summary": {
+    "total_items": 3,
+    "total_size_bytes": 870,
+    "evidence_types": {
+      "text": 2,
+      "logs": 1
+    },
+    "all_verified": true
+  },
+  "custody_summary": {
+    "total_transfers": 7,
+    "custodians": [
+      "Log Collector",
+      "Network Analyst",
+      "SYSTEM",
+      "Forensics Tool",
+      "Chief Forensics Analyst",
+      "SOC Analyst"
+    ],
+    "chain_of_custody": [
+      {
+        "timestamp": "2026-03-18T11:28:18.810364+00:00",
+        "custodian": "SYSTEM",
+        "action": "Incident created and evidence collection initiated"
+      },
+      {
+        "timestamp": "2026-03-18T11:28:18.817367+00:00",
+        "custodian": "Forensics Tool",
+        "action": "Evidence collected: text - Memory dump analysis - Volatility results"
+      },
+      {
+        "timestamp": "2026-03-18T11:28:18.825938+00:00",
+        "custodian": "Network Analyst",
+        "action": "Evidence collected: text - Network traffic analysis - PCAP results"
+      },
+      {
+        "timestamp": "2026-03-18T11:28:18.836936+00:00",
+        "custodian": "Log Collector",
+        "action": "Evidence collected: logs - System event logs - Windows & Sysmon"
+      },
+      {
+        "timestamp": "2026-03-18T11:28:18.844495+00:00",
+        "custodian": "Chief Forensics Analyst",
+        "action": "Evidence manifest generated and signed"
+      },
+      {
+        "timestamp": "2026-03-18T11:28:18.850825+00:00",
+        "custodian": "SOC Analyst",
+        "action": "Evidence manifest generated and signed"
+      },
+      {
+        "timestamp": "2026-03-18T11:28:18.874569+00:00",
+        "custodian": "Chief Forensics Analyst",
+        "action": "Incident closed. Summary: APT attack confirmed. Credential theft via Mimikatz, C2 communication to 203.0.113.50, and data exfiltration detected. All evidence collected and preserved with full chain of custody."
+      }
+    ]
+  },
+  "summary": "APT attack confirmed. Credential theft via Mimikatz, C2 communication to 203.0.113.50, and data exfiltration detected. All evidence collected and preserved with full chain of custody.",
+  "recommendations": [
+    "Review and update security monitoring rules",
+    "Conduct team training on incident response",
+    "Update incident response playbooks"
+  ]
+}

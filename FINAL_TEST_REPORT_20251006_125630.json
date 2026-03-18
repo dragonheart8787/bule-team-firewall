@@ -1,0 +1,51 @@
+{
+  "test_start_time": "2025-10-06T12:54:33.787225",
+  "system_info": {
+    "waf_version": "Enterprise Fixed v1.0",
+    "test_environment": "Windows 10",
+    "python_version": "3.11.9"
+  },
+  "tests": {
+    "connectivity": {
+      "status": "PASSED",
+      "details": {
+        "all_services_healthy": true
+      }
+    },
+    "protection": {
+      "status": "FAILED",
+      "details": {
+        "protection_rules_working": false
+      }
+    },
+    "performance": {
+      "status": "FAILED",
+      "details": {
+        "total_requests": 50,
+        "success_rate": 100.0,
+        "avg_response_time": 2198.3468627929688,
+        "p95_response_time": 2323.3697414398193
+      }
+    },
+    "config_api": {
+      "status": "PASSED",
+      "details": {
+        "config_api_working": true
+      }
+    },
+    "siem_integration": {
+      "status": "FAILED",
+      "details": {
+        "siem_status": "unhealthy"
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 2,
+    "failed_tests": 3,
+    "success_rate": 40.0,
+    "overall_status": "FAILED"
+  },
+  "test_end_time": "2025-10-06T12:56:30.126366"
+}

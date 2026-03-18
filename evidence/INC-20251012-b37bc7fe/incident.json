@@ -1,0 +1,40 @@
+{
+  "incident_id": "INC-20251012-b37bc7fe",
+  "type": "SYSTEM_TEST",
+  "description": "Testing evidence chain functionality",
+  "severity": "LOW",
+  "created_at": "2025-10-12T05:14:14.344199+00:00",
+  "status": "OPEN",
+  "evidence_items": [
+    {
+      "evidence_id": "EVD-001",
+      "type": "logs",
+      "description": "Test evidence item",
+      "filename": "EVD-001_logs.json",
+      "filepath": "evidence\\INC-20251012-b37bc7fe\\EVD-001_logs.json",
+      "collected_at": "2025-10-12T05:14:14.356871+00:00",
+      "collected_by": "SYSTEM",
+      "size_bytes": 78,
+      "hash_sha256": "784a0d2fc07a78800304fb34bb9d87472aaf53173cf8d2d9a5098f391c3fad90",
+      "hash_md5": "d9185c1115ac992cde26f9f109a0041d",
+      "verified": true
+    }
+  ],
+  "chain_of_custody": [
+    {
+      "timestamp": "2025-10-12T05:14:14.344199+00:00",
+      "custodian": "SYSTEM",
+      "action": "Incident created and evidence collection initiated"
+    },
+    {
+      "timestamp": "2025-10-12T05:14:14.356871+00:00",
+      "custodian": "SYSTEM",
+      "action": "Evidence collected: logs - Test evidence item"
+    },
+    {
+      "timestamp": "2025-10-12T05:14:14.364599+00:00",
+      "custodian": "SOC Analyst",
+      "action": "Evidence manifest generated and signed"
+    }
+  ]
+}

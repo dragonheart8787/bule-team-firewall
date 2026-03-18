@@ -1,0 +1,29 @@
+{
+  "users": {
+    "admin": {
+      "password_hash": "826baf350a604b1aa899a6f6dacf4f40babf280e7b4aba1dfc3dc0f086c32a13",
+      "role": "admin",
+      "email": "admin@example.com"
+    },
+    "user": {
+      "password_hash": "1af6c583dfad3731e1f276528a1e866a04d4dd523d201dd945835c69573566ba",
+      "role": "user",
+      "email": "user@example.com"
+    }
+  },
+  "sensitive_data": {
+    "database": {
+      "host": "db.example.com",
+      "user": "admin",
+      "pass": "DB@2025"
+    },
+    "api_keys": {
+      "aws": "AKIA...",
+      "stripe": "sk_live_..."
+    },
+    "documents": {
+      "plan": "戰略計劃文件",
+      "report": "財務報告"
+    }
+  }
+}

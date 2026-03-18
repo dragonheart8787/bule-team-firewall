@@ -1,0 +1,96 @@
+{
+  "timestamp": "2025-10-12T14:59:45.170152",
+  "test_suite": "National Defense Firewall Full Capability Test",
+  "total_tests": 48,
+  "passed": 45,
+  "failed": 3,
+  "success_rate": 93.75,
+  "detailed_results": [
+    {
+      "test": "DPI",
+      "case": "SQL Injection",
+      "result": {
+        "timestamp": "2025-10-12T14:59:45.147784",
+        "capability": "Deep Packet Inspection",
+        "packet_id": "1",
+        "threats_found": [
+          {
+            "type": "SQL Injection",
+            "severity": "Critical",
+            "action": "Blocked"
+          }
+        ],
+        "blocked": true
+      },
+      "passed": true
+    },
+    {
+      "test": "DPI",
+      "case": "XSS Attack",
+      "result": {
+        "timestamp": "2025-10-12T14:59:45.147784",
+        "capability": "Deep Packet Inspection",
+        "packet_id": "2",
+        "threats_found": [
+          {
+            "type": "Cross-Site Scripting",
+            "severity": "High",
+            "action": "Blocked"
+          }
+        ],
+        "blocked": true
+      },
+      "passed": true
+    },
+    {
+      "test": "DPI",
+      "case": "Command Injection",
+      "result": {
+        "timestamp": "2025-10-12T14:59:45.147784",
+        "capability": "Deep Packet Inspection",
+        "packet_id": "3",
+        "threats_found": [
+          {
+            "type": "Command Injection",
+            "severity": "Critical",
+            "action": "Blocked"
+          }
+        ],
+        "blocked": true
+      },
+      "passed": true
+    },
+    {
+      "test": "DPI",
+      "case": "Normal Traffic",
+      "result": {
+        "timestamp": "2025-10-12T14:59:45.147784",
+        "capability": "Deep Packet Inspection",
+        "packet_id": "4",
+        "threats_found": [],
+        "blocked": false
+      },
+      "passed": true
+    },
+    {
+      "test": "Signature IPS",
+      "case": "Metasploit Detection",
+      "passed": true
+    },
+    {
+      "test": "Signature IPS",
+      "case": "Mimikatz Detection",
+      "passed": true
+    },
+    {
+      "test": "Signature IPS",
+      "case": "Port Scan",
+      "passed": true
+    },
+    {
+      "test": "Signature IPS",
+      "case": "Normal Connection",
+      "passed": true
+    }
+  ]
+}

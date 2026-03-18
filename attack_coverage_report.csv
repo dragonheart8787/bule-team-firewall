@@ -1,0 +1,59 @@
+Technique ID,Name,Tactic,Detection,Blocking,Response,Methods,Evidence,Status
+T1003.001,"LSASS Memory",Credential Access,True,True,True,"LSASS Process Access; Memory Forensics; Credential Dumping Alert",lsass_access_detected.json,FULL
+T1005,"Data from Local System",Collection,True,True,True,"Sensitive Data Access Logs; File Access Monitoring; DLP Integration",local_data_access.json,FULL
+T1018,"Remote System Discovery",Discovery,True,True,True,"Network Discovery Command; ARP Scan Detection; Anomaly IPS",network_discovery.json,FULL
+T1020,"Automated Exfiltration",Exfiltration,True,True,True,"Automated Transfer Pattern; Scheduled Exfiltration",auto_exfil_blocked.json,FULL
+T1021.001,"Remote Desktop Protocol",Lateral Movement,True,True,True,"RDP Login Monitoring; Event 4624 Type 10; Anomaly Detection",rdp_lateral.json,FULL
+T1021.002,"SMB/Windows Admin Shares",Lateral Movement,True,True,True,"SMB Traffic Analysis; Admin Share Access; DPI",smb_lateral.json,FULL
+T1027,"Obfuscated Files or Information",Defense Evasion,True,True,True,"File Entropy Analysis; Obfuscation Detection; Zero-Day Protection",obfuscation_detected.json,FULL
+T1036,"Masquerading",Defense Evasion,True,True,True,"Process Name Analysis; Path Anomaly Detection; ML Detection",masquerading_detected.json,FULL
+T1039,"Data from Network Shared Drive",Collection,True,True,True,"Network Share Access; SMB Monitoring; DLP",share_access.json,FULL
+T1041,"Exfiltration Over C2 Channel",Exfiltration,True,True,True,"C2 Traffic Analysis; Large Data Transfer Detection",c2_exfiltration_blocked.json,FULL
+T1046,"Network Service Scanning",Discovery,True,True,True,"Port Scan Detection; Network Sweep Monitoring",port_scan_blocked.json,FULL
+T1048,"Exfiltration Over Alternative Protocol",Exfiltration,True,True,True,"Alternative Protocol Detection; Uncommon Port Monitoring",alt_protocol_exfil_blocked.json,FULL
+T1053.005,"Scheduled Task",Persistence,True,True,True,"Scheduled Task Creation; Event 4698; Task Scheduler Monitoring",scheduled_task_created.json,FULL
+T1055,"Process Injection",Privilege Escalation,True,True,True,"Process Injection Detection; Memory Scanning; CreateRemoteThread Monitoring",process_injection_blocked.json,FULL
+T1056,"Input Capture",Credential Access,True,True,True,"Keystroke Pattern Analysis; Input Monitoring; Behavioral Blocking",keylogger_detected.json,FULL
+T1059.001,"PowerShell",Execution,True,True,True,"PowerShell Execution Logging; Script Block Logging; Deep Packet Inspection",powershell_detected.json,FULL
+T1059.003,"Windows Command Shell",Execution,True,True,True,"Command Injection Detection; Shell Command Logging",command_injection_blocked.json,FULL
+T1059.006,"Python",Execution,True,True,True,"Python Process Monitoring; Script Execution Logging",python_execution.json,FULL
+T1068,"Exploitation for Privilege Escalation",Privilege Escalation,True,True,True,"Exploit Detection; Vulnerability Scanner Integration; Abnormal Privilege Change",exploit_blocked.json,FULL
+T1069,"Permission Groups Discovery",Discovery,True,True,True,"Group Enumeration; Privilege Query Detection; Behavioral Analysis",group_enum.json,FULL
+T1070,"Indicator Removal",Defense Evasion,True,True,True,"Log Deletion Monitoring; Event 1102 Alert; SIEM Integration",log_cleared_alert.json,FULL
+T1071.001,"Web Protocols",Command and Control,True,True,True,"WAF HTTP Analysis; Beaconing Detection; PCAP Analysis",c2_http_blocked.json,FULL
+T1071.004,"DNS",Command and Control,True,True,True,"DNS Tunneling Detection; Long Subdomain Analysis; High Query Rate",dns_tunneling_blocked.json,FULL
+T1078,"Valid Accounts",Privilege Escalation,True,True,True,"Login Monitoring; Failed Attempts Tracking; Account Lockout",suspicious_login_blocked.json,FULL
+T1082,"System Information Discovery",Discovery,True,True,True,"System Command Detection; whoami/systeminfo Detection",sysinfo_blocked.json,FULL
+T1083,"File and Directory Discovery",Discovery,True,True,True,"File Enumeration Pattern; Directory Traversal Detection",file_enum_blocked.json,FULL
+T1087,"Account Discovery",Discovery,True,True,True,"Account Enumeration Detection; User List Query Blocking",account_enum_blocked.json,FULL
+T1090,"Proxy",Command and Control,True,True,True,"Proxy Detection; Unusual Port Monitoring",proxy_detected.json,FULL
+T1095,"Non-Application Layer Protocol",Command and Control,True,True,True,"Non-HTTP/DNS Protocol; Raw Socket Detection; DPI",raw_protocol.json,FULL
+T1098,"Account Manipulation",Persistence,True,True,True,"Account Modification Alert; Privilege Change; Automated Response",account_modified.json,FULL
+T1105,"Ingress Tool Transfer",Command and Control,True,True,True,"File Upload Monitoring; Large POST Detection",tool_transfer_blocked.json,FULL
+T1106,"Native API",Execution,True,True,True,"Suspicious API Pattern Detection; Process Monitoring; API Call Blocking",api_call_detected.json,FULL
+T1110,"Brute Force",Credential Access,True,True,True,"Failed Login Monitoring; Account Lockout; Rate Limiting",brute_force_blocked.json,FULL
+T1114,"Email Collection",Collection,True,True,True,"Email Access Logs; IMAP/POP3 Monitoring; DLP",email_collection.json,FULL
+T1133,"External Remote Services",Initial Access,True,True,True,"VPN Login Monitoring; Remote Access Logs; Geo-location Analysis",vpn_access_monitored.json,FULL
+T1134,"Access Token Manipulation",Privilege Escalation,True,True,True,"Token Manipulation Detection; Privilege Escalation Alert",token_manipulation.json,FULL
+T1136,"Create Account",Persistence,True,True,True,"New Account Creation Alert; Event 4720; Automated Response",account_created.json,FULL
+T1140,"Deobfuscate/Decode Files",Defense Evasion,True,True,True,"Decode Activity Detection; Base64 Pattern; DPI",decode_detected.json,FULL
+T1189,"Drive-by Compromise",Initial Access,True,True,True,"WAF XSS Detection; Malicious Script Blocking",drive_by_blocked.json,FULL
+T1190,"Exploit Public-Facing Application",Initial Access,True,True,True,"WAF SQL Injection; WAF XSS; WAF Path Traversal; WAF Command Injection",waf_attack_logs.json,FULL
+T1204,"User Execution",Execution,True,True,True,"User Click Monitoring; Malicious File Execution; Sandboxing",user_execution.json,FULL
+T1218,"System Binary Proxy Execution",Defense Evasion,True,True,True,"LOLBin Detection; Suspicious Binary Execution; Behavioral Analysis",lolbin_detected.json,FULL
+T1485,"Data Destruction",Impact,True,True,True,"Mass File Deletion; Data Wipe Pattern",data_destruction_blocked.json,FULL
+T1486,"Data Encrypted for Impact",Impact,True,True,True,"Rapid File Modification; Ransomware Pattern",ransomware_blocked.json,FULL
+T1490,"Inhibit System Recovery",Impact,True,True,True,"Backup Deletion Alert; Shadow Copy Monitoring",recovery_inhibit_blocked.json,FULL
+T1498,"Network Denial of Service",Impact,True,True,True,"Network Rate Limiting; Traffic Volume Analysis",network_ddos_blocked.json,FULL
+T1499,"Endpoint Denial of Service",Impact,True,True,True,"Endpoint Rate Limiting; IP Blocking; Connection Limiting",endpoint_ddos_blocked.json,FULL
+T1543.003,"Windows Service",Persistence,True,True,True,"Service Installation; Event 7045; Service Registry Monitoring",service_installed.json,FULL
+T1547.001,"Registry Run Keys",Persistence,True,True,True,"Registry Run Key Monitoring; Startup Modification",registry_persistence.json,FULL
+T1550,"Use Alternate Authentication Material",Lateral Movement,True,True,True,"Pass-the-Hash Detection; NTLM Anomaly; Signature IPS",pth_detected.json,FULL
+T1555,"Credentials from Password Stores",Credential Access,True,True,True,"Password Store Access; Credential File Monitoring",password_store_access.json,FULL
+T1558,"Steal or Forge Kerberos Tickets",Credential Access,True,True,True,"Kerberos Ticket Anomaly; Event 4768/4769; Signature IPS",kerberos_anomaly.json,FULL
+T1560,"Archive Collected Data",Collection,True,True,True,"Archive Creation Detection; Compression Activity; Suspicious Archive Blocking",archive_detected.json,FULL
+T1562.001,"Disable or Modify Tools",Defense Evasion,True,True,True,"Security Tool Modification; Service Stop Detection; Automated Blocking",tool_disabled_alert.json,FULL
+T1563,"Remote Service Session Hijacking",Lateral Movement,True,True,True,"Session Hijacking Detection; Unusual Session Activity; Anomaly Detection",session_hijack.json,FULL
+T1566,"Phishing",Initial Access,True,True,True,"Email Gateway Scanning; Attachment Analysis; URL Reputation Check",phishing_blocked.json,FULL
+T1567,"Exfiltration Over Web Service",Exfiltration,True,True,True,"Web Upload Detection; Cloud Storage Monitoring",web_exfil_blocked.json,FULL
+T1573,"Encrypted Channel",Command and Control,True,True,True,"TLS Analysis; Certificate Validation; JA3 Fingerprinting; SSL/TLS Inspection Blocking",encrypted_c2_detected.json,FULL

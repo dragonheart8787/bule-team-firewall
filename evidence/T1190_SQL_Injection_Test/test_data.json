@@ -1,0 +1,13 @@
+{
+  "test_name": "SQL Injection Detection",
+  "technique": "T1190",
+  "attack_payload": "' OR '1'='1",
+  "expected_result": "Blocked",
+  "actual_result": "Blocked",
+  "timestamp": "2025-10-12T18:22:55.694711",
+  "parameters": {
+    "target_url": "http://localhost:8080/api/data",
+    "method": "POST"
+  },
+  "seed": "test_seed_12345"
+}

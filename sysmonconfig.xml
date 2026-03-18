@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Sysmon schemaversion="4.81">
+  <!-- 精簡版 Sysmon 設定檔 -->
+  <!-- 專為真實終極軍事防禦系統優化 -->
+  
+  <HashAlgorithms>md5,sha256</HashAlgorithms>
+  <CheckRevocation>false</CheckRevocation>
+  <CopyOnDeletePE>false</CopyOnDeletePE>
+  
+  <EventFiltering>
+    
+    <!-- Event ID 1: Process Creation -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessCreate onmatch="exclude">
+        <!-- 排除正常系統進程 -->
+        <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+        <Image condition="is">C:\Windows\System32\dllhost.exe</Image>
+        <Image condition="is">C:\Windows\System32\conhost.exe</Image>
+        <Image condition="is">C:\Windows\System32\wbem\wmiprvse.exe</Image>
+      </ProcessCreate>
+    </RuleGroup>
+
+    <!-- Event ID 3: Network Connection -->
+    <RuleGroup name="" groupRelation="or">
+      <NetworkConnect onmatch="exclude">
+        <!-- 排除本地連接和常見端口 -->
+        <DestinationIp condition="is">127.0.0.1</DestinationIp>
+        <DestinationIp condition="is">::1</DestinationIp>
+        <DestinationPort condition="is">53</DestinationPort>
+        <DestinationPort condition="is">80</DestinationPort>
+        <DestinationPort condition="is">443</DestinationPort>
+        <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+      </NetworkConnect>
+    </RuleGroup>
+
+    <!-- Event ID 5: Process Terminated -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessTerminate onmatch="include">
+        <!-- 包含所有進程終止事件 -->
+      </ProcessTerminate>
+    </RuleGroup>
+
+    <!-- Event ID 7: Image/Library Loaded -->
+    <RuleGroup name="" groupRelation="or">
+      <ImageLoad onmatch="exclude">
+        <!-- 排除常見系統DLL -->
+        <ImageLoaded condition="contains">C:\Windows\System32</ImageLoaded>
+        <ImageLoaded condition="contains">C:\Windows\SysWOW64</ImageLoaded>
+        <ImageLoaded condition="contains">C:\Windows\WinSxS</ImageLoaded>
+      </ImageLoad>
+    </RuleGroup>
+
+    <!-- Event ID 8: CreateRemoteThread -->
+    <RuleGroup name="" groupRelation="or">
+      <CreateRemoteThread onmatch="include">
+        <!-- 包含所有遠程線程創建（可能的代碼注入） -->
+      </CreateRemoteThread>
+    </RuleGroup>
+
+    <!-- Event ID 10: Process Access -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessAccess onmatch="exclude">
+        <!-- 排除正常系統進程訪問 -->
+        <SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
+        <SourceImage condition="is">C:\Windows\System32\wbem\wmiprvse.exe</SourceImage>
+        <TargetImage condition="is">C:\Windows\System32\lsass.exe</TargetImage>
+        <GrantedAccess condition="is">0x1000</GrantedAccess>
+      </ProcessAccess>
+    </RuleGroup>
+
+    <!-- Event ID 11: File Created -->
+    <RuleGroup name="" groupRelation="or">
+      <FileCreate onmatch="exclude">
+        <!-- 排除臨時文件和系統文件 -->
+        <TargetFilename condition="contains">\AppData\Local\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\Windows\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\Windows\Prefetch\</TargetFilename>
+        <TargetFilename condition="contains">\$Recycle.Bin\</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+
+    <!-- Event ID 12: Registry Event (Object create and delete) -->
+    <RuleGroup name="" groupRelation="or">
+      <RegistryEvent onmatch="include">
+        <!-- 包含重要註冊表變更 -->
+        <TargetObject condition="contains">CurrentVersion\Run</TargetObject>
+        <TargetObject condition="contains">CurrentVersion\Winlogon</TargetObject>
+        <TargetObject condition="contains">CurrentVersion\Windows\Load</TargetObject>
+        <TargetObject condition="contains">Microsoft\Windows\CurrentVersion\Explorer\Shell Folders</TargetObject>
+        <TargetObject condition="contains">Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</TargetObject>
+        <TargetObject condition="contains">System\CurrentControlSet\Services</TargetObject>
+      </RegistryEvent>
+    </RuleGroup>
+
+    <!-- Event ID 13: Registry Event (Value Set) -->
+    <RuleGroup name="" groupRelation="or">
+      <RegistryEvent onmatch="include">
+        <!-- 包含重要註冊表設置 -->
+        <TargetObject condition="contains">CurrentVersion\Run</TargetObject>
+        <TargetObject condition="contains">CurrentVersion\Winlogon</TargetObject>
+        <TargetObject condition="contains">CurrentVersion\Windows\Load</TargetObject>
+        <TargetObject condition="contains">System\CurrentControlSet\Services</TargetObject>
+      </RegistryEvent>
+    </RuleGroup>
+
+    <!-- Event ID 15: File Create Stream Hash -->
+    <RuleGroup name="" groupRelation="or">
+      <FileCreateStreamHash onmatch="include">
+        <!-- 包含所有文件流創建（可能的ADS隱藏） -->
+      </FileCreateStreamHash>
+    </RuleGroup>
+
+    <!-- Event ID 17: Pipe Created -->
+    <RuleGroup name="" groupRelation="or">
+      <PipeEvent onmatch="include">
+        <!-- 包含所有命名管道事件（可能的進程間通信） -->
+      </PipeEvent>
+    </RuleGroup>
+
+    <!-- Event ID 18: Pipe Connected -->
+    <RuleGroup name="" groupRelation="or">
+      <PipeEvent onmatch="include">
+        <!-- 包含所有管道連接事件 -->
+      </PipeEvent>
+    </RuleGroup>
+
+    <!-- Event ID 19: WMI Event Filter Activity -->
+    <RuleGroup name="" groupRelation="or">
+      <WmiEvent onmatch="include">
+        <!-- 包含所有WMI事件（可能的持久化） -->
+      </WmiEvent>
+    </RuleGroup>
+
+    <!-- Event ID 20: WMI Event Consumer Activity -->
+    <RuleGroup name="" groupRelation="or">
+      <WmiEvent onmatch="include">
+        <!-- 包含所有WMI消費者事件 -->
+      </WmiEvent>
+    </RuleGroup>
+
+    <!-- Event ID 21: WMI Event Consumer To Filter Activity -->
+    <RuleGroup name="" groupRelation="or">
+      <WmiEvent onmatch="include">
+        <!-- 包含所有WMI綁定事件 -->
+      </WmiEvent>
+    </RuleGroup>
+
+    <!-- Event ID 22: DNS Query -->
+    <RuleGroup name="" groupRelation="or">
+      <DnsQuery onmatch="exclude">
+        <!-- 排除常見DNS查詢 -->
+        <QueryName condition="contains">microsoft.com</QueryName>
+        <QueryName condition="contains">windows.com</QueryName>
+        <QueryName condition="contains">msftconnecttest.com</QueryName>
+        <QueryName condition="contains">windowsupdate.com</QueryName>
+      </DnsQuery>
+    </RuleGroup>
+
+    <!-- Event ID 23: File Delete -->
+    <RuleGroup name="" groupRelation="or">
+      <FileDelete onmatch="exclude">
+        <!-- 排除臨時文件刪除 -->
+        <TargetFilename condition="contains">\AppData\Local\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\Windows\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\Windows\Prefetch\</TargetFilename>
+      </FileDelete>
+    </RuleGroup>
+
+    <!-- Event ID 24: Clipboard Changed -->
+    <RuleGroup name="" groupRelation="or">
+      <ClipboardChange onmatch="include">
+        <!-- 包含所有剪貼板變更（可能的數據竊取） -->
+      </ClipboardChange>
+    </RuleGroup>
+
+    <!-- Event ID 25: Process Tampering -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessTampering onmatch="include">
+        <!-- 包含所有進程篡改事件 -->
+      </ProcessTampering>
+    </RuleGroup>
+
+    <!-- Event ID 26: File Delete Logged -->
+    <RuleGroup name="" groupRelation="or">
+      <FileDeleteDetected onmatch="exclude">
+        <!-- 排除臨時文件刪除 -->
+        <TargetFilename condition="contains">\AppData\Local\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\Windows\Temp\</TargetFilename>
+      </FileDeleteDetected>
+    </RuleGroup>
+
+  </EventFiltering>
+</Sysmon>
+

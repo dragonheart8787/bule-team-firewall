@@ -1,0 +1,104 @@
+{
+  "defense_capabilities": {
+    "zero_trust": {
+      "name": "零信任架構",
+      "description": "IAM/MFA/微分段、NAC、NDR 等零信任核心功能",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:19.854482",
+      "performance_metrics": {
+        "authentication_success_rate": 99.5,
+        "device_compliance_rate": 95.0
+      },
+      "threat_coverage": 85.0,
+      "operational_readiness": 90.0
+    },
+    "ndr": {
+      "name": "網路檢測與回應",
+      "description": "Zeek/Suricata 整合、C2 Beaconing 檢測、DNS 隧道檢測",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:19.871337",
+      "performance_metrics": {
+        "threat_detection_rate": 92.0,
+        "false_positive_rate": 2.5
+      },
+      "threat_coverage": 88.0,
+      "operational_readiness": 85.0
+    },
+    "ot_iot": {
+      "name": "工控/IoT防禦",
+      "description": "Modbus、DNP3、CAN Bus 監控、OT/SCADA 專用防禦",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:19.871337",
+      "performance_metrics": {
+        "protocol_coverage": 90.0,
+        "anomaly_detection_rate": 87.0
+      },
+      "threat_coverage": 82.0,
+      "operational_readiness": 88.0
+    },
+    "ai_threat_hunting": {
+      "name": "AI威脅獵捕",
+      "description": "ML模型檢測異常流量、UEBA、AI驅動威脅獵捕",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:19.871337",
+      "performance_metrics": {
+        "anomaly_detection_accuracy": 94.0,
+        "threat_prediction_rate": 89.0
+      },
+      "threat_coverage": 91.0,
+      "operational_readiness": 92.0
+    },
+    "threat_intelligence": {
+      "name": "威脅情報整合",
+      "description": "STIX/TAXII feed、IoC 自動下發、威脅情報分析",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:21.714378",
+      "performance_metrics": {
+        "ioc_processing_rate": 96.0,
+        "threat_correlation_accuracy": 93.0
+      },
+      "threat_coverage": 89.0,
+      "operational_readiness": 87.0
+    },
+    "red_blue_visualization": {
+      "name": "紅藍對抗可視化",
+      "description": "MITRE ATT&CK Navigator、Kill Chain、ATT&CK Matrix 覆蓋率",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:21.714378",
+      "performance_metrics": {
+        "coverage_analysis_accuracy": 95.0,
+        "visualization_quality": 92.0
+      },
+      "threat_coverage": 86.0,
+      "operational_readiness": 90.0
+    },
+    "risk_quantification": {
+      "name": "風險量化",
+      "description": "FAIR 模組、金融風險影響分析、自動化風險評估",
+      "status": "operational",
+      "last_update": "2025-09-07T21:21:21.715375",
+      "performance_metrics": {
+        "risk_accuracy": 91.0,
+        "financial_impact_precision": 88.0
+      },
+      "threat_coverage": 84.0,
+      "operational_readiness": 89.0
+    }
+  },
+  "system_health": {
+    "overall_status": "operational",
+    "health_score": 100.0,
+    "active_threats": 0,
+    "blocked_attacks": 0,
+    "false_positives": 0,
+    "system_uptime": 0.0,
+    "last_incident": "2025-09-07T21:21:21.715375",
+    "performance_metrics": {}
+  },
+  "defense_log": [],
+  "timestamp": "2025-09-07T21:21:21.716371",
+  "system_info": {
+    "platform": "win32",
+    "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]"
+  }
+}

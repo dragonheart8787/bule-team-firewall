@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-03-18T14:56:38.753949",
+  "scenario": "APT Attack Simulation",
+  "stages_detected": [
+    "Stage 1: Reconnaissance",
+    "Stage 2: Weaponization",
+    "Stage 3: Delivery",
+    "Stage 4: Exploitation",
+    "Stage 5: Installation",
+    "Stage 6: C2",
+    "Stage 7: Actions"
+  ],
+  "stages_missed": [],
+  "detection_rate": 100.0,
+  "blocked": true
+}

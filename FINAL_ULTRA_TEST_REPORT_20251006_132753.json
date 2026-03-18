@@ -1,0 +1,324 @@
+{
+  "timestamp": "2025-10-06T13:25:50.423669",
+  "tests": {
+    "connectivity": {
+      "target_app": {
+        "status": "PASS",
+        "response_time": 2.029855,
+        "status_code": 200
+      },
+      "siem": {
+        "status": "PASS",
+        "response_time": 2.034325,
+        "status_code": 200
+      },
+      "waf": {
+        "status": "PASS",
+        "response_time": 2.04218,
+        "status_code": 200
+      }
+    },
+    "waf_protection": {
+      "sql_injection": {
+        "total_tests": 4,
+        "blocked_count": 4,
+        "results": [
+          {
+            "payload": "'; DROP TABLE users; --",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.041005
+          },
+          {
+            "payload": "1' OR '1'='1",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.054854
+          },
+          {
+            "payload": "admin'--",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.042854
+          },
+          {
+            "payload": "1' UNION SELECT * FROM users--",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.016178
+          }
+        ]
+      },
+      "xss": {
+        "total_tests": 4,
+        "blocked_count": 4,
+        "results": [
+          {
+            "payload": "<script>alert('XSS')</script>",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.040503
+          },
+          {
+            "payload": "javascript:alert('XSS')",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.025954
+          },
+          {
+            "payload": "<img src=x onerror=alert('XSS')>",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.056689
+          },
+          {
+            "payload": "';alert('XSS');//",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.050167
+          }
+        ]
+      },
+      "admin_access": {
+        "total_tests": 15,
+        "blocked_count": 0,
+        "results": [
+          {
+            "path": "/admin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.057309
+          },
+          {
+            "path": "/administrator",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.063671
+          },
+          {
+            "path": "/wp-admin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.085258
+          },
+          {
+            "path": "/phpmyadmin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.077449
+          },
+          {
+            "path": "/backend",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.131536
+          },
+          {
+            "path": "/management",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.100207
+          },
+          {
+            "path": "/dashboard",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.09794
+          },
+          {
+            "path": "/system",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.07486
+          },
+          {
+            "path": "/config",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.066112
+          },
+          {
+            "path": "/settings",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.101525
+          },
+          {
+            "path": "/logs",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.055876
+          },
+          {
+            "path": "/backup",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.090791
+          },
+          {
+            "path": "/security",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.063613
+          },
+          {
+            "path": "/api/admin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.084048
+          },
+          {
+            "path": "/admin/api",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.067008
+          }
+        ]
+      },
+      "summary": {
+        "total_tests": 23,
+        "total_blocked": 8,
+        "protection_rate": 34.78260869565217,
+        "status": "FAIL"
+      }
+    },
+    "siem_integration": {
+      "endpoints": {
+        "/healthz": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.029141,
+          "content_type": "application/json",
+          "content_length": 15
+        },
+        "/status": {
+          "status": "FAIL",
+          "status_code": 404,
+          "response_time": 2.050424,
+          "content_type": "application/json",
+          "content_length": 22
+        },
+        "/alerts": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.036777,
+          "content_type": "application/json",
+          "content_length": 2
+        },
+        "/dashboard": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.025464,
+          "content_type": "application/json",
+          "content_length": 326
+        },
+        "/metrics": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.032921,
+          "content_type": "application/json",
+          "content_length": 133
+        },
+        "/slo": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.016976,
+          "content_type": "application/json",
+          "content_length": 340
+        }
+      },
+      "summary": {
+        "total_endpoints": 6,
+        "successful_endpoints": 5,
+        "success_rate": 83.33333333333334,
+        "status": "PASS"
+      }
+    },
+    "waf_config_api": {
+      "get_config": {
+        "status": "FAIL",
+        "status_code": 404,
+        "response_time": 4.067695
+      },
+      "update_config": {
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.029303
+      }
+    }
+  },
+  "performance": {
+    "light_load": {
+      "results": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25AF7D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25A7D50>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25BE990>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25E6010>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25E4DD0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A2698E10>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A2698190>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25ADA10>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25AD050>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25AC310>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25A70D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A259C250>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25BC050>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25A6650>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25CA5D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25E7750>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25D9450>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25EA6D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25A5910>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25A6190>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25AC510>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A259C0D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25AE150>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25CA810>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25C8A50>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A2595550>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A2597050>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25D9250>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25BDF50>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25BD190>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25DA010>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25E7790>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25E8150>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25EACD0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x000001E9A25D98D0>, 'Connection to localhost timed out. (connect timeout=2)'))"
+        ],
+        "start_time": 1759728434.100121,
+        "end_time": 1759728454.7211397,
+        "duration": 20.621018648147583
+      },
+      "summary": {
+        "status": "FAIL",
+        "error": "No successful requests"
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 7,
+    "passed_tests": 5,
+    "failed_tests": 2,
+    "success_rate": 71.42857142857143,
+    "overall_status": "FAIL"
+  }
+}

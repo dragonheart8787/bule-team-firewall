@@ -1,0 +1,1143 @@
+{
+  "timestamp": "2025-10-08T20:36:22.372121",
+  "test_suite": "Advanced Enterprise WAF Testing",
+  "version": "2.0",
+  "tests": {
+    "connectivity_advanced": {
+      "total_services": 5,
+      "passed_services": 3,
+      "failed_services": 0,
+      "error_services": 2,
+      "success_rate": 60.0,
+      "results": [
+        {
+          "service": "Target App",
+          "url": "http://localhost:5000/",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E790EC490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:36:26.448998"
+        },
+        {
+          "service": "SIEM Health",
+          "url": "http://localhost:8001/healthz",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /healthz (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E795B6E10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:36:30.557300"
+        },
+        {
+          "service": "WAF Health",
+          "url": "http://localhost:8080/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0542428493499756,
+          "content_length": 181,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-08T20:36:32.612052",
+          "json_data": {
+            "status": "ok",
+            "timestamp": "2025-10-08T20:36:32.612052",
+            "uptime": 0.015534400939941406,
+            "total_requests": 0,
+            "blocked_requests": 0,
+            "forwarded_requests": 0,
+            "error_requests": 0
+          }
+        },
+        {
+          "service": "WAF Metrics",
+          "url": "http://localhost:8080/metrics",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0471034049987793,
+          "content_length": 161,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-08T20:36:34.660158",
+          "json_data": {
+            "total_requests": 0,
+            "blocked_requests": 0,
+            "forwarded_requests": 0,
+            "error_requests": 0,
+            "block_rate": 0.0,
+            "error_rate": 0.0,
+            "uptime": 0.0010018348693847656
+          }
+        },
+        {
+          "service": "WAF Config",
+          "url": "http://localhost:8080/api/config",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.070340156555176,
+          "content_length": 314,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-08T20:36:36.730498",
+          "json_data": {
+            "governance_mode": "full",
+            "admin_paths": [
+              "/admin",
+              "/admin/api",
+              "/administrator",
+              "/api/admin",
+              "/backend",
+              "/backup",
+              "/config",
+              "/dashboard",
+              "/logs",
+              "/management",
+              "/phpmyadmin",
+              "/security",
+              "/settings",
+              "/system",
+              "/wp-admin"
+            ],
+            "backend_connect_timeout": 0.5,
+            "backend_read_timeout": 2.0,
+            "status": "ok"
+          }
+        }
+      ]
+    },
+    "waf_protection_comprehensive": {
+      "total_tests": 45,
+      "total_blocked": 19,
+      "overall_protection_rate": 42.22222222222222,
+      "categories": {
+        "sql_injection": {
+          "total_tests": 8,
+          "blocked_count": 8,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "'; DROP TABLE users; --",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.070706,
+              "content_length": 165,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=';%20DROP%20TABLE%20users;%20--",
+                "timestamp": "2025-10-08T20:36:38.801287"
+              }
+            },
+            {
+              "payload": "1' OR '1'='1",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.029875,
+              "content_length": 150,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20OR%20'1'='1",
+                "timestamp": "2025-10-08T20:36:40.832462"
+              }
+            },
+            {
+              "payload": "admin'--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.029709,
+              "content_length": 142,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=admin'--",
+                "timestamp": "2025-10-08T20:36:42.863066"
+              }
+            },
+            {
+              "payload": "1' UNION SELECT * FROM users--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.07199,
+              "content_length": 174,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20UNION%20SELECT%20*%20FROM%20users--",
+                "timestamp": "2025-10-08T20:36:44.934996"
+              }
+            },
+            {
+              "payload": "'; EXEC xp_cmdshell('dir'); --",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.04641,
+              "content_length": 170,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=';%20EXEC%20xp_cmdshell('dir');%20--",
+                "timestamp": "2025-10-08T20:36:46.982188"
+              }
+            },
+            {
+              "payload": "1' AND (SELECT COUNT(*) FROM information_schema.tables) > 0--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.061821,
+              "content_length": 211,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20AND%20(SELECT%20COUNT(*)%20FROM%20information_schema.tables)%20%3E%200--",
+                "timestamp": "2025-10-08T20:36:49.045236"
+              }
+            },
+            {
+              "payload": "1' OR 1=1#",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.021397,
+              "content_length": 147,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20OR%201=1",
+                "timestamp": "2025-10-08T20:36:51.067368"
+              }
+            },
+            {
+              "payload": "1' OR 'x'='x",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.016115,
+              "content_length": 150,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20OR%20'x'='x",
+                "timestamp": "2025-10-08T20:36:53.085797"
+              }
+            }
+          ]
+        },
+        "xss_attacks": {
+          "total_tests": 8,
+          "blocked_count": 8,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "<script>alert('XSS')</script>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.072302,
+              "content_length": 171,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cscript%3Ealert('XSS')%3C/script%3E",
+                "timestamp": "2025-10-08T20:36:55.159535"
+              }
+            },
+            {
+              "payload": "javascript:alert('XSS')",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.060159,
+              "content_length": 157,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=javascript:alert('XSS')",
+                "timestamp": "2025-10-08T20:36:57.219805"
+              }
+            },
+            {
+              "payload": "<img src=x onerror=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.042218,
+              "content_length": 174,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cimg%20src=x%20onerror=alert('XSS')%3E",
+                "timestamp": "2025-10-08T20:36:59.263757"
+              }
+            },
+            {
+              "payload": "';alert('XSS');//",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.057777,
+              "content_length": 151,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=';alert('XSS');//",
+                "timestamp": "2025-10-08T20:37:01.322433"
+              }
+            },
+            {
+              "payload": "<svg onload=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.045232,
+              "content_length": 165,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Csvg%20onload=alert('XSS')%3E",
+                "timestamp": "2025-10-08T20:37:03.368037"
+              }
+            },
+            {
+              "payload": "<iframe src=javascript:alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.028949,
+              "content_length": 176,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Ciframe%20src=javascript:alert('XSS')%3E",
+                "timestamp": "2025-10-08T20:37:05.398223"
+              }
+            },
+            {
+              "payload": "<body onload=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.076167,
+              "content_length": 166,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cbody%20onload=alert('XSS')%3E",
+                "timestamp": "2025-10-08T20:37:07.474448"
+              }
+            },
+            {
+              "payload": "<input onfocus=alert('XSS') autofocus>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.061285,
+              "content_length": 180,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cinput%20onfocus=alert('XSS')%20autofocus%3E",
+                "timestamp": "2025-10-08T20:37:09.537549"
+              }
+            }
+          ]
+        },
+        "path_traversal": {
+          "total_tests": 5,
+          "blocked_count": 3,
+          "block_rate": 60.0,
+          "results": [
+            {
+              "payload": "../../../etc/passwd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.057488,
+              "content_length": 153,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=../../../etc/passwd",
+                "timestamp": "2025-10-08T20:37:11.596845"
+              }
+            },
+            {
+              "payload": "..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.069411,
+              "content_length": 191,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=..%5C..%5C..%5Cwindows%5Csystem32%5Cdrivers%5Cetc%5Chosts",
+                "timestamp": "2025-10-08T20:37:13.666783"
+              }
+            },
+            {
+              "payload": "....//....//....//etc/passwd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.046699,
+              "content_length": 162,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=....//....//....//etc/passwd",
+                "timestamp": "2025-10-08T20:37:15.714823"
+              }
+            },
+            {
+              "payload": "..%2F..%2F..%2Fetc%2Fpasswd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "..%252F..%252F..%252Fetc%252Fpasswd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            }
+          ]
+        },
+        "admin_access": {
+          "total_tests": 17,
+          "blocked_count": 0,
+          "block_rate": 0.0,
+          "results": [
+            {
+              "payload": "/admin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/administrator",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/wp-admin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/phpmyadmin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/backend",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/management",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/dashboard",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/system",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/config",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/settings",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/logs",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/backup",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/security",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/api/admin",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/admin/api",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/admin.php",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "/admin.asp",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            }
+          ]
+        },
+        "command_injection": {
+          "total_tests": 7,
+          "blocked_count": 0,
+          "block_rate": 0.0,
+          "results": [
+            {
+              "payload": "; ls -la",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "| cat /etc/passwd",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "`whoami`",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "$(id)",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "; ping -c 1 127.0.0.1",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "| dir",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            },
+            {
+              "payload": "; type C:\\windows\\system32\\drivers\\etc\\hosts",
+              "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+              "blocked": false
+            }
+          ]
+        }
+      },
+      "status": "FAIL"
+    },
+    "performance_stress": {
+      "輕量級": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        ],
+        "start_time": 1759927718.5247555,
+        "end_time": 1759927859.6122642,
+        "duration": 141.08750867843628,
+        "successful_requests": 0,
+        "error_count": 100,
+        "success_rate": 0,
+        "avg_response_time": 0,
+        "min_response_time": 0,
+        "max_response_time": 0,
+        "p50_response_time": 0,
+        "p95_response_time": 0,
+        "p99_response_time": 0,
+        "requests_per_second": 0
+      },
+      "中等負載": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        ],
+        "start_time": 1759927859.6132743,
+        "end_time": 1759927965.9989758,
+        "duration": 106.38570141792297,
+        "successful_requests": 0,
+        "error_count": 150,
+        "success_rate": 0,
+        "avg_response_time": 0,
+        "min_response_time": 0,
+        "max_response_time": 0,
+        "p50_response_time": 0,
+        "p95_response_time": 0,
+        "p99_response_time": 0,
+        "requests_per_second": 0
+      },
+      "高負載": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        ],
+        "start_time": 1759927965.9989758,
+        "end_time": 1759928037.5923119,
+        "duration": 71.59333610534668,
+        "successful_requests": 0,
+        "error_count": 200,
+        "success_rate": 0,
+        "avg_response_time": 0,
+        "min_response_time": 0,
+        "max_response_time": 0,
+        "p50_response_time": 0,
+        "p95_response_time": 0,
+        "p99_response_time": 0,
+        "requests_per_second": 0
+      }
+    },
+    "siem_integration_advanced": {
+      "total_tests": 7,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "error_tests": 7,
+      "success_rate": 0.0,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "description": "健康檢查",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /healthz (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E796B7CD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:54:01.687994"
+        },
+        {
+          "endpoint": "/status",
+          "description": "系統狀態",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E79677F50>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:54:05.780698"
+        },
+        {
+          "endpoint": "/alerts",
+          "description": "警報列表",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /alerts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E795E0410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:54:09.858423"
+        },
+        {
+          "endpoint": "/dashboard",
+          "description": "儀表板",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /dashboard (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E795CEDD0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:54:13.927605"
+        },
+        {
+          "endpoint": "/metrics",
+          "description": "系統指標",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E796B5410>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:54:18.014285"
+        },
+        {
+          "endpoint": "/slo",
+          "description": "SLO 狀態",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /slo (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000027E796B4B10>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))",
+          "timestamp": "2025-10-08T20:54:22.126939"
+        },
+        {
+          "test": "WAF to SIEM Integration",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)",
+          "timestamp": "2025-10-08T20:54:29.171096"
+        }
+      ],
+      "status": "FAIL"
+    },
+    "system_resources": {
+      "before_resources": {
+        "cpu_percent": 1.0,
+        "memory_percent": 39.3,
+        "memory_available_gb": 19.325164794921875,
+        "disk_percent": 72.1,
+        "disk_free_gb": 129.67134475708008,
+        "timestamp": "2025-10-08T20:54:30.173309"
+      },
+      "after_resources": {
+        "cpu_percent": 5.8,
+        "memory_percent": 39.3,
+        "memory_available_gb": 19.322235107421875,
+        "disk_percent": 72.1,
+        "disk_free_gb": 129.66939163208008,
+        "timestamp": "2025-10-08T20:55:21.796866"
+      },
+      "resource_changes": {
+        "cpu_change": 4.8,
+        "memory_change": 0.0,
+        "disk_change": 0.0
+      },
+      "test_duration": 51.623557329177856,
+      "status": "PASS"
+    },
+    "security_headers": {
+      "total_headers": 6,
+      "present_headers": 0,
+      "results": [
+        {
+          "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "total_test_categories": 4,
+    "passed_categories": 1,
+    "failed_categories": 3,
+    "overall_success_rate": 25.0,
+    "overall_status": "FAIL",
+    "test_duration": 1146.473064,
+    "recommendations": [
+      "提高 WAF 保護規則的準確性",
+      "優化 輕量級 場景下的性能",
+      "優化 中等負載 場景下的性能",
+      "優化 高負載 場景下的性能",
+      "改善 SIEM 整合的穩定性"
+    ]
+  }
+}

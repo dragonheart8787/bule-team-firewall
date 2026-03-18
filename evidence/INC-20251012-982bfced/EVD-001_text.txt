@@ -1,0 +1,18 @@
+{
+  "processes": {
+    "suspicious": [
+      "mimikatz.exe",
+      "powershell.exe",
+      "cmd.exe"
+    ],
+    "total": 156
+  },
+  "network_connections": [
+    {
+      "local": "192.168.1.100:49152",
+      "remote": "203.0.113.50:4444",
+      "state": "ESTABLISHED"
+    }
+  ],
+  "injected_code": true
+}

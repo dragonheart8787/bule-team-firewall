@@ -1,0 +1,76 @@
+{
+  "test_start_time": "2025-10-06T12:43:21.937871",
+  "tests": {
+    "siem_integration": {
+      "status": "FAILED",
+      "details": {
+        "siem_status": "unhealthy"
+      }
+    },
+    "governance_mode": {
+      "status": "PASSED",
+      "details": {
+        "governance_mode": "gray",
+        "configured": true
+      }
+    },
+    "basic_connectivity": {
+      "status": "FAILED",
+      "details": {
+        "target_app": true,
+        "siem": true,
+        "waf": false
+      }
+    },
+    "waf_protection": {
+      "status": "FAILED",
+      "details": [
+        {
+          "name": "正常請求",
+          "expected": 200,
+          "actual": 200,
+          "passed": true
+        },
+        {
+          "name": "SQL 注入",
+          "expected": 403,
+          "actual": "ERROR",
+          "passed": false,
+          "error": "Cannot connect to host localhost:8080 ssl:default [遠端電腦拒絕網路連線。]"
+        },
+        {
+          "name": "XSS 攻擊",
+          "expected": 403,
+          "actual": "ERROR",
+          "passed": false,
+          "error": "Cannot connect to host localhost:8080 ssl:default [遠端電腦拒絕網路連線。]"
+        },
+        {
+          "name": "管理員路徑",
+          "expected": 403,
+          "actual": 502,
+          "passed": false
+        }
+      ]
+    },
+    "load_testing": {
+      "status": "FAILED",
+      "details": {
+        "total_requests": 596,
+        "successful_requests": 18,
+        "failed_requests": 578,
+        "success_rate": 3.0201342281879198,
+        "avg_response_time": 10777.090787887573,
+        "p95_response_time": 20766.982793807983,
+        "rps": 0.6
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 1,
+    "failed_tests": 4,
+    "success_rate": 20.0
+  },
+  "test_end_time": "2025-10-06T12:44:12.764658"
+}

@@ -1,0 +1,48 @@
+services:
+  # 1. 目標應用程式 (The Target)
+  # 這是 CRTO 學員需要攻擊的目標 Web 應用。
+  target-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.target_app
+    container_name: crto_target_app
+    restart: always
+    networks:
+      - lab_network
+
+  # 2. WAF 代理 (The Shield)
+  # 保護目標應用，攔截並記錄惡意請求。
+  waf-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crto_waf_proxy
+    restart: always
+    ports:
+      - "8080:8080" # 將 WAF 的 8080 port 暴露給主機
+    environment:
+      # 告知 WAF 後端目標應用的位置
+      - BACKEND_HOST=target-app
+      - BACKEND_PORT=5000
+    depends_on:
+      - target-app
+    networks:
+      - lab_network
+
+  # 3. SIEM 引擎 (The Watcher)
+  # 接收並分析日誌，提供紅隊操作員攻擊是否被偵測到的反饋。
+  siem-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile.siem
+    container_name: crto_siem_engine
+    restart: always
+    ports:
+      - "8001:8001" # 將 SIEM 的 API port 暴露給主機，以便查看警報
+    networks:
+      - lab_network
+
+networks:
+  lab_network:
+    driver: bridge
+

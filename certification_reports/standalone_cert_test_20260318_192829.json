@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-03-18T11:28:29.064003+00:00",
+  "test_type": "Standalone Certification Tests",
+  "summary": {
+    "total": 14,
+    "passed": 7,
+    "failed": 7,
+    "pass_rate": 50.0
+  },
+  "results": [
+    {
+      "test": "Test 1: MITRE ATT&CK Defender 完整演練",
+      "status": "PASS",
+      "score": 100,
+      "grade": "A+"
+    },
+    {
+      "test": "Test 1: MITRE ATT&CK Defender 完整演練",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    },
+    {
+      "test": "Test 2: GCFA 取證完整流程",
+      "status": "PASS",
+      "score": 100,
+      "grade": "A+"
+    },
+    {
+      "test": "Test 2: GCFA 取證完整流程",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    },
+    {
+      "test": "Test 3: Evidence Chain 認證級測試",
+      "status": "PASS",
+      "score": 80,
+      "grade": "B"
+    },
+    {
+      "test": "Test 3: Evidence Chain 認證級測試",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    },
+    {
+      "test": "Test 4: SOAR Playbook 執行測試",
+      "status": "PASS",
+      "score": 100,
+      "grade": "A+"
+    },
+    {
+      "test": "Test 4: SOAR Playbook 執行測試",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    },
+    {
+      "test": "Test 5: Memory Forensics 分析",
+      "status": "PASS",
+      "score": 100,
+      "grade": "A+"
+    },
+    {
+      "test": "Test 5: Memory Forensics 分析",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    },
+    {
+      "test": "Test 6: PCAP 深度分析",
+      "status": "PASS",
+      "score": 100,
+      "grade": "A+"
+    },
+    {
+      "test": "Test 6: PCAP 深度分析",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    },
+    {
+      "test": "Test 7: CTI 威脅情報整合",
+      "status": "PASS",
+      "score": 120,
+      "grade": "A+"
+    },
+    {
+      "test": "Test 7: CTI 威脅情報整合",
+      "status": "ERROR",
+      "error": "'cp950' codec can't encode character '\\u2705' in position 11: illegal multibyte sequence"
+    }
+  ]
+}

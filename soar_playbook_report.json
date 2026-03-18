@@ -1,0 +1,459 @@
+{
+  "generated_at": "2025-10-12T05:12:06.396987+00:00",
+  "summary": {
+    "total_executions": 5,
+    "successful": 5,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "by_playbook": {
+    "isolate_host": {
+      "total": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "block_ip": {
+      "total": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "quarantine_file": {
+      "total": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "revoke_credentials": {
+      "total": 1,
+      "success": 1,
+      "failed": 0
+    },
+    "restore_service": {
+      "total": 1,
+      "success": 1,
+      "failed": 0
+    }
+  },
+  "recent_executions": [
+    {
+      "run_id": "RUN-20251012051201-c33756f0",
+      "playbook": "isolate_host",
+      "parameters": {
+        "hostname": "workstation-42",
+        "ip_address": "192.168.1.100",
+        "reason": "Detected malware activity"
+      },
+      "started_at": "2025-10-12T05:12:01.769402+00:00",
+      "status": "SUCCESS",
+      "steps": [
+        {
+          "step_name": "Verify Host",
+          "description": "Verifying host workstation-42 (192.168.1.100)",
+          "started_at": "2025-10-12T05:12:01.769402+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "verified": true,
+            "hostname": "workstation-42",
+            "ip": "192.168.1.100"
+          },
+          "completed_at": "2025-10-12T05:12:01.870891+00:00",
+          "duration": "0.101s"
+        },
+        {
+          "step_name": "Block Network Access",
+          "description": "Blocking network access for 192.168.1.100",
+          "started_at": "2025-10-12T05:12:01.870891+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "blocked": true,
+            "ip": "192.168.1.100",
+            "rule_id": "FW-f2365ffd"
+          },
+          "completed_at": "2025-10-12T05:12:02.071805+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Stop Suspicious Processes",
+          "description": "Stopping suspicious processes on workstation-42",
+          "started_at": "2025-10-12T05:12:02.071805+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "stopped_processes": [
+              "malware.exe",
+              "suspicious_script.py"
+            ],
+            "count": 2
+          },
+          "completed_at": "2025-10-12T05:12:02.372405+00:00",
+          "duration": "0.301s"
+        },
+        {
+          "step_name": "Collect Evidence",
+          "description": "Collecting forensic evidence from workstation-42",
+          "started_at": "2025-10-12T05:12:02.372405+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "memory_dump": "/evidence/workstation-42_memory.raw",
+            "disk_snapshot": "/evidence/workstation-42_disk.img",
+            "event_logs": "/evidence/workstation-42_logs.json"
+          },
+          "completed_at": "2025-10-12T05:12:02.872706+00:00",
+          "duration": "0.500s"
+        },
+        {
+          "step_name": "Notify SOC",
+          "description": "Sending notification to SOC team",
+          "started_at": "2025-10-12T05:12:02.872706+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "notified": true,
+            "message": "Host workstation-42 isolated due to: Detected malware activity"
+          },
+          "completed_at": "2025-10-12T05:12:02.973166+00:00",
+          "duration": "0.100s"
+        }
+      ],
+      "errors": [],
+      "result": {
+        "isolated": true,
+        "hostname": "workstation-42",
+        "ip_address": "192.168.1.100",
+        "steps_completed": 5,
+        "total_steps": 5
+      },
+      "completed_at": "2025-10-12T05:12:02.973166+00:00",
+      "duration": "1.204s"
+    },
+    {
+      "run_id": "RUN-20251012051202-be917f34",
+      "playbook": "block_ip",
+      "parameters": {
+        "ip_address": "203.0.113.100",
+        "reason": "DDoS attack source",
+        "duration": 3600
+      },
+      "started_at": "2025-10-12T05:12:02.973669+00:00",
+      "status": "SUCCESS",
+      "steps": [
+        {
+          "step_name": "Verify IP",
+          "description": "Verifying IP 203.0.113.100",
+          "started_at": "2025-10-12T05:12:02.973669+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "valid": true,
+            "ip": "203.0.113.100"
+          },
+          "completed_at": "2025-10-12T05:12:03.074632+00:00",
+          "duration": "0.101s"
+        },
+        {
+          "step_name": "Add Firewall Rule",
+          "description": "Adding block rule for 203.0.113.100",
+          "started_at": "2025-10-12T05:12:03.074632+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "rule_added": true,
+            "ip": "203.0.113.100",
+            "action": "BLOCK"
+          },
+          "completed_at": "2025-10-12T05:12:03.275300+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Update WAF Blacklist",
+          "description": "Adding 203.0.113.100 to WAF blacklist",
+          "started_at": "2025-10-12T05:12:03.275300+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "updated": true,
+            "ip": "203.0.113.100",
+            "operation": "ADD"
+          },
+          "completed_at": "2025-10-12T05:12:03.375588+00:00",
+          "duration": "0.100s"
+        },
+        {
+          "step_name": "Log to SIEM",
+          "description": "Logging IP block event to SIEM",
+          "started_at": "2025-10-12T05:12:03.375588+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "logged": true,
+            "event_type": "IP_BLOCKED"
+          },
+          "completed_at": "2025-10-12T05:12:03.476156+00:00",
+          "duration": "0.101s"
+        },
+        {
+          "step_name": "Schedule Unblock",
+          "description": "Scheduling automatic unblock after 3600 seconds",
+          "started_at": "2025-10-12T05:12:03.476156+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "scheduled": true,
+            "unblock_at": 1760249523.576628
+          },
+          "completed_at": "2025-10-12T05:12:03.576628+00:00",
+          "duration": "0.100s"
+        }
+      ],
+      "errors": [],
+      "result": {
+        "blocked": true,
+        "ip_address": "203.0.113.100",
+        "duration": 3600,
+        "steps_completed": 5
+      },
+      "completed_at": "2025-10-12T05:12:03.576628+00:00",
+      "duration": "0.603s"
+    },
+    {
+      "run_id": "RUN-20251012051203-2f3d2b6d",
+      "playbook": "quarantine_file",
+      "parameters": {
+        "file_path": "/tmp/malware.exe",
+        "file_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "hostname": "workstation-42"
+      },
+      "started_at": "2025-10-12T05:12:03.579142+00:00",
+      "status": "SUCCESS",
+      "steps": [
+        {
+          "step_name": "Verify File",
+          "description": "Verifying file /tmp/malware.exe",
+          "started_at": "2025-10-12T05:12:03.580151+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "verified": true,
+            "file": "/tmp/malware.exe",
+            "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "completed_at": "2025-10-12T05:12:03.680868+00:00",
+          "duration": "0.101s"
+        },
+        {
+          "step_name": "Calculate Hash",
+          "description": "Calculating SHA-256 hash",
+          "started_at": "2025-10-12T05:12:03.680868+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "completed_at": "2025-10-12T05:12:03.881527+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Move to Quarantine",
+          "description": "Moving file to quarantine area",
+          "started_at": "2025-10-12T05:12:03.881527+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "moved": true,
+            "quarantine_path": "/quarantine/malware.exe"
+          },
+          "completed_at": "2025-10-12T05:12:04.181814+00:00",
+          "duration": "0.300s"
+        },
+        {
+          "step_name": "Submit to Sandbox",
+          "description": "Submitting file for malware analysis",
+          "started_at": "2025-10-12T05:12:04.181814+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "submitted": true,
+            "sandbox_id": "SAND-c3946787"
+          },
+          "completed_at": "2025-10-12T05:12:04.382511+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Update IoC Database",
+          "description": "Adding file hash to IoC database",
+          "started_at": "2025-10-12T05:12:04.382511+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "updated": true,
+            "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "classification": "MALICIOUS"
+          },
+          "completed_at": "2025-10-12T05:12:04.483065+00:00",
+          "duration": "0.101s"
+        }
+      ],
+      "errors": [],
+      "result": {
+        "quarantined": true,
+        "file_path": "/tmp/malware.exe",
+        "file_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "quarantine_location": "/quarantine/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "steps_completed": 5
+      },
+      "completed_at": "2025-10-12T05:12:04.483065+00:00",
+      "duration": "0.904s"
+    },
+    {
+      "run_id": "RUN-20251012051204-b654f042",
+      "playbook": "revoke_credentials",
+      "parameters": {
+        "username": "john.doe",
+        "credential_type": "PASSWORD",
+        "reason": "Suspected credential theft"
+      },
+      "started_at": "2025-10-12T05:12:04.483570+00:00",
+      "status": "SUCCESS",
+      "steps": [
+        {
+          "step_name": "Verify User",
+          "description": "Verifying user john.doe",
+          "started_at": "2025-10-12T05:12:04.483570+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "verified": true,
+            "username": "john.doe"
+          },
+          "completed_at": "2025-10-12T05:12:04.584513+00:00",
+          "duration": "0.101s"
+        },
+        {
+          "step_name": "Terminate Sessions",
+          "description": "Terminating all active sessions for john.doe",
+          "started_at": "2025-10-12T05:12:04.584513+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "terminated": true,
+            "session_count": 3
+          },
+          "completed_at": "2025-10-12T05:12:04.785139+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Revoke Credentials",
+          "description": "Revoking PASSWORD for john.doe",
+          "started_at": "2025-10-12T05:12:04.785139+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "revoked": true,
+            "username": "john.doe",
+            "type": "PASSWORD"
+          },
+          "completed_at": "2025-10-12T05:12:04.985814+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Generate Temporary Password",
+          "description": "Generating temporary password for john.doe",
+          "started_at": "2025-10-12T05:12:04.985814+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "generated": true,
+            "temp_password": "23tl01W931pKDwRJmaE0vA"
+          },
+          "completed_at": "2025-10-12T05:12:04.991839+00:00",
+          "duration": "0.006s"
+        },
+        {
+          "step_name": "Notify User",
+          "description": "Sending notification to john.doe",
+          "started_at": "2025-10-12T05:12:04.991839+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "notified": true,
+            "username": "john.doe"
+          },
+          "completed_at": "2025-10-12T05:12:05.092462+00:00",
+          "duration": "0.101s"
+        }
+      ],
+      "errors": [],
+      "result": {
+        "revoked": true,
+        "username": "john.doe",
+        "credential_type": "PASSWORD",
+        "steps_completed": 5
+      },
+      "completed_at": "2025-10-12T05:12:05.092462+00:00",
+      "duration": "0.609s"
+    },
+    {
+      "run_id": "RUN-20251012051205-2fa60590",
+      "playbook": "restore_service",
+      "parameters": {
+        "service_name": "web_application",
+        "restore_method": "RESTART"
+      },
+      "started_at": "2025-10-12T05:12:05.092968+00:00",
+      "status": "SUCCESS",
+      "steps": [
+        {
+          "step_name": "Check Service Status",
+          "description": "Checking status of web_application",
+          "started_at": "2025-10-12T05:12:05.092968+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "status": "DOWN",
+            "service": "web_application"
+          },
+          "completed_at": "2025-10-12T05:12:05.194171+00:00",
+          "duration": "0.101s"
+        },
+        {
+          "step_name": "Stop Service",
+          "description": "Stopping web_application",
+          "started_at": "2025-10-12T05:12:05.194171+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "stopped": true,
+            "service": "web_application"
+          },
+          "completed_at": "2025-10-12T05:12:05.394674+00:00",
+          "duration": "0.201s"
+        },
+        {
+          "step_name": "Clean Malicious Content",
+          "description": "Removing malicious content from web_application",
+          "started_at": "2025-10-12T05:12:05.394674+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "cleaned": true,
+            "removed_files": 5
+          },
+          "completed_at": "2025-10-12T05:12:05.895134+00:00",
+          "duration": "0.500s"
+        },
+        {
+          "step_name": "Restart Service",
+          "description": "Restarting web_application",
+          "started_at": "2025-10-12T05:12:05.895134+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "restarted": true,
+            "service": "web_application"
+          },
+          "completed_at": "2025-10-12T05:12:06.195525+00:00",
+          "duration": "0.300s"
+        },
+        {
+          "step_name": "Verify Service Availability",
+          "description": "Verifying web_application is operational",
+          "started_at": "2025-10-12T05:12:06.195525+00:00",
+          "status": "SUCCESS",
+          "result": {
+            "available": true,
+            "response_time_ms": 45
+          },
+          "completed_at": "2025-10-12T05:12:06.395981+00:00",
+          "duration": "0.200s"
+        }
+      ],
+      "errors": [],
+      "result": {
+        "restored": true,
+        "service_name": "web_application",
+        "restore_method": "RESTART",
+        "steps_completed": 5
+      },
+      "completed_at": "2025-10-12T05:12:06.395981+00:00",
+      "duration": "1.303s"
+    }
+  ]
+}

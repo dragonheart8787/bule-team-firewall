@@ -1,0 +1,1461 @@
+{
+  "timestamp": "2025-10-10T13:41:25.385321",
+  "test_suite": "Advanced Enterprise WAF Testing",
+  "version": "2.0",
+  "tests": {
+    "connectivity_advanced": {
+      "total_services": 5,
+      "passed_services": 5,
+      "failed_services": 0,
+      "error_services": 0,
+      "success_rate": 100.0,
+      "results": [
+        {
+          "service": "Target App",
+          "url": "http://localhost:5000/",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0363662242889404,
+          "content_length": 81,
+          "content_type": "text/html; charset=utf-8",
+          "server": "Werkzeug/3.1.3 Python/3.11.9",
+          "timestamp": "2025-10-10T13:41:27.421687"
+        },
+        {
+          "service": "SIEM Health",
+          "url": "http://localhost:8001/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0293006896972656,
+          "content_length": 15,
+          "content_type": "application/json",
+          "server": "uvicorn",
+          "timestamp": "2025-10-10T13:41:29.450987",
+          "json_data": {
+            "status": "ok"
+          }
+        },
+        {
+          "service": "WAF Health",
+          "url": "http://localhost:8080/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0569448471069336,
+          "content_length": 181,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-10T13:41:31.507932",
+          "json_data": {
+            "status": "ok",
+            "timestamp": "2025-10-10T13:41:31.506931",
+            "uptime": 0.016103267669677734,
+            "total_requests": 0,
+            "blocked_requests": 0,
+            "forwarded_requests": 0,
+            "error_requests": 0
+          }
+        },
+        {
+          "service": "WAF Metrics",
+          "url": "http://localhost:8080/metrics",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0614230632781982,
+          "content_length": 160,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-10T13:41:33.569355",
+          "json_data": {
+            "total_requests": 0,
+            "blocked_requests": 0,
+            "forwarded_requests": 0,
+            "error_requests": 0,
+            "block_rate": 0.0,
+            "error_rate": 0.0,
+            "uptime": 0.016266345977783203
+          }
+        },
+        {
+          "service": "WAF Config",
+          "url": "http://localhost:8080/api/config",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.045421838760376,
+          "content_length": 314,
+          "content_type": "application/json",
+          "server": "BaseHTTP/0.6 Python/3.11.9",
+          "timestamp": "2025-10-10T13:41:35.614777",
+          "json_data": {
+            "governance_mode": "full",
+            "admin_paths": [
+              "/admin",
+              "/admin/api",
+              "/administrator",
+              "/api/admin",
+              "/backend",
+              "/backup",
+              "/config",
+              "/dashboard",
+              "/logs",
+              "/management",
+              "/phpmyadmin",
+              "/security",
+              "/settings",
+              "/system",
+              "/wp-admin"
+            ],
+            "backend_connect_timeout": 0.5,
+            "backend_read_timeout": 2.0,
+            "status": "ok"
+          }
+        }
+      ]
+    },
+    "waf_protection_comprehensive": {
+      "total_tests": 45,
+      "total_blocked": 43,
+      "overall_protection_rate": 95.55555555555556,
+      "categories": {
+        "sql_injection": {
+          "total_tests": 8,
+          "blocked_count": 8,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "'; DROP TABLE users; --",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.057902,
+              "content_length": 165,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=';%20DROP%20TABLE%20users;%20--",
+                "timestamp": "2025-10-10T13:41:37.673746"
+              }
+            },
+            {
+              "payload": "1' OR '1'='1",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.036236,
+              "content_length": 150,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20OR%20'1'='1",
+                "timestamp": "2025-10-10T13:41:39.710438"
+              }
+            },
+            {
+              "payload": "admin'--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.062628,
+              "content_length": 142,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=admin'--",
+                "timestamp": "2025-10-10T13:41:41.773758"
+              }
+            },
+            {
+              "payload": "1' UNION SELECT * FROM users--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.061842,
+              "content_length": 174,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20UNION%20SELECT%20*%20FROM%20users--",
+                "timestamp": "2025-10-10T13:41:43.836763"
+              }
+            },
+            {
+              "payload": "'; EXEC xp_cmdshell('dir'); --",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.048417,
+              "content_length": 170,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=';%20EXEC%20xp_cmdshell('dir');%20--",
+                "timestamp": "2025-10-10T13:41:45.886481"
+              }
+            },
+            {
+              "payload": "1' AND (SELECT COUNT(*) FROM information_schema.tables) > 0--",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.047267,
+              "content_length": 211,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20AND%20(SELECT%20COUNT(*)%20FROM%20information_schema.tables)%20%3E%200--",
+                "timestamp": "2025-10-10T13:41:47.934110"
+              }
+            },
+            {
+              "payload": "1' OR 1=1#",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.071393,
+              "content_length": 147,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20OR%201=1",
+                "timestamp": "2025-10-10T13:41:50.006026"
+              }
+            },
+            {
+              "payload": "1' OR 'x'='x",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.074483,
+              "content_length": 150,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=1'%20OR%20'x'='x",
+                "timestamp": "2025-10-10T13:41:52.082570"
+              }
+            }
+          ]
+        },
+        "xss_attacks": {
+          "total_tests": 8,
+          "blocked_count": 8,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "<script>alert('XSS')</script>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.061883,
+              "content_length": 171,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cscript%3Ealert('XSS')%3C/script%3E",
+                "timestamp": "2025-10-10T13:41:54.144953"
+              }
+            },
+            {
+              "payload": "javascript:alert('XSS')",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.03606,
+              "content_length": 157,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=javascript:alert('XSS')",
+                "timestamp": "2025-10-10T13:41:56.181765"
+              }
+            },
+            {
+              "payload": "<img src=x onerror=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.079042,
+              "content_length": 174,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cimg%20src=x%20onerror=alert('XSS')%3E",
+                "timestamp": "2025-10-10T13:41:58.261789"
+              }
+            },
+            {
+              "payload": "';alert('XSS');//",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.042375,
+              "content_length": 151,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=';alert('XSS');//",
+                "timestamp": "2025-10-10T13:42:00.304784"
+              }
+            },
+            {
+              "payload": "<svg onload=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.04495,
+              "content_length": 165,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Csvg%20onload=alert('XSS')%3E",
+                "timestamp": "2025-10-10T13:42:02.351431"
+              }
+            },
+            {
+              "payload": "<iframe src=javascript:alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.055111,
+              "content_length": 176,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Ciframe%20src=javascript:alert('XSS')%3E",
+                "timestamp": "2025-10-10T13:42:04.407563"
+              }
+            },
+            {
+              "payload": "<body onload=alert('XSS')>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.055181,
+              "content_length": 166,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cbody%20onload=alert('XSS')%3E",
+                "timestamp": "2025-10-10T13:42:06.463259"
+              }
+            },
+            {
+              "payload": "<input onfocus=alert('XSS') autofocus>",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.059352,
+              "content_length": 180,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%3Cinput%20onfocus=alert('XSS')%20autofocus%3E",
+                "timestamp": "2025-10-10T13:42:08.524004"
+              }
+            }
+          ]
+        },
+        "path_traversal": {
+          "total_tests": 5,
+          "blocked_count": 5,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "../../../etc/passwd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.071013,
+              "content_length": 153,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=../../../etc/passwd",
+                "timestamp": "2025-10-10T13:42:10.595173"
+              }
+            },
+            {
+              "payload": "..\\..\\..\\windows\\system32\\drivers\\etc\\hosts",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.075678,
+              "content_length": 191,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=..%5C..%5C..%5Cwindows%5Csystem32%5Cdrivers%5Cetc%5Chosts",
+                "timestamp": "2025-10-10T13:42:12.671723"
+              }
+            },
+            {
+              "payload": "....//....//....//etc/passwd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.055911,
+              "content_length": 162,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=....//....//....//etc/passwd",
+                "timestamp": "2025-10-10T13:42:14.729281"
+              }
+            },
+            {
+              "payload": "..%2F..%2F..%2Fetc%2Fpasswd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.073697,
+              "content_length": 161,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=..%2F..%2F..%2Fetc%2Fpasswd",
+                "timestamp": "2025-10-10T13:42:16.802954"
+              }
+            },
+            {
+              "payload": "..%252F..%252F..%252Fetc%252Fpasswd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.072777,
+              "content_length": 169,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=..%252F..%252F..%252Fetc%252Fpasswd",
+                "timestamp": "2025-10-10T13:42:18.877412"
+              }
+            }
+          ]
+        },
+        "admin_access": {
+          "total_tests": 17,
+          "blocked_count": 15,
+          "block_rate": 88.23529411764706,
+          "results": [
+            {
+              "payload": "/admin",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.07078,
+              "content_length": 133,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/admin",
+                "timestamp": "2025-10-10T13:42:20.949623"
+              }
+            },
+            {
+              "payload": "/administrator",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.043095,
+              "content_length": 141,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/administrator",
+                "timestamp": "2025-10-10T13:42:22.994350"
+              }
+            },
+            {
+              "payload": "/wp-admin",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.061081,
+              "content_length": 136,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/wp-admin",
+                "timestamp": "2025-10-10T13:42:25.056245"
+              }
+            },
+            {
+              "payload": "/phpmyadmin",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.040809,
+              "content_length": 138,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/phpmyadmin",
+                "timestamp": "2025-10-10T13:42:27.098733"
+              }
+            },
+            {
+              "payload": "/backend",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.028666,
+              "content_length": 135,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/backend",
+                "timestamp": "2025-10-10T13:42:29.127804"
+              }
+            },
+            {
+              "payload": "/management",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.055254,
+              "content_length": 138,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/management",
+                "timestamp": "2025-10-10T13:42:31.184119"
+              }
+            },
+            {
+              "payload": "/dashboard",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.038932,
+              "content_length": 137,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/dashboard",
+                "timestamp": "2025-10-10T13:42:33.224528"
+              }
+            },
+            {
+              "payload": "/system",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.048093,
+              "content_length": 134,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/system",
+                "timestamp": "2025-10-10T13:42:35.272713"
+              }
+            },
+            {
+              "payload": "/config",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.059013,
+              "content_length": 134,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/config",
+                "timestamp": "2025-10-10T13:42:37.332997"
+              }
+            },
+            {
+              "payload": "/settings",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.058746,
+              "content_length": 136,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/settings",
+                "timestamp": "2025-10-10T13:42:39.392882"
+              }
+            },
+            {
+              "payload": "/logs",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.048147,
+              "content_length": 132,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/logs",
+                "timestamp": "2025-10-10T13:42:41.441563"
+              }
+            },
+            {
+              "payload": "/backup",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.085925,
+              "content_length": 134,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/backup",
+                "timestamp": "2025-10-10T13:42:43.528671"
+              }
+            },
+            {
+              "payload": "/security",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.074932,
+              "content_length": 136,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/security",
+                "timestamp": "2025-10-10T13:42:45.605021"
+              }
+            },
+            {
+              "payload": "/api/admin",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.056007,
+              "content_length": 137,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/api/admin",
+                "timestamp": "2025-10-10T13:42:47.661672"
+              }
+            },
+            {
+              "payload": "/admin/api",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.059524,
+              "content_length": 137,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/admin/api",
+                "timestamp": "2025-10-10T13:42:49.723355"
+              }
+            },
+            {
+              "payload": "/admin.php",
+              "blocked": false,
+              "status_code": 404,
+              "response_time": 2.590777,
+              "content_length": 207
+            },
+            {
+              "payload": "/admin.asp",
+              "blocked": false,
+              "status_code": 404,
+              "response_time": 2.601238,
+              "content_length": 207
+            }
+          ]
+        },
+        "command_injection": {
+          "total_tests": 7,
+          "blocked_count": 7,
+          "block_rate": 100.0,
+          "results": [
+            {
+              "payload": "; ls -la",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.025793,
+              "content_length": 146,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=;%20ls%20-la",
+                "timestamp": "2025-10-10T13:42:56.945795"
+              }
+            },
+            {
+              "payload": "| cat /etc/passwd",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.085905,
+              "content_length": 157,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%7C%20cat%20/etc/passwd",
+                "timestamp": "2025-10-10T13:42:59.032648"
+              }
+            },
+            {
+              "payload": "`whoami`",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.040308,
+              "content_length": 146,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%60whoami%60",
+                "timestamp": "2025-10-10T13:43:01.073124"
+              }
+            },
+            {
+              "payload": "$(id)",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.060609,
+              "content_length": 139,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=$(id)",
+                "timestamp": "2025-10-10T13:43:03.135435"
+              }
+            },
+            {
+              "payload": "; ping -c 1 127.0.0.1",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.033528,
+              "content_length": 163,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=;%20ping%20-c%201%20127.0.0.1",
+                "timestamp": "2025-10-10T13:43:05.170311"
+              }
+            },
+            {
+              "payload": "| dir",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.04262,
+              "content_length": 143,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=%7C%20dir",
+                "timestamp": "2025-10-10T13:43:07.213100"
+              }
+            },
+            {
+              "payload": "; type C:\\windows\\system32\\drivers\\etc\\hosts",
+              "blocked": true,
+              "status_code": 403,
+              "response_time": 2.067895,
+              "content_length": 192,
+              "block_reason": {
+                "error": "Request blocked by WAF",
+                "reason": "Security rule violation",
+                "path": "/?test=;%20type%20C:%5Cwindows%5Csystem32%5Cdrivers%5Cetc%5Chosts",
+                "timestamp": "2025-10-10T13:43:09.282540"
+              }
+            }
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    "performance_stress": {
+      "輕量級": {
+        "response_times": [
+          2.559295892715454,
+          2.5704829692840576,
+          2.5893139839172363,
+          2.589315891265869,
+          2.590088367462158,
+          2.569669485092163,
+          2.569093942642212,
+          2.5733301639556885,
+          2.576331377029419,
+          2.604430675506592,
+          2.589235544204712,
+          2.5718390941619873,
+          2.5581090450286865,
+          2.572834014892578,
+          2.586430549621582,
+          2.571397542953491,
+          2.5565738677978516,
+          2.5595757961273193,
+          2.5566182136535645,
+          2.5692145824432373,
+          2.596694231033325,
+          2.583597183227539,
+          2.5961244106292725,
+          2.6097636222839355,
+          2.611762285232544,
+          2.573545455932617,
+          2.5630242824554443,
+          2.562026262283325,
+          2.5660243034362793,
+          2.590324640274048,
+          2.5542452335357666,
+          2.5527501106262207,
+          2.545980930328369,
+          2.5622708797454834,
+          2.56864070892334,
+          2.5719642639160156,
+          2.5729565620422363,
+          2.5819828510284424,
+          2.602810859680176,
+          2.5894155502319336,
+          2.5736629962921143,
+          2.600856304168701,
+          2.604853868484497,
+          2.6037392616271973,
+          2.605738401412964,
+          2.544576644897461,
+          2.541731834411621,
+          2.558415174484253,
+          2.543194055557251,
+          2.5431952476501465,
+          2.5887787342071533,
+          2.5769665241241455,
+          2.559154987335205,
+          2.5591540336608887,
+          2.589477777481079,
+          2.560021162033081,
+          2.560025691986084,
+          2.573302984237671,
+          2.5610811710357666,
+          2.5753977298736572,
+          2.5652506351470947,
+          2.5642454624176025,
+          2.5529937744140625,
+          2.5652401447296143,
+          2.565746784210205,
+          2.5472469329833984,
+          2.5782837867736816,
+          2.550039291381836,
+          2.5485336780548096,
+          2.576432943344116,
+          2.5846357345581055,
+          2.560609817504883,
+          2.5586097240448,
+          2.5827760696411133,
+          2.586143970489502,
+          2.5575497150421143,
+          2.5559723377227783,
+          2.568446636199951,
+          2.5592894554138184,
+          2.6098337173461914,
+          2.5565638542175293,
+          2.563077926635742,
+          2.576101303100586,
+          2.576543092727661,
+          2.5565781593322754,
+          2.545368194580078,
+          2.578449249267578,
+          2.578050374984741,
+          2.5766756534576416,
+          2.577749252319336,
+          2.559311628341675,
+          2.5758111476898193,
+          2.5913376808166504,
+          2.592179298400879,
+          2.592212438583374,
+          2.571810483932495,
+          2.604065418243408,
+          2.5725245475769043,
+          2.5894417762756348,
+          2.587292432785034
+        ],
+        "status_codes": {
+          "200": 100
+        },
+        "errors": [],
+        "start_time": 1760074989.2835398,
+        "end_time": 1760075040.8270667,
+        "duration": 51.54352688789368,
+        "successful_requests": 100,
+        "error_count": 0,
+        "success_rate": 100.0,
+        "avg_response_time": 2.5732143473625184,
+        "min_response_time": 2.541731834411621,
+        "max_response_time": 2.611762285232544,
+        "p50_response_time": 2.57224440574646,
+        "p95_response_time": 2.604853868484497,
+        "p99_response_time": 2.611762285232544,
+        "requests_per_second": 1.940107828040141
+      },
+      "中等負載": {
+        "response_times": [
+          2.5562851428985596,
+          2.560285806655884,
+          2.55828595161438,
+          2.5663270950317383,
+          2.5672848224639893,
+          2.5653717517852783,
+          2.5673768520355225,
+          2.573376417160034,
+          3.0741007328033447,
+          3.090111494064331,
+          2.5448522567749023,
+          2.552955389022827,
+          2.562962055206299,
+          2.582965612411499,
+          2.5839641094207764,
+          2.58396577835083,
+          2.5768749713897705,
+          2.5770974159240723,
+          2.599461078643799,
+          2.5899577140808105,
+          2.5683140754699707,
+          2.5723214149475098,
+          2.607485771179199,
+          2.5754590034484863,
+          2.580458164215088,
+          2.578460216522217,
+          2.576876163482666,
+          2.5811028480529785,
+          2.5450968742370605,
+          2.572173595428467,
+          2.5526015758514404,
+          2.568399667739868,
+          2.537261486053467,
+          2.542262554168701,
+          2.5402612686157227,
+          2.5391266345977783,
+          2.543138027191162,
+          2.546778440475464,
+          2.5555419921875,
+          2.5542125701904297,
+          2.5708022117614746,
+          2.5595057010650635,
+          2.5519967079162598,
+          2.563523530960083,
+          2.566437244415283,
+          2.5609207153320312,
+          2.5704360008239746,
+          2.575223684310913,
+          2.5370724201202393,
+          2.5564498901367188,
+          2.5543618202209473,
+          2.5636093616485596,
+          2.565615653991699,
+          2.554683208465576,
+          2.55582332611084,
+          2.5588231086730957,
+          2.5717523097991943,
+          2.5543429851531982,
+          2.5908074378967285,
+          2.5732107162475586,
+          2.549189329147339,
+          2.5809216499328613,
+          2.565155506134033,
+          2.5610177516937256,
+          2.5640175342559814,
+          2.5770061016082764,
+          2.5790040493011475,
+          3.070274829864502,
+          2.573945999145508,
+          2.588221788406372,
+          2.5407516956329346,
+          2.5427567958831787,
+          2.5521321296691895,
+          2.5673980712890625,
+          2.557554006576538,
+          2.5575478076934814,
+          2.5845131874084473,
+          2.5741260051727295,
+          2.5885448455810547,
+          2.5751421451568604,
+          2.5582327842712402,
+          2.574618101119995,
+          2.5746073722839355,
+          2.556926727294922,
+          2.559201955795288,
+          2.558831214904785,
+          2.5739474296569824,
+          2.5864551067352295,
+          2.5709481239318848,
+          2.555649757385254,
+          2.56396222114563,
+          2.5649755001068115,
+          2.5699753761291504,
+          2.5580179691314697,
+          2.5640358924865723,
+          2.565131902694702,
+          2.567142963409424,
+          2.5737669467926025,
+          2.5671355724334717,
+          2.5847482681274414,
+          2.554396152496338,
+          2.556901454925537,
+          2.555039644241333,
+          2.5583698749542236,
+          2.58919620513916,
+          2.5570359230041504,
+          2.573354721069336,
+          2.556342124938965,
+          2.585268974304199,
+          2.5608534812927246,
+          2.5536701679229736,
+          2.557809591293335,
+          2.560314178466797,
+          2.5422394275665283,
+          2.543245315551758,
+          2.5708532333374023,
+          2.5568439960479736,
+          2.55732798576355,
+          2.5855443477630615,
+          2.5900537967681885,
+          2.5430352687835693,
+          2.5442464351654053,
+          2.554987668991089,
+          2.559459924697876,
+          2.5752861499786377,
+          2.5792551040649414,
+          2.5776708126068115,
+          2.5617432594299316,
+          2.563555955886841,
+          2.56555438041687,
+          2.5600194931030273,
+          2.5601611137390137,
+          2.5771117210388184,
+          2.5910534858703613,
+          2.579233169555664,
+          2.5742406845092773,
+          2.591597080230713,
+          2.5928540229797363,
+          2.5739996433258057,
+          2.576000928878784,
+          2.560213327407837,
+          2.560408592224121,
+          2.592142343521118,
+          2.560997247695923,
+          2.5722270011901855,
+          2.576502561569214,
+          2.576411485671997,
+          2.558605432510376,
+          2.5758864879608154,
+          2.572277307510376
+        ],
+        "status_codes": {
+          "200": 150
+        },
+        "errors": [],
+        "start_time": 1760075040.8280668,
+        "end_time": 1760075079.9116125,
+        "duration": 39.08354568481445,
+        "successful_requests": 150,
+        "error_count": 0,
+        "success_rate": 100.0,
+        "avg_response_time": 2.5766368261973063,
+        "min_response_time": 2.5370724201202393,
+        "max_response_time": 3.090111494064331,
+        "p50_response_time": 2.5655850172042847,
+        "p95_response_time": 2.591597080230713,
+        "p99_response_time": 3.0741007328033447,
+        "requests_per_second": 3.8379322390465997
+      },
+      "高負載": {
+        "response_times": [
+          2.5561318397521973,
+          2.5571320056915283,
+          2.5506229400634766,
+          2.563140630722046,
+          2.563138484954834,
+          2.5631332397460938,
+          2.5696005821228027,
+          2.5676417350769043,
+          2.5653204917907715,
+          2.5675477981567383,
+          2.566549777984619,
+          2.564551830291748,
+          3.076051950454712,
+          3.0785670280456543,
+          3.077566385269165,
+          3.0770151615142822,
+          3.083573579788208,
+          3.081186056137085,
+          3.086447238922119,
+          3.0984883308410645,
+          2.5633373260498047,
+          2.5740673542022705,
+          2.568556308746338,
+          2.5621399879455566,
+          2.571556568145752,
+          2.5800673961639404,
+          2.5673561096191406,
+          2.5706417560577393,
+          2.5743343830108643,
+          2.5879881381988525,
+          2.5583713054656982,
+          2.555875062942505,
+          2.5611836910247803,
+          2.5507969856262207,
+          2.5697035789489746,
+          2.5683481693267822,
+          3.0782744884490967,
+          3.086913824081421,
+          2.587871789932251,
+          3.0754880905151367,
+          2.5534653663635254,
+          2.548691987991333,
+          2.5486323833465576,
+          2.56893253326416,
+          2.5580127239227295,
+          2.571044683456421,
+          2.571047782897949,
+          2.5760486125946045,
+          2.5720481872558594,
+          2.575725555419922,
+          2.5309605598449707,
+          2.5349605083465576,
+          2.544034481048584,
+          2.5402169227600098,
+          2.5500409603118896,
+          2.538283109664917,
+          2.57047176361084,
+          2.591552257537842,
+          2.587543249130249,
+          2.591031789779663,
+          2.5596983432769775,
+          2.5465400218963623,
+          2.542067527770996,
+          2.559210777282715,
+          2.548379421234131,
+          2.543264627456665,
+          2.5454819202423096,
+          2.555227279663086,
+          2.561448812484741,
+          2.5606274604797363,
+          2.540764093399048,
+          2.5428788661956787,
+          2.5491347312927246,
+          2.5597984790802,
+          2.547025442123413,
+          2.5605552196502686,
+          2.575798511505127,
+          2.58030366897583,
+          2.5803072452545166,
+          2.5867080688476562,
+          2.582324981689453,
+          2.5674569606781006,
+          2.569960832595825,
+          2.591963052749634,
+          2.571866035461426,
+          2.579281806945801,
+          2.5841453075408936,
+          2.572996139526367,
+          2.570889711380005,
+          2.603287696838379,
+          2.5463693141937256,
+          2.5648088455200195,
+          2.5742220878601074,
+          2.5527987480163574,
+          2.5695555210113525,
+          2.57055401802063,
+          2.5791823863983154,
+          2.583183765411377,
+          2.5607540607452393,
+          2.5807650089263916,
+          2.56539249420166,
+          2.564391851425171,
+          2.576526641845703,
+          2.5675413608551025,
+          2.56752872467041,
+          2.5754032135009766,
+          2.5794031620025635,
+          2.5790748596191406,
+          2.587949275970459,
+          2.5940847396850586,
+          2.551772356033325,
+          2.553635597229004,
+          2.571159601211548,
+          2.5536348819732666,
+          2.5556399822235107,
+          2.563286781311035,
+          2.568693161010742,
+          2.581934928894043,
+          2.585012674331665,
+          2.583570957183838,
+          2.576357126235962,
+          2.582355499267578,
+          2.5657174587249756,
+          2.5755348205566406,
+          2.5735392570495605,
+          2.564995050430298,
+          2.577540874481201,
+          2.5659947395324707,
+          2.587120294570923,
+          2.5940299034118652,
+          2.5640501976013184,
+          2.559673309326172,
+          2.5626749992370605,
+          2.5616722106933594,
+          2.5794081687927246,
+          2.59499192237854,
+          2.5649237632751465,
+          2.5658679008483887,
+          2.5828394889831543,
+          2.5996317863464355,
+          2.55355167388916,
+          2.554551124572754,
+          2.5605499744415283,
+          2.5538175106048584,
+          2.557819128036499,
+          2.561821699142456,
+          2.5588178634643555,
+          2.568819761276245,
+          2.5729897022247314,
+          2.5574541091918945,
+          2.5889766216278076,
+          2.560641288757324,
+          2.5706405639648438,
+          2.572255849838257,
+          2.5859899520874023,
+          2.5871381759643555,
+          2.5694737434387207,
+          2.5698065757751465,
+          2.585771083831787,
+          2.5721371173858643,
+          2.554839849472046,
+          2.5538406372070312,
+          2.550854206085205,
+          2.5558526515960693,
+          2.5853171348571777,
+          2.566227674484253,
+          2.570228338241577,
+          2.5554869174957275,
+          2.571232318878174,
+          2.5710694789886475,
+          2.5690720081329346,
+          2.5818965435028076,
+          2.5705466270446777,
+          2.6011648178100586,
+          2.598954439163208,
+          2.570845603942871,
+          2.6011338233947754,
+          2.5876147747039795,
+          2.602203845977783,
+          2.57837176322937,
+          2.576341390609741,
+          2.5602400302886963,
+          2.576340913772583,
+          2.5619072914123535,
+          2.5782816410064697,
+          2.563908338546753,
+          2.5769107341766357,
+          2.5769248008728027,
+          2.5789191722869873,
+          2.578401803970337,
+          2.5674355030059814,
+          2.5960516929626465,
+          2.579946994781494,
+          2.566680431365967,
+          2.5835070610046387,
+          2.596597909927368,
+          2.5674080848693848,
+          2.568408966064453,
+          2.5816142559051514,
+          2.56903076171875
+        ],
+        "status_codes": {
+          "200": 200
+        },
+        "errors": [],
+        "start_time": 1760075079.9116125,
+        "end_time": 1760075106.7406054,
+        "duration": 26.82899284362793,
+        "successful_requests": 200,
+        "error_count": 0,
+        "success_rate": 100.0,
+        "avg_response_time": 2.5972990119457244,
+        "min_response_time": 2.5309605598449707,
+        "max_response_time": 3.0984883308410645,
+        "p50_response_time": 2.5697550773620605,
+        "p95_response_time": 3.076051950454712,
+        "p99_response_time": 3.086913824081421,
+        "requests_per_second": 7.454621989192613
+      }
+    },
+    "siem_integration_advanced": {
+      "total_tests": 7,
+      "passed_tests": 7,
+      "failed_tests": 0,
+      "error_tests": 0,
+      "success_rate": 100.0,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "description": "健康檢查",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0426182746887207,
+          "content_length": 15,
+          "content_type": "application/json",
+          "timestamp": "2025-10-10T13:45:08.784229",
+          "json_data": {
+            "status": "ok"
+          }
+        },
+        {
+          "endpoint": "/status",
+          "description": "系統狀態",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.082629919052124,
+          "content_length": 248,
+          "content_type": "application/json",
+          "timestamp": "2025-10-10T13:45:10.867860",
+          "json_data": {
+            "status": "healthy",
+            "timestamp": "2025-10-10T13:45:10.866862",
+            "version": "1.0.0",
+            "uptime": 0,
+            "rules_active": 19,
+            "events_processed": 0,
+            "alerts_triggered": 0,
+            "waf_slo_status": {},
+            "slo_thresholds": {
+              "availability": 99.95,
+              "https_p95_ms": 220.0,
+              "error_rate": 0.1
+            }
+          }
+        },
+        {
+          "endpoint": "/alerts",
+          "description": "警報列表",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.069470167160034,
+          "content_length": 2,
+          "content_type": "application/json",
+          "timestamp": "2025-10-10T13:45:12.937330",
+          "json_data": []
+        },
+        {
+          "endpoint": "/dashboard",
+          "description": "儀表板",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.058582067489624,
+          "content_length": 326,
+          "content_type": "application/json",
+          "timestamp": "2025-10-10T13:45:14.995912",
+          "json_data": {
+            "overview": {
+              "total_events": 0,
+              "total_alerts": 0,
+              "blocked_ips_count": 0,
+              "active_rules": 19,
+              "avg_processing_time_ms": 0
+            },
+            "recent_activity": {
+              "events_last_hour": 0,
+              "alerts_last_hour": 0,
+              "top_source_ips": [],
+              "top_attack_techniques": []
+            },
+            "severity_breakdown": {},
+            "hourly_trends": {},
+            "attack_techniques": {},
+            "recent_alerts": [],
+            "blocked_ips": []
+          }
+        },
+        {
+          "endpoint": "/metrics",
+          "description": "系統指標",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0518405437469482,
+          "content_length": 133,
+          "content_type": "application/json",
+          "timestamp": "2025-10-10T13:45:17.047753",
+          "json_data": {
+            "metrics": "siem_total_events 0\nsiem_total_alerts 0\nsiem_blocked_ips_count 0\nsiem_active_rules 19\nsiem_avg_processing_time_ms 0"
+          }
+        },
+        {
+          "endpoint": "/slo",
+          "description": "SLO 狀態",
+          "status": "PASS",
+          "status_code": 200,
+          "expected_status": 200,
+          "response_time": 2.0421910285949707,
+          "content_length": 127,
+          "content_type": "application/json",
+          "timestamp": "2025-10-10T13:45:19.089944",
+          "json_data": {
+            "thresholds": {
+              "availability": 99.95,
+              "https_p95_ms": 220.0,
+              "error_rate": 0.1
+            },
+            "last_waf_slo": {},
+            "waf_url": "http://localhost:8080"
+          }
+        },
+        {
+          "test": "WAF to SIEM Integration",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.601177,
+          "timestamp": "2025-10-10T13:45:21.693009"
+        }
+      ],
+      "status": "PASS"
+    },
+    "system_resources": {
+      "before_resources": {
+        "cpu_percent": 2.5,
+        "memory_percent": 45.2,
+        "memory_available_gb": 17.435272216796875,
+        "disk_percent": 72.4,
+        "disk_free_gb": 128.24298858642578,
+        "timestamp": "2025-10-10T13:45:22.694994"
+      },
+      "after_resources": {
+        "cpu_percent": 1.3,
+        "memory_percent": 45.0,
+        "memory_available_gb": 17.49274444580078,
+        "disk_percent": 72.4,
+        "disk_free_gb": 128.24274826049805,
+        "timestamp": "2025-10-10T13:45:49.494476"
+      },
+      "resource_changes": {
+        "cpu_change": -1.2,
+        "memory_change": -0.20000000000000284,
+        "disk_change": 0.0
+      },
+      "test_duration": 26.799092769622803,
+      "status": "PASS"
+    },
+    "security_headers": {
+      "total_headers": 6,
+      "present_headers": 5,
+      "results": [
+        {
+          "header": "X-Content-Type-Options",
+          "present": true,
+          "value": "nosniff",
+          "status": "PASS"
+        },
+        {
+          "header": "X-Frame-Options",
+          "present": true,
+          "value": "DENY",
+          "status": "PASS"
+        },
+        {
+          "header": "X-XSS-Protection",
+          "present": true,
+          "value": "1; mode=block",
+          "status": "PASS"
+        },
+        {
+          "header": "Strict-Transport-Security",
+          "present": false,
+          "value": "",
+          "status": "WARN"
+        },
+        {
+          "header": "Content-Security-Policy",
+          "present": true,
+          "value": "default-src 'self'",
+          "status": "PASS"
+        },
+        {
+          "header": "Referrer-Policy",
+          "present": true,
+          "value": "strict-origin-when-cross-origin",
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "total_test_categories": 4,
+    "passed_categories": 4,
+    "failed_categories": 0,
+    "overall_success_rate": 100.0,
+    "overall_status": "PASS",
+    "test_duration": 266.694546,
+    "recommendations": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "total_packets": 15423,
+  "c2_communication": {
+    "detected": true,
+    "server": "203.0.113.50:4444",
+    "beaconing_interval": 60
+  },
+  "dns_tunneling": {
+    "detected": true,
+    "queries": 120
+  },
+  "data_exfiltration": {
+    "bytes": 157286400,
+    "destination": "203.0.113.100:443"
+  }
+}

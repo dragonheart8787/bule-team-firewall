@@ -1,0 +1,22 @@
+{
+  "connectivity": {
+    "passed": true,
+    "success_rate": 100.0
+  },
+  "attack_protection": {
+    "passed": true,
+    "protection_rate": 100.0
+  },
+  "central_server": {
+    "passed": true,
+    "success_rate": 100.0
+  },
+  "functionality": {
+    "passed": true,
+    "success_rate": 100.0
+  },
+  "overall": {
+    "passed": true,
+    "duration": 0.18192052841186523
+  }
+}

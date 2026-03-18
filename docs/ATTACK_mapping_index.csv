@@ -1,0 +1,71 @@
+technique,technique_name,tactic,detector,rule_id,query_file,evidence_zip,alert_id,replay_cmd,detection_type,blocking
+T1190,Exploit Public-Facing Application,Initial Access,WAF + DPI,WAF-001,detection_rules/suricata_rules.rules,evidence/T1190_SQL_Injection_Test.zip,SQL-INJ-001,python national_defense_grade_test.py --test-id T1190,Technique,Yes
+T1190,Exploit Public-Facing Application,Initial Access,WAF + DPI,WAF-002,detection_rules/suricata_rules.rules,evidence/T1190_XSS_Test.zip,XSS-001,python national_defense_grade_test.py --test-id T1190,Technique,Yes
+T1190,Exploit Public-Facing Application,Initial Access,WAF + DPI,WAF-003,detection_rules/suricata_rules.rules,evidence/T1190_XXE_Test.zip,XXE-001,pcap-replay datasets/min-replay/xxe_attack.pcap,Technique,Yes
+T1133,External Remote Services,Initial Access,VPN Monitor,VPN-001,detection_rules/sigma_rules/vpn_anomaly.yml,evidence/T1133_VPN_Test.zip,VPN-ANOM-001,python test_vpn_monitoring.py,General,Yes
+T1566,Phishing,Initial Access,Email Gateway,MAIL-001,detection_rules/sigma_rules/phishing_email.yml,evidence/T1566_Phishing_Test.zip,PHISH-001,python test_email_gateway.py,Tactic,Yes
+T1078,Valid Accounts,Initial Access,Login Monitor,AUTH-001,detection_rules/sigma_rules/brute_force.yml,evidence/T1078_Login_Test.zip,AUTH-FAIL-001,python secure_web_system.py --test-login,Technique,Yes
+T1189,Drive-by Compromise,Initial Access,WAF XSS,WAF-004,detection_rules/suricata_rules.rules,evidence/T1189_Driveby_Test.zip,XSS-002,pcap-replay datasets/min-replay/driveby.pcap,Technique,Yes
+T1059.001,PowerShell,Execution,DPI + Logging,PS-001,detection_rules/sigma_rules/powershell_execution.yml,evidence/T1059_001_PowerShell_Test.zip,PS-EXEC-001,python test_powershell_detection.py,Technique,Yes
+T1059.003,Windows Command Shell,Execution,Command Injection,CMD-001,detection_rules/suricata_rules.rules,evidence/T1059_003_CMD_Test.zip,CMD-INJ-001,python national_defense_firewall.py --test-cmd-inj,Technique,Yes
+T1059.006,Python,Execution,Process Monitor,PY-001,detection_rules/sigma_rules/python_execution.yml,evidence/T1059_006_Python_Test.zip,PY-EXEC-001,python test_script_monitoring.py,General,Yes
+T1106,Native API,Execution,API Monitor,API-001,detection_rules/sigma_rules/suspicious_api.yml,evidence/T1106_API_Test.zip,API-CALL-001,python test_api_monitoring.py,General,Yes
+T1204,User Execution,Execution,Sandbox,SAND-001,detection_rules/sandbox_rules.json,evidence/T1204_UserExec_Test.zip,SAND-001,python test_sandboxing.py,Technique,Yes
+T1053.005,Scheduled Task,Persistence,Event Log,SCHED-001,detection_rules/sigma_rules/scheduled_task.yml,evidence/T1053_005_SchedTask_Test.zip,SCHED-TASK-001,python test_persistence_detection.py,Technique,Yes
+T1543.003,Windows Service,Persistence,Event Log,SVC-001,detection_rules/sigma_rules/service_install.yml,evidence/T1543_003_Service_Test.zip,SVC-INST-001,python test_service_monitoring.py,Technique,Yes
+T1547.001,Registry Run Keys,Persistence,Registry Monitor,REG-001,detection_rules/sigma_rules/registry_persistence.yml,evidence/T1547_001_Registry_Test.zip,REG-PERS-001,python test_registry_monitoring.py,Technique,Yes
+T1098,Account Manipulation,Persistence,Auth Monitor,ACCT-001,detection_rules/sigma_rules/account_modification.yml,evidence/T1098_AcctMod_Test.zip,ACCT-MOD-001,python secure_web_system.py --test-acct,Technique,Yes
+T1136,Create Account,Persistence,Auth Monitor,ACCT-002,detection_rules/sigma_rules/account_creation.yml,evidence/T1136_CreateAcct_Test.zip,ACCT-NEW-001,python test_account_monitoring.py,Technique,Yes
+T1055,Process Injection,Privilege Escalation,Memory Forensics,MEM-001,detection_rules/volatility_plugins.py,evidence/T1055_ProcInj_Test.zip,PROC-INJ-001,python memory_forensics_module.py --test-injection,Technique,Yes
+T1134,Access Token Manipulation,Privilege Escalation,EDR,TOKEN-001,detection_rules/sigma_rules/token_manipulation.yml,evidence/T1134_Token_Test.zip,TOKEN-MANIP-001,python test_token_monitoring.py,General,Yes
+T1068,Exploitation for Privilege Escalation,Privilege Escalation,Virtual Patching,VP-001,detection_rules/virtual_patches.json,evidence/T1068_Exploit_Test.zip,EXPLOIT-001,python test_virtual_patching.py,Technique,Yes
+T1003.001,LSASS Memory,Credential Access,Memory Forensics,MEM-002,detection_rules/sigma_rules/lsass_access.yml,evidence/T1003_001_LSASS_Test.zip,LSASS-DUMP-001,python memory_forensics_module.py --test-lsass,Technique,Yes
+T1110,Brute Force,Credential Access,Rate Limiting,AUTH-002,detection_rules/sigma_rules/brute_force.yml,evidence/T1110_BruteForce_Test.zip,BRUTE-001,python secure_web_system.py --test-brute,Technique,Yes
+T1555,Credentials from Password Stores,Credential Access,File Monitor,FILE-001,detection_rules/sigma_rules/password_store.yml,evidence/T1555_PwdStore_Test.zip,PWD-STORE-001,python test_file_monitoring.py,Technique,Yes
+T1558,Steal or Forge Kerberos Tickets,Credential Access,Event Log,KRB-001,detection_rules/sigma_rules/kerberos_anomaly.yml,evidence/T1558_Kerberos_Test.zip,KRB-ANOM-001,python test_kerberos_monitoring.py,Technique,Yes
+T1056,Input Capture,Credential Access,Behavioral,BEHAV-001,detection_rules/behavioral_rules.json,evidence/T1056_InputCap_Test.zip,KEYLOG-001,python test_behavioral_detection.py,General,Yes
+T1082,System Information Discovery,Discovery,Command Detect,CMD-002,detection_rules/suricata_rules.rules,evidence/T1082_SysInfo_Test.zip,CMD-WHOAMI-001,python test_command_detection.py,Technique,Yes
+T1083,File and Directory Discovery,Discovery,Path Traversal,PATH-001,detection_rules/suricata_rules.rules,evidence/T1083_FileEnum_Test.zip,PATH-TRAV-001,python test_path_traversal.py,Technique,Yes
+T1087,Account Discovery,Discovery,Enum Detect,ENUM-001,detection_rules/sigma_rules/account_enumeration.yml,evidence/T1087_AcctEnum_Test.zip,ACCT-ENUM-001,python test_enumeration_detection.py,Technique,Yes
+T1018,Remote System Discovery,Discovery,Network Scan,SCAN-001,detection_rules/suricata_rules.rules,evidence/T1018_NetDisc_Test.zip,NET-SCAN-001,pcap-replay datasets/min-replay/network_scan.pcap,General,Yes
+T1046,Network Service Scanning,Discovery,Port Scan,SCAN-002,detection_rules/suricata_rules.rules,evidence/T1046_PortScan_Test.zip,PORT-SCAN-001,pcap-replay datasets/min-replay/port_scan.pcap,Technique,Yes
+T1069,Permission Groups Discovery,Discovery,Behavioral,BEHAV-002,detection_rules/behavioral_rules.json,evidence/T1069_GroupEnum_Test.zip,GRP-ENUM-001,python test_group_enumeration.py,General,Yes
+T1021.001,Remote Desktop Protocol,Lateral Movement,RDP Monitor,RDP-001,detection_rules/sigma_rules/rdp_login.yml,evidence/T1021_001_RDP_Test.zip,RDP-LAT-001,python test_rdp_monitoring.py,Technique,Yes
+T1021.002,SMB/Windows Admin Shares,Lateral Movement,SMB Monitor,SMB-001,detection_rules/sigma_rules/smb_lateral.yml,evidence/T1021_002_SMB_Test.zip,SMB-LAT-001,pcap-replay datasets/min-replay/smb_lateral.pcap,Technique,Yes
+T1550,Use Alternate Authentication Material,Lateral Movement,PTH Detect,PTH-001,detection_rules/sigma_rules/pass_the_hash.yml,evidence/T1550_PTH_Test.zip,PTH-001,python test_pth_detection.py,Technique,Yes
+T1563,Remote Service Session Hijacking,Lateral Movement,Session Monitor,SESS-001,detection_rules/sigma_rules/session_hijacking.yml,evidence/T1563_SessHijack_Test.zip,SESS-HIJACK-001,python test_session_monitoring.py,General,Yes
+T1005,Data from Local System,Collection,DLP,DLP-001,detection_rules/dlp_rules.json,evidence/T1005_LocalData_Test.zip,DLP-LOCAL-001,python test_dlp_local.py,Technique,Yes
+T1039,Data from Network Shared Drive,Collection,SMB + DLP,DLP-002,detection_rules/dlp_rules.json,evidence/T1039_NetShare_Test.zip,DLP-SHARE-001,python test_dlp_share.py,Technique,Yes
+T1114,Email Collection,Collection,Email Monitor,MAIL-002,detection_rules/sigma_rules/email_collection.yml,evidence/T1114_Email_Test.zip,MAIL-COLL-001,python test_email_monitoring.py,Technique,Yes
+T1560,Archive Collected Data,Collection,Archive Detect,ARCH-001,detection_rules/archive_rules.json,evidence/T1560_Archive_Test.zip,ARCH-SUSP-001,python test_archive_detection.py,Technique,Yes
+T1071.001,Web Protocols,Command and Control,WAF + PCAP,C2-001,detection_rules/suricata_rules.rules,evidence/T1071_001_HTTP_C2_Test.zip,C2-HTTP-001,pcap-replay datasets/min-replay/http_c2.pcap,Technique,Yes
+T1071.004,DNS,Command and Control,DNS Analysis,C2-002,detection_rules/suricata_rules.rules,evidence/T1071_004_DNS_Test.zip,C2-DNS-001,pcap-replay datasets/min-replay/dns_tunneling.pcap,Technique,Yes
+T1573,Encrypted Channel,Command and Control,SSL/TLS Inspect,TLS-001,detection_rules/ja3_fingerprints.json,evidence/T1573_TLS_Test.zip,TLS-SUSP-001,python test_tls_inspection.py,Technique,Yes
+T1090,Proxy,Command and Control,Proxy Detect,PROXY-001,detection_rules/suricata_rules.rules,evidence/T1090_Proxy_Test.zip,PROXY-001,pcap-replay datasets/min-replay/proxy_usage.pcap,Technique,Yes
+T1095,Non-Application Layer Protocol,Command and Control,DPI,PROTO-001,detection_rules/suricata_rules.rules,evidence/T1095_RawProto_Test.zip,RAW-PROTO-001,pcap-replay datasets/min-replay/raw_protocol.pcap,Technique,Yes
+T1105,Ingress Tool Transfer,Command and Control,File Upload,UPLOAD-001,detection_rules/suricata_rules.rules,evidence/T1105_ToolXfer_Test.zip,FILE-UPLOAD-001,python test_file_upload_detection.py,Technique,Yes
+T1041,Exfiltration Over C2 Channel,Exfiltration,C2 Monitor,EXFIL-001,detection_rules/suricata_rules.rules,evidence/T1041_C2Exfil_Test.zip,EXFIL-C2-001,pcap-replay datasets/min-replay/c2_exfiltration.pcap,Technique,Yes
+T1048,Exfiltration Over Alternative Protocol,Exfiltration,Protocol Monitor,EXFIL-002,detection_rules/suricata_rules.rules,evidence/T1048_AltProto_Test.zip,EXFIL-ALT-001,pcap-replay datasets/min-replay/alt_protocol_exfil.pcap,Technique,Yes
+T1567,Exfiltration Over Web Service,Exfiltration,Web Monitor,EXFIL-003,detection_rules/sigma_rules/web_upload.yml,evidence/T1567_WebExfil_Test.zip,EXFIL-WEB-001,python test_web_exfiltration.py,Technique,Yes
+T1020,Automated Exfiltration,Exfiltration,Pattern Detect,EXFIL-004,detection_rules/behavioral_rules.json,evidence/T1020_AutoExfil_Test.zip,EXFIL-AUTO-001,python test_automated_exfil.py,Technique,Yes
+T1486,Data Encrypted for Impact,Impact,Ransomware Detect,RANSOM-001,detection_rules/sigma_rules/ransomware.yml,evidence/T1486_Ransomware_Test.zip,RANSOM-001,python test_ransomware_detection.py,Technique,Yes
+T1498,Network Denial of Service,Impact,Rate Limiting,DDOS-001,detection_rules/rate_limit_rules.json,evidence/T1498_NetDDoS_Test.zip,DDOS-NET-001,python test_ddos_mitigation.py,Technique,Yes
+T1499,Endpoint Denial of Service,Impact,Rate Limiting,DDOS-002,detection_rules/rate_limit_rules.json,evidence/T1499_EndDDoS_Test.zip,DDOS-END-001,python test_endpoint_ddos.py,Technique,Yes
+T1490,Inhibit System Recovery,Impact,Backup Monitor,BACKUP-001,detection_rules/sigma_rules/backup_deletion.yml,evidence/T1490_InhibitRec_Test.zip,BACKUP-DEL-001,python test_backup_monitoring.py,Technique,Yes
+T1485,Data Destruction,Impact,File Monitor,DEST-001,detection_rules/sigma_rules/data_destruction.yml,evidence/T1485_DataDest_Test.zip,DATA-WIPE-001,python test_destruction_detection.py,Technique,Yes
+T1027,Obfuscated Files or Information,Defense Evasion,Zero-Day,ZD-001,detection_rules/entropy_analysis.py,evidence/T1027_Obfusc_Test.zip,OBFUSC-001,python test_obfuscation_detection.py,Technique,Yes
+T1070,Indicator Removal,Defense Evasion,Log Monitor,LOG-001,detection_rules/sigma_rules/log_cleared.yml,evidence/T1070_LogClear_Test.zip,LOG-CLEAR-001,python test_log_monitoring.py,Technique,Yes
+T1562.001,Disable or Modify Tools,Defense Evasion,Service Monitor,SVC-002,detection_rules/sigma_rules/tool_disable.yml,evidence/T1562_001_ToolDisable_Test.zip,TOOL-STOP-001,python test_tool_protection.py,Technique,Yes
+T1218,System Binary Proxy Execution,Defense Evasion,LOLBin Detect,LOLBIN-001,detection_rules/sigma_rules/lolbin.yml,evidence/T1218_LOLBin_Test.zip,LOLBIN-001,python test_lolbin_detection.py,Technique,Yes
+T1036,Masquerading,Defense Evasion,ML Detection,ML-001,detection_rules/ml_model.pkl,evidence/T1036_Masq_Test.zip,MASQ-001,python test_masquerading_detection.py,Technique,Yes
+T1140,Deobfuscate/Decode Files,Defense Evasion,DPI,DECODE-001,detection_rules/suricata_rules.rules,evidence/T1140_Decode_Test.zip,DECODE-001,python test_decode_detection.py,Technique,Yes
+APT28,Fancy Bear APT,Multi-Tactic,Anti-APT,APT-001,detection_rules/apt_signatures.json,evidence/APT28_Test.zip,APT-FB-001,python test_apt_detection.py --apt=apt28,Technique,Yes
+APT29,Cozy Bear APT,Multi-Tactic,Anti-APT,APT-002,detection_rules/apt_signatures.json,evidence/APT29_Test.zip,APT-CB-001,python test_apt_detection.py --apt=apt29,Technique,Yes
+Stuxnet,Nation-State Attack,Impact,ICS Monitor,ICS-001,detection_rules/ics_scada_rules.json,evidence/Stuxnet_Test.zip,ICS-ATTACK-001,python test_nation_state.py --attack=stuxnet,Technique,Yes
+NotPetya,Nation-State Attack,Impact,Wiper Detect,WIPER-001,detection_rules/sigma_rules/wiper.yml,evidence/NotPetya_Test.zip,WIPER-001,python test_nation_state.py --attack=notpetya,Technique,Yes
+SolarWinds,Supply Chain Attack,Initial Access,Supply Chain,SUPPLY-001,detection_rules/supply_chain_rules.json,evidence/SolarWinds_Test.zip,SUPPLY-001,python test_supply_chain.py,Tactic,Yes
+Zero-Day-1,Buffer Overflow,Privilege Escalation,Zero-Day Engine,ZD-002,detection_rules/zero_day_model.pkl,evidence/Zero_Day_BufferOF_Test.zip,ZD-BUFOF-001,python test_zero_day.py --exploit=buffer_overflow,Technique,Yes
+Zero-Day-2,Use-After-Free,Privilege Escalation,Zero-Day Engine,ZD-003,detection_rules/zero_day_model.pkl,evidence/Zero_Day_UAF_Test.zip,ZD-UAF-001,python test_zero_day.py --exploit=use_after_free,Technique,Yes
+Failover,High Availability,Infrastructure,HA Monitor,HA-001,ha_tests/health_check.sh,evidence/Failover_Test.zip,HA-FAILOVER-001,./ha_tests/kill_primary.sh && ./ha_tests/verify_failover.sh,N/A,Yes
+
+

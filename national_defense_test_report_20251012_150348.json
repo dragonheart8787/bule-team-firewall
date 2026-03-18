@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-10-12T15:03:48.427185",
+  "test_suite": "National Defense Grade Firewall Test",
+  "classification": "TOP SECRET",
+  "total_tests": 112,
+  "passed": 100,
+  "failed": 12,
+  "success_rate": 89.28571428571429,
+  "grade": "UNCLASSIFIED - NEEDS IMPROVEMENT (一般 - 需改進)",
+  "certification": "未達國防標準，需要改進",
+  "critical_failures": [
+    "DPI Failed: XXE Injection",
+    "DPI Failed: SSRF Attack",
+    "DPI Failed: Deserialization Attack",
+    "Critical Block Rate: 66.66666666666666% < 100%",
+    "Kill Chain Detection: 57.14285714285714% < 95%"
+  ],
+  "requirements": {
+    "min_detection_rate": 99.9,
+    "max_false_positive_rate": 0.1,
+    "max_response_time_ms": 100,
+    "zero_day_detection_rate": 95.0,
+    "apt_detection_rate": 98.0,
+    "encryption_strength": 256,
+    "log_retention_days": 365,
+    "failover_time_seconds": 5,
+    "availability": 99.999
+  }
+}

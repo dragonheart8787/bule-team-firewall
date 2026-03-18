@@ -1,0 +1,87 @@
+# 真實軍事級防禦系統配置
+# Real Military Defense System Configuration
+
+system:
+  name: "Real Military Defense System"
+  version: "1.0.0"
+  log_level: "INFO"
+  max_threads: 10
+
+network_monitor:
+  enabled: true
+  monitor_interface: "any"
+  scan_interval: 30
+  packet_capture: true
+  traffic_analysis: true
+  ddos_detection: true
+
+threat_detection:
+  enabled: true
+  scan_interval: 30
+  yara_rules: true
+  behavioral_analysis: true
+  file_monitoring: true
+  process_monitoring: true
+  registry_monitoring: true
+  memory_monitoring: true
+
+incident_response:
+  enabled: true
+  quarantine_dir: "quarantine"
+  evidence_dir: "evidence"
+  auto_response: true
+  escalation_threshold: "HIGH"
+  notification_enabled: false
+
+digital_forensics:
+  enabled: true
+  forensics_dir: "forensics"
+  temp_dir: "temp_forensics"
+  evidence_collection: true
+  timeline_analysis: true
+  file_analysis: true
+  network_analysis: true
+
+malware_analysis:
+  enabled: true
+  sandbox_dir: "sandbox"
+  quarantine_dir: "quarantine"
+  analysis_dir: "malware_analysis"
+  static_analysis: true
+  dynamic_analysis: true
+  yara_scanning: true
+  pe_analysis: true
+  behavioral_analysis: true
+
+penetration_testing:
+  enabled: true
+  reports_dir: "penetration_reports"
+  tools_dir: "penetration_tools"
+  reconnaissance: true
+  vulnerability_scanning: true
+  exploitation: true
+  post_exploitation: true
+
+security:
+  encryption: true
+  authentication: true
+  authorization: true
+  audit_logging: true
+  integrity_checking: true
+
+monitoring:
+  system_health: true
+  performance_monitoring: true
+  alert_thresholds:
+    cpu_usage: 80
+    memory_usage: 80
+    disk_usage: 90
+    network_usage: 1000
+
+reporting:
+  enabled: true
+  report_interval: 3600
+  report_format: "json"
+  report_retention: 30
+  auto_export: true
+

@@ -1,0 +1,196 @@
+services:
+  # 目標應用程式
+  target-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.target_app
+    container_name: crto_target_app
+    restart: unless-stopped
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # WAF 實例 1
+  waf-proxy-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crto_waf_proxy_1
+    restart: unless-stopped
+    environment:
+      - BACKEND_HOST=target-app
+      - BACKEND_PORT=5000
+      - PROXY_PORT=8080
+      - WAF_BLOCKLIST_FILE=/data/blocklist.json
+    volumes:
+      - waf_data_1:/data
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - target-app
+
+  # WAF 實例 2
+  waf-proxy-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crto_waf_proxy_2
+    restart: unless-stopped
+    environment:
+      - BACKEND_HOST=target-app
+      - BACKEND_PORT=5000
+      - PROXY_PORT=8080
+      - WAF_BLOCKLIST_FILE=/data/blocklist.json
+    volumes:
+      - waf_data_2:/data
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - target-app
+
+  # WAF 實例 3
+  waf-proxy-3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crto_waf_proxy_3
+    restart: unless-stopped
+    environment:
+      - BACKEND_HOST=target-app
+      - BACKEND_PORT=5000
+      - PROXY_PORT=8080
+      - WAF_BLOCKLIST_FILE=/data/blocklist.json
+    volumes:
+      - waf_data_3:/data
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - target-app
+
+  # Nginx 負載平衡器
+  nginx-lb:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: crto_nginx_lb
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - lab_network
+    depends_on:
+      - waf-proxy-1
+      - waf-proxy-2
+      - waf-proxy-3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # SIEM 引擎
+  siem-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile.siem
+    container_name: crto_siem_engine
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - RANSOMWARE_FILE_COUNT_THRESHOLD=100
+      - CORRELATION_ALERT_THRESHOLD=3
+      - CORRELATION_WINDOW_MINUTES=5
+      - C2_BEACONING_INTERVAL_SECONDS=60
+      - C2_BEACONING_THRESHOLD=10
+    networks:
+      - lab_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Prometheus 監控
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: crto_prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - lab_network
+
+  # Grafana 儀表板
+  grafana:
+    image: grafana/grafana:latest
+    container_name: crto_grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - lab_network
+    depends_on:
+      - prometheus
+
+  # Redis 快取（用於會話管理和速率限制）
+  redis:
+    image: redis:alpine
+    container_name: crto_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - lab_network
+    command: redis-server --appendonly yes
+
+volumes:
+  waf_data_1:
+  waf_data_2:
+  waf_data_3:
+  prometheus_data:
+  grafana_data:
+  redis_data:
+
+networks:
+  lab_network:
+    driver: bridge

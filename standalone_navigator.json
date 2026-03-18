@@ -1,0 +1,834 @@
+{
+  "name": "Defense-Grade WAF Coverage",
+  "version": "4.5",
+  "domain": "enterprise-attack",
+  "description": "ATT&CK coverage for Defense-Grade Web Security System",
+  "filters": {
+    "platforms": [
+      "windows",
+      "linux",
+      "macos"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "showID": true,
+    "showName": true
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1190",
+      "tactic": "initial-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "WAF SQL Injection, WAF XSS, WAF Path Traversal, WAF Command Injection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1133",
+      "tactic": "initial-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "VPN Login Monitoring, Remote Access Logs, Geo-location Analysis"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1566",
+      "tactic": "initial-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Email Gateway Scanning, Attachment Analysis, URL Reputation Check"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1078",
+      "tactic": "privilege-escalation",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Login Monitoring, Failed Attempts Tracking, Account Lockout"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1189",
+      "tactic": "initial-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "WAF XSS Detection, Malicious Script Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1059.001",
+      "tactic": "execution",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "PowerShell Execution Logging, Script Block Logging, Deep Packet Inspection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1059.003",
+      "tactic": "execution",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Command Injection Detection, Shell Command Logging"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1059.006",
+      "tactic": "execution",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Python Process Monitoring, Script Execution Logging"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1106",
+      "tactic": "execution",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Suspicious API Pattern Detection, Process Monitoring, API Call Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1204",
+      "tactic": "execution",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "User Click Monitoring, Malicious File Execution, Sandboxing"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1053.005",
+      "tactic": "persistence",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Scheduled Task Creation, Event 4698, Task Scheduler Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1543.003",
+      "tactic": "persistence",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Service Installation, Event 7045, Service Registry Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1547.001",
+      "tactic": "persistence",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Registry Run Key Monitoring, Startup Modification"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1098",
+      "tactic": "persistence",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Account Modification Alert, Privilege Change, Automated Response"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1136",
+      "tactic": "persistence",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "New Account Creation Alert, Event 4720, Automated Response"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1055",
+      "tactic": "privilege-escalation",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Process Injection Detection, Memory Scanning, CreateRemoteThread Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1134",
+      "tactic": "privilege-escalation",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Token Manipulation Detection, Privilege Escalation Alert"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1068",
+      "tactic": "privilege-escalation",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Exploit Detection, Vulnerability Scanner Integration, Abnormal Privilege Change"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1027",
+      "tactic": "defense-evasion",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "File Entropy Analysis, Obfuscation Detection, Zero-Day Protection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1070",
+      "tactic": "defense-evasion",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Log Deletion Monitoring, Event 1102 Alert, SIEM Integration"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1562.001",
+      "tactic": "defense-evasion",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Security Tool Modification, Service Stop Detection, Automated Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1218",
+      "tactic": "defense-evasion",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "LOLBin Detection, Suspicious Binary Execution, Behavioral Analysis"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1036",
+      "tactic": "defense-evasion",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Process Name Analysis, Path Anomaly Detection, ML Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1140",
+      "tactic": "defense-evasion",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Decode Activity Detection, Base64 Pattern, DPI"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1003.001",
+      "tactic": "credential-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "LSASS Process Access, Memory Forensics, Credential Dumping Alert"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1110",
+      "tactic": "credential-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Failed Login Monitoring, Account Lockout, Rate Limiting"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1555",
+      "tactic": "credential-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Password Store Access, Credential File Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1558",
+      "tactic": "credential-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Kerberos Ticket Anomaly, Event 4768/4769, Signature IPS"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1056",
+      "tactic": "credential-access",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Keystroke Pattern Analysis, Input Monitoring, Behavioral Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1082",
+      "tactic": "discovery",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "System Command Detection, whoami/systeminfo Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1083",
+      "tactic": "discovery",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "File Enumeration Pattern, Directory Traversal Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1087",
+      "tactic": "discovery",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Account Enumeration Detection, User List Query Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1018",
+      "tactic": "discovery",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Network Discovery Command, ARP Scan Detection, Anomaly IPS"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1046",
+      "tactic": "discovery",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Port Scan Detection, Network Sweep Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1069",
+      "tactic": "discovery",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Group Enumeration, Privilege Query Detection, Behavioral Analysis"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1021.001",
+      "tactic": "lateral-movement",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "RDP Login Monitoring, Event 4624 Type 10, Anomaly Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1021.002",
+      "tactic": "lateral-movement",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "SMB Traffic Analysis, Admin Share Access, DPI"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1550",
+      "tactic": "lateral-movement",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Pass-the-Hash Detection, NTLM Anomaly, Signature IPS"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1563",
+      "tactic": "lateral-movement",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Session Hijacking Detection, Unusual Session Activity, Anomaly Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1005",
+      "tactic": "collection",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Sensitive Data Access Logs, File Access Monitoring, DLP Integration"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1039",
+      "tactic": "collection",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Network Share Access, SMB Monitoring, DLP"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1114",
+      "tactic": "collection",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Email Access Logs, IMAP/POP3 Monitoring, DLP"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1560",
+      "tactic": "collection",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Archive Creation Detection, Compression Activity, Suspicious Archive Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1071.001",
+      "tactic": "command-and-control",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "WAF HTTP Analysis, Beaconing Detection, PCAP Analysis"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1071.004",
+      "tactic": "command-and-control",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "DNS Tunneling Detection, Long Subdomain Analysis, High Query Rate"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1573",
+      "tactic": "command-and-control",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "TLS Analysis, Certificate Validation, JA3 Fingerprinting, SSL/TLS Inspection Blocking"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1090",
+      "tactic": "command-and-control",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Proxy Detection, Unusual Port Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1095",
+      "tactic": "command-and-control",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Non-HTTP/DNS Protocol, Raw Socket Detection, DPI"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1105",
+      "tactic": "command-and-control",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "File Upload Monitoring, Large POST Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1041",
+      "tactic": "exfiltration",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "C2 Traffic Analysis, Large Data Transfer Detection"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1048",
+      "tactic": "exfiltration",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Alternative Protocol Detection, Uncommon Port Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1567",
+      "tactic": "exfiltration",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Web Upload Detection, Cloud Storage Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1020",
+      "tactic": "exfiltration",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Automated Transfer Pattern, Scheduled Exfiltration"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1486",
+      "tactic": "impact",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Rapid File Modification, Ransomware Pattern"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1498",
+      "tactic": "impact",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Network Rate Limiting, Traffic Volume Analysis"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1499",
+      "tactic": "impact",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Endpoint Rate Limiting, IP Blocking, Connection Limiting"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1490",
+      "tactic": "impact",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Backup Deletion Alert, Shadow Copy Monitoring"
+        }
+      ],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1485",
+      "tactic": "impact",
+      "color": "#28a745",
+      "comment": "Detection: True, Blocking: True, Response: True",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Methods",
+          "value": "Mass File Deletion, Data Wipe Pattern"
+        }
+      ],
+      "showSubtechniques": true
+    }
+  ]
+}

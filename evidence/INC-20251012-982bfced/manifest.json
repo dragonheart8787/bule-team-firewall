@@ -1,0 +1,87 @@
+{
+  "manifest_version": "1.0",
+  "incident_id": "INC-20251012-982bfced",
+  "generated_at": "2025-10-12T06:04:42.427118+00:00",
+  "generated_by": "SOC Analyst",
+  "incident_info": {
+    "type": "ADVANCED_PERSISTENT_THREAT",
+    "description": "Suspected APT attack with credential theft and lateral movement",
+    "severity": "CRITICAL",
+    "created_at": "2025-10-12T06:04:42.375997+00:00",
+    "status": "OPEN"
+  },
+  "evidence_items": [
+    {
+      "evidence_id": "EVD-001",
+      "type": "text",
+      "description": "Memory dump analysis - Volatility results",
+      "filename": "EVD-001_text.txt",
+      "filepath": "evidence\\INC-20251012-982bfced\\EVD-001_text.txt",
+      "collected_at": "2025-10-12T06:04:42.386513+00:00",
+      "collected_by": "Forensics Tool",
+      "size_bytes": 320,
+      "hash_sha256": "84688c945af52c02e0c6c44c4699afabf262c2a5ecb7a8821beaa9cb79987ede",
+      "hash_md5": "219761753c81557470e56711b910df24",
+      "verified": true
+    },
+    {
+      "evidence_id": "EVD-002",
+      "type": "text",
+      "description": "Network traffic analysis - PCAP results",
+      "filename": "EVD-002_text.txt",
+      "filepath": "evidence\\INC-20251012-982bfced\\EVD-002_text.txt",
+      "collected_at": "2025-10-12T06:04:42.399866+00:00",
+      "collected_by": "Network Analyst",
+      "size_bytes": 318,
+      "hash_sha256": "e745c39473f4680b17a9cbfe9f6db8daa96c60e9416f14daec7350118ac88ac5",
+      "hash_md5": "64919087b075900748aab54d3a75dbe1",
+      "verified": true
+    },
+    {
+      "evidence_id": "EVD-003",
+      "type": "logs",
+      "description": "System event logs - Windows & Sysmon",
+      "filename": "EVD-003_logs.json",
+      "filepath": "evidence\\INC-20251012-982bfced\\EVD-003_logs.json",
+      "collected_at": "2025-10-12T06:04:42.410378+00:00",
+      "collected_by": "Log Collector",
+      "size_bytes": 232,
+      "hash_sha256": "0afa8ce84873c1fe5fec11888b0dd9b6eba4c94289155c10197d4e5939f646ab",
+      "hash_md5": "47b2008383864cadaf7696b7b2abe05f",
+      "verified": true
+    }
+  ],
+  "chain_of_custody": [
+    {
+      "timestamp": "2025-10-12T06:04:42.375997+00:00",
+      "custodian": "SYSTEM",
+      "action": "Incident created and evidence collection initiated"
+    },
+    {
+      "timestamp": "2025-10-12T06:04:42.386513+00:00",
+      "custodian": "Forensics Tool",
+      "action": "Evidence collected: text - Memory dump analysis - Volatility results"
+    },
+    {
+      "timestamp": "2025-10-12T06:04:42.399866+00:00",
+      "custodian": "Network Analyst",
+      "action": "Evidence collected: text - Network traffic analysis - PCAP results"
+    },
+    {
+      "timestamp": "2025-10-12T06:04:42.410378+00:00",
+      "custodian": "Log Collector",
+      "action": "Evidence collected: logs - System event logs - Windows & Sysmon"
+    },
+    {
+      "timestamp": "2025-10-12T06:04:42.419611+00:00",
+      "custodian": "Chief Forensics Analyst",
+      "action": "Evidence manifest generated and signed"
+    }
+  ],
+  "total_items": 3,
+  "total_size_bytes": 870,
+  "manifest_hash": "8418e187f3ae2a0de5530653ff7258258bfdde54834448098b5924c3bbe4f8be",
+  "signature": "bebe825474e620e66fa768d01d2bcec61967d3914ea3d7b83ee03a457fc2a09e",
+  "signature_algorithm": "HMAC-SHA256",
+  "signature_timestamp": "2025-10-12T06:04:42.428118+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "test_start_time": "2025-10-06T12:44:52.176403",
+  "tests": {
+    "connectivity": {
+      "status": "PASSED",
+      "details": {
+        "all_services_healthy": true
+      }
+    },
+    "protection": {
+      "status": "FAILED",
+      "details": {
+        "protection_rules_working": false
+      }
+    },
+    "performance": {
+      "status": "FAILED",
+      "details": {
+        "total_requests": 100,
+        "success_rate": 100.0,
+        "avg_response_time": 2180.8617973327637,
+        "p95_response_time": 2312.3960494995117
+      }
+    },
+    "config_api": {
+      "status": "PASSED",
+      "details": {
+        "config_api_working": true
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 2,
+    "failed_tests": 2,
+    "success_rate": 50.0
+  },
+  "test_end_time": "2025-10-06T12:48:38.182403"
+}

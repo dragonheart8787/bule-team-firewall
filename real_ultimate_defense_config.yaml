@@ -1,0 +1,422 @@
+# 真實終極軍事防禦系統配置
+# Real Ultimate Military Defense System Configuration
+
+system:
+  name: "Real Ultimate Military Defense System"
+  version: "1.0.0"
+  log_level: "INFO"
+  monitoring_interval: 60
+  health_check_interval: 300
+
+# 防禦模組配置
+modules:
+  network_monitor:
+    enabled: true
+    priority: 1
+    config:
+      interface: "eth0"
+      capture_packets: true
+      analyze_protocols: ["TCP", "UDP", "ICMP", "HTTP", "HTTPS", "DNS"]
+      detect_ddos: true
+      detect_port_scan: true
+      threshold_ddos: 1000
+      threshold_port_scan: 100
+
+  threat_detection:
+    enabled: true
+    priority: 1
+    config:
+      yara_rules_path: "./rules/yara/"
+      pe_analysis: true
+      string_analysis: true
+      entropy_analysis: true
+      behavioral_analysis: true
+      monitoring_processes: true
+      monitoring_network: true
+      monitoring_files: true
+      suricata_eve: "C:\\ProgramData\\Suricata\\logs\\eve.json"
+      sysmon_evtx: "C:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Sysmon%4Operational.evtx"
+      consume_suricata: true
+      consume_sysmon: true
+
+  incident_response:
+    enabled: true
+    priority: 1
+    config:
+      auto_isolate: true
+      auto_terminate: true
+      auto_block: true
+      evidence_collection: true
+      response_policies:
+        - name: "malware_detection"
+          action: "isolate_and_analyze"
+          severity: "high"
+        - name: "suspicious_network"
+          action: "block_and_investigate"
+          severity: "medium"
+        - name: "data_exfiltration"
+          action: "immediate_response"
+          severity: "critical"
+
+  digital_forensics:
+    enabled: true
+    priority: 2
+    config:
+      system_evidence: true
+      file_evidence: true
+      network_evidence: true
+      timeline_analysis: true
+      behavioral_patterns: true
+      evidence_integrity: true
+      hash_verification: true
+
+  malware_analysis:
+    enabled: true
+    priority: 2
+    config:
+      static_analysis: true
+      dynamic_analysis: true
+      sandbox_analysis: true
+      multi_format_support: true
+      threat_classification: true
+      isolation_mode: true
+      analysis_timeout: 300
+
+  penetration_testing:
+    enabled: true
+    priority: 3
+    config:
+      network_reconnaissance: true
+      vulnerability_scanning: true
+      exploitation: true
+      post_exploitation: true
+      vulnerability_database: true
+      attack_payloads: true
+      automated_testing: true
+
+  zero_trust_segmentation:
+    enabled: true
+    priority: 1
+    config:
+      nac_enabled: true
+      microsegmentation: true
+      east_west_monitoring: true
+      policy_engine: true
+      device_fingerprinting: true
+      continuous_verification: true
+      least_privilege: true
+
+  ai_ml_threat_hunting:
+    enabled: true
+    priority: 1
+    config:
+      ml_models: true
+      beaconing_detection: true
+      dns_tunnel_detection: true
+      abnormal_traffic: true
+      ueba_analysis: true
+      adversarial_ml: true
+      threat_scoring: true
+      suricata_eve: "C:\\ProgramData\\Suricata\\logs\\eve.json"
+      sysmon_evtx: "C:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-Sysmon%4Operational.evtx"
+      consume_external_logs: true
+
+  threat_intelligence:
+    enabled: true
+    priority: 1
+    config:
+      stix_taxii_feeds: true
+      ioc_correlation: true
+      kill_chain_mapping: true
+      automated_blocking: true
+      threat_assessment: true
+      intelligence_sharing: true
+      real_time_updates: true
+
+  cloud_ot_iot_security:
+    enabled: true
+    priority: 2
+    config:
+      cloud_environment: true
+      iam_misconfig: true
+      s3_bucket_security: true
+      k8s_vulnerabilities: true
+      ot_protocols: ["Modbus", "DNP3", "CAN Bus"]
+      iot_device_auth: true
+      edge_computing: true
+
+  defense_automation_soar:
+    enabled: true
+    priority: 1
+    config:
+      multi_system_collaboration: true
+      playbook_automation: true
+      automated_response: true
+      ir_report_generation: true
+      workflow_management: true
+      integration_apis: true
+      real_time_orchestration: true
+
+  hardware_protection:
+    enabled: true
+    priority: 1
+    config:
+      hsm_modules: true
+      tpm_support: true
+      data_diodes: true
+      anti_tampering: true
+      emp_protection: true
+      secure_boot: true
+      hardware_root_trust: true
+
+  reporting_risk_quantification:
+    enabled: true
+    priority: 3
+    config:
+      mitre_attack_navigator: true
+      fair_risk_analysis: true
+      soc_metrics: true
+      risk_scenarios: true
+      financial_impact: true
+      attack_path_visualization: true
+      comprehensive_reporting: true
+
+  attack_simulation:
+    enabled: true
+    priority: 2
+    config:
+      enable_atomic: false
+      atomic_runner: "powershell -NoProfile -ExecutionPolicy Bypass -File .\\atomic_runner.ps1 -Technique {tid}"
+      atomic_tests: ["T1059","T1047","T1071"]
+      enable_caldera: false
+      caldera_api: ""
+      caldera_profile: "basic.json"
+
+  cross_platform_ir:
+    enabled: true
+    priority: 1
+    config:
+      enable_osquery: true
+      osquery:
+        osqueryi_path: "osqueryi"
+        startup_query: "select name,path,pid from processes limit 5;"
+      enable_velociraptor: false
+      enable_grr: false
+
+  ddos_resilience:
+    enabled: true
+    priority: 1
+    config:
+      threshold_pps: 100000
+      default_action: "rate_limit"
+      mock_pps: 0
+
+  supply_chain_security:
+    enabled: true
+    priority: 2
+    config:
+      sbom:
+        syft_path: "syft"
+      sign:
+        cosign_path: "cosign"
+
+  # CTF 模組
+  ctf_attack_simulation:
+    enabled: true
+    priority: 2
+    config:
+      web_attacks: true
+      pwn_attacks: true
+      crypto_attacks: true
+      forensics_attacks: true
+
+  ctf_challenge_generator:
+    enabled: true
+    priority: 2
+    config:
+      auto_generation: false
+
+  ctf_competition_manager:
+    enabled: true
+    priority: 2
+    config:
+      max_teams: 100
+      competition_duration: 24
+      scoring_system: dynamic
+
+  behavioral_analytics:
+    enabled: true
+    priority: 1
+    config:
+      ml_models: true
+      behavior_tracking: true
+      anomaly_detection: true
+      risk_scoring: true
+      baseline_learning: true
+
+  incident_playbooks:
+    enabled: true
+    priority: 1
+    config:
+      automation_level: "semi_automatic"
+      playbook_templates: true
+      workflow_engine: true
+      notification_system: true
+
+  threat_hunting_queries:
+    enabled: true
+    priority: 2
+    config:
+      query_templates: true
+      custom_rules: true
+      correlation_analysis: true
+      mitre_mapping: true
+
+  cloud_native_security:
+    enabled: true
+    priority: 2
+    config:
+      kubectl_path: "kubectl"
+      kubeconfig_path: "~/.kube/config"
+      monitored_namespaces: ["default", "kube-system"]
+      docker_path: "docker"
+      trivy_path: "trivy"
+      service_mesh: "istio"
+
+  iot_device_management:
+    enabled: true
+    priority: 2
+    config:
+      scan_networks: ["192.168.1.0/24", "10.0.0.0/8"]
+      scan_ports: [22, 23, 80, 443, 8080, 8443, 1883, 8883]
+      scan_timeout: 5
+      vulnerability_threshold: "medium"
+
+  ai_adversarial_defense:
+    enabled: true
+    priority: 2
+    config:
+      detection_methods: ["statistical_anomaly", "input_preprocessing", "ensemble_detection"]
+      protection_methods: ["adversarial_training", "defensive_distillation", "input_transformation"]
+      monitoring_interval: 60
+      alert_thresholds:
+        attack_success_rate: 0.1
+        model_accuracy_drop: 0.05
+
+  firewall_orchestrator:
+    enabled: true
+    priority: 1
+    config:
+      backend: auto   # auto|windows|linux|k8s
+      default_block_ttl_minutes: 60
+      k8s:
+        kubectl_path: "kubectl"
+        namespace: "default"
+
+  blue_team_soar:
+    enabled: true
+    priority: 1
+    config:
+      sources:
+        suricata_eve: "C:\\ProgramData\\Suricata\\logs\\eve.json"
+        consume_sysmon: false
+      policy:
+        min_severity: 2   # 1高/2中 觸發
+        whitelist: ["127.0.0.1"]
+      actions:
+        auto_block: true
+        block_ttl_minutes: 60
+
+  compliance_frameworks:
+    enabled: true
+    priority: 3
+    config:
+      frameworks: ["nist_csf", "iso27001", "soc2", "gdpr"]
+      assessment_interval: 3600
+      report_generation: true
+      cross_framework_mapping: true
+      compliance_threshold: 80.0
+
+# 防禦層配置
+defense_layers:
+  perimeter_defense: true
+  internal_segmentation: true
+  host_protection: true
+  data_protection: true
+  threat_intelligence: true
+  incident_response: true
+  forensics_analysis: true
+  hardware_security: true
+  ai_ml_detection: true
+  automation_response: true
+
+# 威脅情報源配置
+threat_intelligence_sources:
+  - name: "MISP"
+    url: "https://misp.example.com/feeds/stix"
+    type: "STIX/TAXII"
+    enabled: true
+  - name: "OpenCTI"
+    url: "https://opencti.example.com/feeds/stix"
+    type: "STIX/TAXII"
+    enabled: true
+  - name: "ThreatConnect"
+    url: "https://threatconnect.example.com/feeds/stix"
+    type: "STIX/TAXII"
+    enabled: true
+
+# 日誌配置
+logging:
+  level: "INFO"
+  file: "real_ultimate_defense.log"
+  max_size: "100MB"
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# 資料庫配置
+database:
+  type: "sqlite"
+  path: "real_ultimate_defense.db"
+  backup_interval: 3600
+  max_connections: 100
+
+# 通知配置
+notifications:
+  email:
+    enabled: false
+    smtp_server: "smtp.example.com"
+    smtp_port: 587
+    username: "alerts@example.com"
+    password: "password"
+    recipients: ["admin@example.com"]
+  
+  webhook:
+    enabled: false
+    url: "https://webhook.example.com/alerts"
+    timeout: 30
+  
+  syslog:
+    enabled: true
+    server: "localhost"
+    port: 514
+    facility: "local0"
+
+# 安全配置
+security:
+  encryption:
+    algorithm: "AES-256-GCM"
+    key_rotation: 86400
+    secure_storage: true
+  
+  authentication:
+    enabled: true
+    method: "certificate"
+    certificate_path: "./certs/server.crt"
+    private_key_path: "./certs/server.key"
+  
+  access_control:
+    enabled: true
+    admin_users: ["admin", "root"]
+    read_only_users: ["analyst", "operator"]
+    api_access: true
+    web_interface: true

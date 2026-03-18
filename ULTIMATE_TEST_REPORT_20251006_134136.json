@@ -1,0 +1,302 @@
+{
+  "timestamp": "2025-10-06T13:38:53.296395",
+  "tests": {
+    "connectivity": {
+      "target_app": {
+        "status": "PASS",
+        "response_time": 2.048418,
+        "status_code": 200
+      },
+      "siem": {
+        "status": "PASS",
+        "response_time": 2.046554,
+        "status_code": 200
+      },
+      "waf": {
+        "status": "PASS",
+        "response_time": 2.030401,
+        "status_code": 200
+      }
+    },
+    "waf_protection": {
+      "sql_injection": {
+        "total_tests": 4,
+        "blocked_count": 4,
+        "results": [
+          {
+            "payload": "'; DROP TABLE users; --",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.061292
+          },
+          {
+            "payload": "1' OR '1'='1",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.092747
+          },
+          {
+            "payload": "admin'--",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.06189
+          },
+          {
+            "payload": "1' UNION SELECT * FROM users--",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.04608
+          }
+        ]
+      },
+      "xss": {
+        "total_tests": 4,
+        "blocked_count": 4,
+        "results": [
+          {
+            "payload": "<script>alert('XSS')</script>",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.060754
+          },
+          {
+            "payload": "javascript:alert('XSS')",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.031906
+          },
+          {
+            "payload": "<img src=x onerror=alert('XSS')>",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.030388
+          },
+          {
+            "payload": "';alert('XSS');//",
+            "blocked": true,
+            "status_code": 403,
+            "response_time": 2.046924
+          }
+        ]
+      },
+      "admin_access": {
+        "total_tests": 15,
+        "blocked_count": 0,
+        "results": [
+          {
+            "path": "/admin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.061578
+          },
+          {
+            "path": "/administrator",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.071112
+          },
+          {
+            "path": "/wp-admin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.070091
+          },
+          {
+            "path": "/phpmyadmin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.089301
+          },
+          {
+            "path": "/backend",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.080905
+          },
+          {
+            "path": "/management",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.107407
+          },
+          {
+            "path": "/dashboard",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.058735
+          },
+          {
+            "path": "/system",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.084741
+          },
+          {
+            "path": "/config",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.070047
+          },
+          {
+            "path": "/settings",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.094554
+          },
+          {
+            "path": "/logs",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.077814
+          },
+          {
+            "path": "/backup",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.075657
+          },
+          {
+            "path": "/security",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.078911
+          },
+          {
+            "path": "/api/admin",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.124559
+          },
+          {
+            "path": "/admin/api",
+            "blocked": false,
+            "status_code": 404,
+            "response_time": 4.074756
+          }
+        ]
+      },
+      "summary": {
+        "total_tests": 23,
+        "total_blocked": 8,
+        "protection_rate": 34.78260869565217,
+        "status": "FAIL"
+      }
+    },
+    "siem_integration": {
+      "endpoints": {
+        "/healthz": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.07862,
+          "content_type": "application/json",
+          "content_length": 15
+        },
+        "/status": {
+          "status": "FAIL",
+          "status_code": 404,
+          "response_time": 2.030123,
+          "content_type": "application/json",
+          "content_length": 22
+        },
+        "/alerts": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.031545,
+          "content_type": "application/json",
+          "content_length": 2
+        },
+        "/dashboard": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.048294,
+          "content_type": "application/json",
+          "content_length": 326
+        },
+        "/metrics": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.026969,
+          "content_type": "application/json",
+          "content_length": 133
+        },
+        "/slo": {
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.031573,
+          "content_type": "application/json",
+          "content_length": 340
+        }
+      },
+      "summary": {
+        "total_endpoints": 6,
+        "successful_endpoints": 5,
+        "success_rate": 83.33333333333334,
+        "status": "FAIL"
+      }
+    },
+    "waf_config_api": {
+      "get_config": {
+        "status": "FAIL",
+        "status_code": 404,
+        "response_time": 4.329835
+      },
+      "update_config": {
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.042967
+      }
+    },
+    "stability": {
+      "stability": {
+        "total_requests": 10,
+        "successful_requests": 1,
+        "stability_rate": 10.0,
+        "status": "FAIL"
+      }
+    }
+  },
+  "performance": {
+    "light_load": {
+      "results": {
+        "response_times": [],
+        "status_codes": {},
+        "errors": [
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x0000021832558350>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000218325590D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x0000021832533D90>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x0000021832531BD0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x0000021832532990>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000218325336D0>, 'Connection to localhost timed out. (connect timeout=2)'))",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)",
+          "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=2)"
+        ],
+        "start_time": 1759729217.107897,
+        "end_time": 1759729233.1703992,
+        "duration": 16.062502145767212
+      },
+      "summary": {
+        "status": "FAIL",
+        "error": "No successful requests"
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 8,
+    "passed_tests": 4,
+    "failed_tests": 4,
+    "success_rate": 50.0,
+    "overall_status": "FAIL"
+  }
+}

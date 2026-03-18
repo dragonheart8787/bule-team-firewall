@@ -1,0 +1,100 @@
+{
+  "timestamp": "2025-10-10T01:35:51.319903",
+  "test_suite": "Quick Test Suite",
+  "version": "1.0",
+  "results": {
+    "connectivity": [
+      {
+        "service": "Target App",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.064578
+      },
+      {
+        "service": "SIEM",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.066521
+      },
+      {
+        "service": "WAF",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.085426
+      }
+    ],
+    "protection": {
+      "total_tests": 4,
+      "blocked_count": 4,
+      "protection_rate": 100.0,
+      "results": [
+        {
+          "test": "SQL注入",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.061625
+        },
+        {
+          "test": "XSS攻擊",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.059561
+        },
+        {
+          "test": "管理員路徑",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.077207
+        },
+        {
+          "test": "路徑遍歷",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.077263
+        }
+      ]
+    },
+    "siem": {
+      "total_endpoints": 4,
+      "successful_endpoints": 4,
+      "success_rate": 100.0,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.047739
+        },
+        {
+          "endpoint": "/alerts",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.061318
+        },
+        {
+          "endpoint": "/dashboard",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.04635
+        },
+        {
+          "endpoint": "/metrics",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.031764
+        }
+      ]
+    },
+    "stability": {
+      "total_requests": 8,
+      "successful_requests": 8,
+      "stability_rate": 100.0
+    }
+  },
+  "summary": {
+    "total_tests": 7,
+    "passed_tests": 6,
+    "overall_success_rate": 85.71428571428571,
+    "overall_status": "PASS"
+  }
+}

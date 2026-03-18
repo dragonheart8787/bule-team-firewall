@@ -1,0 +1,77 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:33cbbff2-dae0-4ec8-a12a-e419ba2b8b1a",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-10-12T18:24:37.872080Z",
+    "tools": [
+      {
+        "vendor": "Blue Team Defense System",
+        "name": "SBOM Generator",
+        "version": "1.0.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "bom-ref": "pkg:generic/national-defense-firewall@7.0.0",
+      "name": "National Defense Firewall",
+      "version": "7.0.0",
+      "description": "國防級防火牆系統 with MITRE ATT&CK 100% Full Coverage"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/flask@3.0.0",
+      "name": "flask",
+      "version": "3.0.0",
+      "purl": "pkg:pypi/flask@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/requests@2.31.0",
+      "name": "requests",
+      "version": "2.31.0",
+      "purl": "pkg:pypi/requests@2.31.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/fastapi@0.104.0",
+      "name": "fastapi",
+      "version": "0.104.0",
+      "purl": "pkg:pypi/fastapi@0.104.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:generic/national-defense-firewall@7.0.0",
+      "dependsOn": [
+        "pkg:pypi/flask@3.0.0",
+        "pkg:pypi/requests@2.31.0",
+        "pkg:pypi/fastapi@0.104.0"
+      ]
+    }
+  ]
+}

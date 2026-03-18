@@ -1,0 +1,41 @@
+services:
+  # 目標應用程式
+  target-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.target_app
+    container_name: crto_target_app
+    networks:
+      - lab_network
+
+  # WAF 代理
+  waf-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crto_waf_proxy
+    ports:
+      - "8080:8080"
+    environment:
+      - BACKEND_HOST=target-app
+      - BACKEND_PORT=5000
+    depends_on:
+      - target-app
+    networks:
+      - lab_network
+
+  # SIEM 引擎
+  siem-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile.siem
+    container_name: crto_siem_engine
+    ports:
+      - "8001:8001"
+    networks:
+      - lab_network
+
+networks:
+  lab_network:
+    driver: bridge
+

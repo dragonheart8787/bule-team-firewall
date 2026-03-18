@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-09-19T20:25:38.160292",
+  "config_ok": true,
+  "available_modules": {
+    "cross_platform_ir": {
+      "module": "<real_cross_platform_ir.RealCrossPlatformIR object at 0x0000021237D08390>",
+      "status": true,
+      "message": ""
+    },
+    "ddos_resilience": {
+      "module": "<real_ddos_resilience.RealDDOSResilience object at 0x0000021237F65C10>",
+      "status": true,
+      "message": ""
+    },
+    "supply_chain_security": {
+      "module": "<real_supply_chain_security.RealSupplyChainSecurity object at 0x000002123A424BD0>",
+      "status": true,
+      "message": ""
+    },
+    "attack_graph": {
+      "module": "<real_attack_graph.RealAttackGraph object at 0x000002123A426C90>",
+      "status": true,
+      "message": "攻擊圖譜功能正常"
+    },
+    "attack_simulation": {
+      "status": false,
+      "error": "'RealAttackSimulation' object has no attribute 'run_simulation'"
+    }
+  },
+  "test_results": {
+    "cross_platform_ir_status": true,
+    "cross_platform_ir_report": true,
+    "cross_platform_ir_stop": true,
+    "ddos_resilience_status": true,
+    "ddos_resilience_report": true,
+    "ddos_resilience_stop": true,
+    "supply_chain_security_status": true,
+    "supply_chain_security_report": true,
+    "attack_graph_report": true,
+    "attack_graph_navigator": true
+  },
+  "summary": {
+    "available_count": 4,
+    "total_count": 5,
+    "success_rate": 80.0
+  }
+}

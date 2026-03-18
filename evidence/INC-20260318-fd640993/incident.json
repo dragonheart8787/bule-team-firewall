@@ -1,0 +1,86 @@
+{
+  "incident_id": "INC-20260318-fd640993",
+  "type": "RANSOMWARE_ATTACK",
+  "description": "Ransomware detected encrypting files on file server",
+  "severity": "CRITICAL",
+  "created_at": "2026-03-18T11:28:18.876336+00:00",
+  "status": "OPEN",
+  "evidence_items": [
+    {
+      "evidence_id": "EVD-001",
+      "type": "logs",
+      "description": "Ransomware detection logs",
+      "filename": "EVD-001_logs.json",
+      "filepath": "evidence\\INC-20260318-fd640993\\EVD-001_logs.json",
+      "collected_at": "2026-03-18T11:28:18.886649+00:00",
+      "collected_by": "SYSTEM",
+      "size_bytes": 60,
+      "hash_sha256": "08101a76852b0eda8a7cb65b883ff4bffd3c31e5b9ca48e999442252c4d62d49",
+      "hash_md5": "0c55d7114ba16e2d4efa90c4bda3fbc3",
+      "verified": true
+    },
+    {
+      "evidence_id": "EVD-002",
+      "type": "text",
+      "description": "Ransom note content",
+      "filename": "EVD-002_text.txt",
+      "filepath": "evidence\\INC-20260318-fd640993\\EVD-002_text.txt",
+      "collected_at": "2026-03-18T11:28:18.895045+00:00",
+      "collected_by": "SYSTEM",
+      "size_bytes": 39,
+      "hash_sha256": "40b3a6559bb850ee8bdcb21cfb2e5c42d33209da9b29b3b935c8bef886adf6a5",
+      "hash_md5": "d120a11fd8b8900332583af1482f6222",
+      "verified": true
+    },
+    {
+      "evidence_id": "EVD-003",
+      "type": "text",
+      "description": "Ransomware executable sample",
+      "filename": "EVD-003_text.txt",
+      "filepath": "evidence\\INC-20260318-fd640993\\EVD-003_text.txt",
+      "collected_at": "2026-03-18T11:28:18.902222+00:00",
+      "collected_by": "SYSTEM",
+      "size_bytes": 27,
+      "hash_sha256": "dba7401903b505f6220fe9ed85aaf435696140bf7ecf61874f155354e274115e",
+      "hash_md5": "a9b88c86d236bf1d8c35ddd1c2404544",
+      "verified": true
+    }
+  ],
+  "chain_of_custody": [
+    {
+      "timestamp": "2026-03-18T11:28:18.876344+00:00",
+      "custodian": "SYSTEM",
+      "action": "Incident created and evidence collection initiated"
+    },
+    {
+      "timestamp": "2026-03-18T11:28:18.886803+00:00",
+      "custodian": "SYSTEM",
+      "action": "Evidence collected: logs - Ransomware detection logs"
+    },
+    {
+      "timestamp": "2026-03-18T11:28:18.895168+00:00",
+      "custodian": "SYSTEM",
+      "action": "Evidence collected: text - Ransom note content"
+    },
+    {
+      "timestamp": "2026-03-18T11:28:18.902359+00:00",
+      "custodian": "SYSTEM",
+      "action": "Evidence collected: text - Ransomware executable sample"
+    },
+    {
+      "timestamp": "2026-03-18T11:28:18.910711+00:00",
+      "custodian": "Incident Manager",
+      "action": "Evidence custody transferred from First Responder. Reason: Evidence analysis required"
+    },
+    {
+      "timestamp": "2026-03-18T11:28:18.916697+00:00",
+      "custodian": "Forensics Team",
+      "action": "Evidence custody transferred from Incident Manager. Reason: Detailed forensic analysis"
+    },
+    {
+      "timestamp": "2026-03-18T11:28:18.923612+00:00",
+      "custodian": "SOC Analyst",
+      "action": "Evidence manifest generated and signed"
+    }
+  ]
+}

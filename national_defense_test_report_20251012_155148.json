@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-10-12T15:51:48.670366",
+  "test_suite": "National Defense Grade Firewall Test",
+  "classification": "TOP SECRET",
+  "total_tests": 121,
+  "passed": 118,
+  "failed": 3,
+  "success_rate": 97.52066115702479,
+  "grade": "CONFIDENTIAL - ACCEPTABLE (受限 - 可接受)",
+  "certification": "符合企業級標準",
+  "critical_failures": [
+    "Kill Chain Detection: 57.14285714285714% < 95%"
+  ],
+  "requirements": {
+    "min_detection_rate": 99.9,
+    "max_false_positive_rate": 0.1,
+    "max_response_time_ms": 100,
+    "zero_day_detection_rate": 95.0,
+    "apt_detection_rate": 98.0,
+    "encryption_strength": 256,
+    "log_retention_days": 365,
+    "failover_time_seconds": 5,
+    "availability": 99.999
+  }
+}

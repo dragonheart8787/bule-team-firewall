@@ -1,0 +1,98 @@
+{
+  "timestamp": "2025-10-06T15:12:09.164455",
+  "test_suite": "Quick Test Suite",
+  "version": "1.0",
+  "results": {
+    "connectivity": [
+      {
+        "service": "Target App",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.047614
+      },
+      {
+        "service": "SIEM",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.038856
+      },
+      {
+        "service": "WAF",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.047403
+      }
+    ],
+    "protection": {
+      "total_tests": 4,
+      "blocked_count": 1,
+      "protection_rate": 25.0,
+      "results": [
+        {
+          "test": "SQL注入",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.065356
+        },
+        {
+          "test": "XSS攻擊",
+          "blocked": false,
+          "status_code": 200,
+          "response_time": 4.083252
+        },
+        {
+          "test": "管理員路徑",
+          "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=3)",
+          "blocked": false
+        },
+        {
+          "test": "路徑遍歷",
+          "error": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=3)",
+          "blocked": false
+        }
+      ]
+    },
+    "siem": {
+      "total_endpoints": 4,
+      "successful_endpoints": 4,
+      "success_rate": 100.0,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.061105
+        },
+        {
+          "endpoint": "/alerts",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.050418
+        },
+        {
+          "endpoint": "/dashboard",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.044911
+        },
+        {
+          "endpoint": "/metrics",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.049675
+        }
+      ]
+    },
+    "stability": {
+      "total_requests": 8,
+      "successful_requests": 0,
+      "stability_rate": 0.0
+    }
+  },
+  "summary": {
+    "total_tests": 7,
+    "passed_tests": 4,
+    "overall_success_rate": 57.14285714285714,
+    "overall_status": "FAIL"
+  }
+}

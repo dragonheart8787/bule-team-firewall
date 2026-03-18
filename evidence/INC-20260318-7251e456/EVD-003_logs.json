@@ -1,0 +1,12 @@
+{
+  "windows_events": {
+    "security_events": 4289,
+    "failed_logins": 15,
+    "suspicious_logins": 3
+  },
+  "sysmon_events": {
+    "process_creation": 428,
+    "network_connections": 156,
+    "file_creation": 89
+  }
+}

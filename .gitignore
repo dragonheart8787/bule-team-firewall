@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 測試產出（大型/暫存）
+*.pcap
+*.raw
+*.dmp
+*.zip
+playbook_logs/
+soar_execution.log
+
+# 保留重要 JSON 設定
+
+# 系統
+.DS_Store
+Thumbs.db

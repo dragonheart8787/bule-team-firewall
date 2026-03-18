@@ -1,0 +1,76 @@
+{
+  "generation_time": "2025-10-12T18:22:55.733997",
+  "total_evidence_items": 1,
+  "evidence_items": [
+    {
+      "test_id": "T1190_SQL_Injection_Test",
+      "timestamp": "2025-10-12T18:22:55.694711",
+      "collector": "Automated Test System v7.0",
+      "environment": {
+        "os": "Windows",
+        "os_version": "10.0.26100",
+        "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+        "architecture": "AMD64",
+        "hostname": "DESKTOP-ARCOCUK",
+        "timestamp": "2025-10-12T18:22:55.717000"
+      },
+      "test_data": {
+        "test_name": "SQL Injection Detection",
+        "technique": "T1190",
+        "attack_payload": "' OR '1'='1",
+        "expected_result": "Blocked",
+        "actual_result": "Blocked",
+        "timestamp": "2025-10-12T18:22:55.694711",
+        "parameters": {
+          "target_url": "http://localhost:8080/api/data",
+          "method": "POST"
+        },
+        "seed": "test_seed_12345"
+      },
+      "reproducibility": {
+        "seed": "test_seed_12345",
+        "parameters": {
+          "target_url": "http://localhost:8080/api/data",
+          "method": "POST"
+        },
+        "dependencies": {
+          "python": "3.11+",
+          "required_packages": [
+            "requests>=2.31.0",
+            "flask>=3.0.0"
+          ]
+        },
+        "reproduction_steps": [
+          "1. 安裝依賴套件",
+          "2. 執行測試腳本",
+          "3. 驗證哈希值",
+          "4. 比對結果"
+        ]
+      },
+      "sha256": "3a7d686260d293cee0c3772d6aca47556baa676523df4a83f8f266ffe47076ae",
+      "rfc3161_timestamp": {
+        "version": "RFC 3161",
+        "timestamp": "2025-10-12T18:22:55.724997",
+        "hash_algorithm": "SHA-256",
+        "message_imprint": "3a7d686260d293cee0c3772d6aca47556baa676523df4a83f8f266ffe47076ae",
+        "tsa": "Internal TSA (Simulated)",
+        "serial_number": "bd5ada1eba87629dcb7272449e501682"
+      },
+      "hsm_signature": "df2c692573e979296bc6f1f40aa288a587e8719b45903eb36fc9403dc0266460",
+      "chain_of_custody": {
+        "collection_time": "2025-10-12T18:22:55.724997",
+        "collector": "Automated Test System",
+        "method": "Automated Test Execution",
+        "integrity_verified": true,
+        "hash_algorithm": "SHA-256",
+        "signature_algorithm": "HMAC-SHA256 (HSM-simulated)"
+      }
+    }
+  ],
+  "verification": {
+    "all_hashes_present": true,
+    "all_timestamps_valid": true,
+    "all_signatures_valid": true,
+    "chain_of_custody_complete": true
+  }
+}

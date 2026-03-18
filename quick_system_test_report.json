@@ -1,0 +1,62 @@
+{
+  "timestamp": "2025-09-19T22:54:24.209027",
+  "modules": {
+    "behavioral_analytics": {
+      "available": true,
+      "status": "running",
+      "success": true
+    },
+    "incident_playbooks": {
+      "available": true,
+      "status": "running",
+      "success": true
+    },
+    "threat_hunting_queries": {
+      "available": true,
+      "status": "running",
+      "success": true
+    },
+    "cloud_native_security": {
+      "available": true,
+      "status": "running",
+      "success": true
+    },
+    "iot_device_management": {
+      "available": true,
+      "status": "running",
+      "success": true
+    },
+    "ai_adversarial_defense": {
+      "available": true,
+      "status": "running",
+      "success": true
+    },
+    "compliance_frameworks": {
+      "available": true,
+      "status": "running",
+      "success": true
+    }
+  },
+  "summary": {
+    "main_system_loaded": true,
+    "total_modules": 7,
+    "overall_success": true,
+    "module_success_rate": 100.0,
+    "integration_success_rate": 100.0,
+    "successful_modules": 7
+  },
+  "integration_tests": [
+    [
+      "系統狀態獲取",
+      true
+    ],
+    [
+      "綜合報告生成",
+      true
+    ],
+    [
+      "數據庫文件",
+      true
+    ]
+  ]
+}

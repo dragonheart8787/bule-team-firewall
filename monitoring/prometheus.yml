@@ -1,0 +1,21 @@
+global:
+  evaluation_interval: 15s
+  scrape_interval: 15s
+scrape_configs:
+- job_name: waf-proxy
+  metrics_path: /metrics
+  static_configs:
+  - targets:
+    - waf-proxy-1:8080
+    - waf-proxy-2:8080
+    - waf-proxy-3:8080
+- job_name: siem-engine
+  metrics_path: /metrics
+  static_configs:
+  - targets:
+    - siem-engine:8001
+- job_name: target-app
+  metrics_path: /metrics
+  static_configs:
+  - targets:
+    - target-app:5000

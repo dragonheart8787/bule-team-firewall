@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-03-16T20:44:49.901073",
+  "test_suite": "National Defense Grade Firewall Test",
+  "classification": "TOP SECRET",
+  "total_tests": 121,
+  "passed": 121,
+  "failed": 0,
+  "success_rate": 100.0,
+  "grade": "TOP SECRET - CLEARED (最高機密 - 通過)",
+  "certification": "符合國防部/國安局/軍事機密標準",
+  "critical_failures": [],
+  "requirements": {
+    "min_detection_rate": 99.9,
+    "max_false_positive_rate": 0.1,
+    "max_response_time_ms": 100,
+    "zero_day_detection_rate": 95.0,
+    "apt_detection_rate": 98.0,
+    "encryption_strength": 256,
+    "log_retention_days": 365,
+    "failover_time_seconds": 5,
+    "availability": 99.999
+  }
+}

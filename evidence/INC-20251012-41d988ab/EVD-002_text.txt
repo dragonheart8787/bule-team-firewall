@@ -1,0 +1,3 @@
+Alert: SQL injection detected
+Attacker IP: 192.168.1.100
+Blocked by WAF

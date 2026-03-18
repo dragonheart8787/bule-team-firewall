@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-09-29T13:42:12.601515",
+  "summary": {
+    "total_tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "results": {
+    "WAF代理": {
+      "success": true,
+      "result": true,
+      "timestamp": "2025-09-29T13:42:12.567890"
+    },
+    "ML異常檢測": {
+      "success": true,
+      "result": true,
+      "timestamp": "2025-09-29T13:42:12.583538"
+    },
+    "虛擬補丁": {
+      "success": true,
+      "result": false,
+      "timestamp": "2025-09-29T13:42:12.583538"
+    },
+    "SOC儀表板": {
+      "success": true,
+      "result": true,
+      "timestamp": "2025-09-29T13:42:12.599512"
+    },
+    "高級WAF系統": {
+      "success": true,
+      "result": false,
+      "timestamp": "2025-09-29T13:42:12.601515"
+    }
+  }
+}

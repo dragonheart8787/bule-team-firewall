@@ -1,0 +1,25 @@
+# 使用官方 Python 3.11 slim 作為基礎映像
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# 複製 SIEM 引擎的程式碼
+COPY siem_dashboards.py .
+
+# 未來若有依賴，可取消註解此處
+# COPY requirements.txt .
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# 建立非 root 使用者
+RUN useradd --create-home appuser
+USER appuser
+WORKDIR /home/appuser
+COPY --chown=appuser:appuser siem_dashboards.py .
+
+# 暴露 SIEM API 將監聽的埠號 (如果未來有API的話)
+# EXPOSE 8001
+
+# 容器啟動時執行的命令
+# 直接運行 Python 腳本，使其在背景處理事件
+CMD ["python", "siem_dashboards.py"]
+

@@ -1,0 +1,26 @@
+{
+  "cluster_name": "SIEM_HA_Cluster",
+  "health_check_interval": 10,
+  "failover_threshold": 3,
+  "quorum": 2,
+  "nodes": [
+    {
+      "node_id": "siem-node-1",
+      "host": "127.0.0.1",
+      "port": 8001,
+      "role": "master"
+    },
+    {
+      "node_id": "siem-node-2",
+      "host": "127.0.0.1",
+      "port": 8002,
+      "role": "standby"
+    },
+    {
+      "node_id": "siem-node-3",
+      "host": "127.0.0.1",
+      "port": 8003,
+      "role": "standby"
+    }
+  ]
+}

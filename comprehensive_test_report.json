@@ -1,0 +1,87 @@
+{
+  "timestamp": "2025-09-19T20:28:27.216373",
+  "modules": {
+    "cross_platform_ir": {
+      "name": "跨平台即時操作",
+      "available": true,
+      "initialization": true,
+      "status_check": true,
+      "report_generation": true,
+      "message": ""
+    },
+    "ddos_resilience": {
+      "name": "DDoS韌性防護",
+      "available": true,
+      "initialization": true,
+      "status_check": true,
+      "report_generation": true,
+      "message": ""
+    },
+    "supply_chain_security": {
+      "name": "供應鏈完整性",
+      "available": true,
+      "initialization": true,
+      "status_check": true,
+      "report_generation": true,
+      "message": ""
+    },
+    "attack_graph": {
+      "name": "攻擊圖譜生成",
+      "available": true,
+      "initialization": true,
+      "status_check": true,
+      "report_generation": true,
+      "message": "攻擊圖譜功能正常"
+    },
+    "attack_simulation": {
+      "name": "攻防演練",
+      "available": true,
+      "initialization": true,
+      "status_check": true,
+      "report_generation": true,
+      "message": "攻防演練已啟動"
+    }
+  },
+  "external_tools": {
+    "Suricata": {
+      "available": false,
+      "error": "Not installed"
+    },
+    "Sysmon": {
+      "available": false,
+      "error": "Not installed"
+    },
+    "osquery": {
+      "available": false,
+      "error": "Not installed"
+    },
+    "syft": {
+      "available": false,
+      "error": "Not installed"
+    },
+    "cosign": {
+      "available": false,
+      "error": "Not installed"
+    },
+    "summary": {
+      "available": 0,
+      "total": 5,
+      "percentage": 0.0
+    }
+  },
+  "configuration": {
+    "config_loaded": true,
+    "system_name": "Real Ultimate Military Defense System",
+    "version": "1.0.0",
+    "total_modules": 17,
+    "defense_layers": 10
+  },
+  "summary": {
+    "main_system_loaded": true,
+    "initialized_modules": 15,
+    "total_configured_modules": 17,
+    "system_status_ok": true,
+    "module_success_rate": 100.0,
+    "overall_success": true
+  }
+}

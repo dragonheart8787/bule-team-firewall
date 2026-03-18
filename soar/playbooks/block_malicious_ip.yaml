@@ -1,0 +1,21 @@
+name: block_malicious_ip
+description: 檢測到高/中嚴重度網路威脅時封鎖來源IP，並建立TTL回復任務
+triggers:
+  - source: suricata
+    match:
+      severity_max: 2   # 1高/2中
+actions:
+  - type: firewall.block_ip
+    params:
+      ip: "{{ src_ip }}"
+      reason: "Suricata alert: {{ signature }}"
+      ttl_minutes: 60
+  - type: notify
+    params:
+      channel: "security-ops"
+      message: "封鎖 {{ src_ip }} ({{ signature }})"
+
+
+
+
+

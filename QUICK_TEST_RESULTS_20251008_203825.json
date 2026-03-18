@@ -1,0 +1,112 @@
+{
+  "timestamp": "2025-10-08T20:36:16.906952",
+  "test_suite": "Quick Test Suite",
+  "version": "1.0",
+  "results": {
+    "connectivity": [
+      {
+        "service": "Target App",
+        "status": "ERROR",
+        "error": "HTTPConnectionPool(host='localhost', port=5000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000234F40A6150>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      {
+        "service": "SIEM",
+        "status": "ERROR",
+        "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /healthz (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000234F40AC810>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+      },
+      {
+        "service": "WAF",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.058546
+      }
+    ],
+    "protection": {
+      "total_tests": 4,
+      "blocked_count": 4,
+      "protection_rate": 100.0,
+      "results": [
+        {
+          "test": "SQL注入",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.071365
+        },
+        {
+          "test": "XSS攻擊",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.059633
+        },
+        {
+          "test": "管理員路徑",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.059209
+        },
+        {
+          "test": "路徑遍歷",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.073678
+        }
+      ]
+    },
+    "performance": {
+      "total_requests": 10,
+      "successful_requests": 0,
+      "error_count": 10,
+      "success_rate": 0,
+      "errors": [
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502",
+        "Status 502"
+      ]
+    },
+    "siem": {
+      "total_endpoints": 4,
+      "successful_endpoints": 0,
+      "success_rate": 0.0,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /healthz (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000234F40AC550>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+        },
+        {
+          "endpoint": "/alerts",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /alerts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000234F40AE290>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+        },
+        {
+          "endpoint": "/dashboard",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /dashboard (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000234F40BC490>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+        },
+        {
+          "endpoint": "/metrics",
+          "status": "ERROR",
+          "error": "HTTPConnectionPool(host='localhost', port=8001): Max retries exceeded with url: /metrics (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000234F40BE790>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))"
+        }
+      ]
+    },
+    "stability": {
+      "total_requests": 8,
+      "successful_requests": 0,
+      "stability_rate": 0.0
+    }
+  },
+  "summary": {
+    "total_tests": 7,
+    "passed_tests": 2,
+    "overall_success_rate": 28.57142857142857,
+    "overall_status": "FAIL"
+  }
+}

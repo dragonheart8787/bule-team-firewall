@@ -1,0 +1,104 @@
+2025-09-05 23:23:42,421 - __main__ - INFO - 終極軍事級防火牆系統初始化完成
+2025-09-05 23:23:42,421 - __main__ - INFO - 初始化邊界層防禦系統...
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - INFO - 軍事級邊界層防禦系統初始化完成
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - __main__ - INFO - 邊界層防禦系統已啟動
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - __main__ - INFO - 初始化內部網路層防禦系統...
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_internal_segmentation - INFO - 機器學習模型初始化完成
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - military_internal_segmentation - INFO - 軍事級內部網路層防禦系統初始化完成
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,421 - __main__ - INFO - 內部網路層防禦系統已啟動
+2025-09-05 23:23:42,421 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - __main__ - INFO - 初始化SOC/指揮中心系統...
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,431 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,433 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,433 - military_soc_command_center - INFO - 軍事級SOC/指揮中心系統初始化完成
+2025-09-05 23:23:42,433 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,433 - __main__ - INFO - SOC/指揮中心系統已啟動
+2025-09-05 23:23:42,433 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,433 - __main__ - INFO - 初始化氣隙隔離系統...
+2025-09-05 23:23:42,434 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,434 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,434 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,434 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,434 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,435 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,435 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,435 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,435 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,435 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,436 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,436 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,436 - military_perimeter_defense - WARNING - 阻擋連線: 192.168.1.101:61559 -> 192.168.50.250:9100 (規則: 阻擋惡意IP)
+2025-09-05 23:23:42,436 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:42,436 - military_perimeter_defense - ERROR - DDoS攻擊檢測錯誤: 'tuple' object has no attribute 'port'
+2025-09-05 23:23:42,436 - military_perimeter_defense - ERROR - Web攻擊檢測錯誤: 'tuple' object has no attribute 'port'
+2025-09-05 23:23:42,466 - military_internal_segmentation - INFO - 新設備發現: DESKTOP-ARCOCUK.home (192.168.1.101) - 需要認證
+2025-09-05 23:23:42,468 - military_internal_segmentation - INFO - 設備認證成功: DESKTOP-ARCOCUK.home
+2025-09-05 23:23:42,475 - military_air_gap_isolation - INFO - 軍事級氣隙隔離系統初始化完成
+2025-09-05 23:23:42,475 - __main__ - INFO - 氣隙隔離系統已啟動
+2025-09-05 23:23:42,475 - __main__ - INFO - 初始化高級安全功能系統...
+2025-09-05 23:23:42,518 - military_advanced_security - INFO - 軍事級高級安全功能初始化完成
+2025-09-05 23:23:42,518 - __main__ - INFO - 高級安全功能系統已啟動
+2025-09-05 23:23:42,518 - __main__ - INFO - 所有防禦系統已初始化完成 (5/5)
+2025-09-05 23:23:42,518 - __main__ - INFO - 終極軍事級防火牆系統已啟動
+2025-09-05 23:23:43,440 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,440 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,441 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,442 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,443 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,443 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,443 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,443 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,443 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,444 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,445 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,445 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,445 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,445 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,445 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,445 - military_perimeter_defense - WARNING - 阻擋連線: 192.168.1.101:61559 -> 192.168.50.250:9100 (規則: 阻擋惡意IP)
+2025-09-05 23:23:43,446 - military_perimeter_defense - ERROR - 封包分析錯誤: 'MilitaryPerimeterDefense' object has no attribute '_user_behavior_analysis'
+2025-09-05 23:23:43,447 - military_perimeter_defense - ERROR - DDoS攻擊檢測錯誤: 'tuple' object has no attribute 'port'
+2025-09-05 23:23:43,448 - military_perimeter_defense - ERROR - Web攻擊檢測錯誤: 'tuple' object has no attribute 'port'
+2025-09-05 23:23:44,200 - __main__ - INFO - 收到信號 2，正在關閉終極軍事級防火牆系統...

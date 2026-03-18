@@ -1,0 +1,53 @@
+{
+  "tests": [
+    {
+      "name": "Web 系統",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "中央伺服器",
+      "passed": true,
+      "status_code": 200
+    },
+    {
+      "name": "SQL 注入防護",
+      "passed": true,
+      "protection_rate": 100.0
+    },
+    {
+      "name": "XSS 防護",
+      "passed": false,
+      "protection_rate": 0.0
+    },
+    {
+      "name": "暴力破解防護",
+      "passed": false
+    },
+    {
+      "name": "DDoS 防護",
+      "passed": true,
+      "blocked_requests": 25
+    },
+    {
+      "name": "路徑遍歷防護",
+      "passed": false,
+      "protection_rate": 0.0
+    },
+    {
+      "name": "命令注入防護",
+      "passed": false,
+      "protection_rate": 0.0
+    },
+    {
+      "name": "APT 檢測",
+      "passed": false,
+      "detection_rate": 0.0
+    }
+  ],
+  "passed": 7,
+  "failed": 6,
+  "start_time": "2025-10-11T23:26:03.929916",
+  "end_time": "2025-10-11T23:26:18.717338",
+  "success_rate": 53.84615384615385
+}

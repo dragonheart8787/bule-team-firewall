@@ -1,0 +1,42 @@
+actions:
+- name: block_ip
+  parameters:
+    action: block
+    duration: 3600
+    ip_address: '{{source_ip}}'
+  type: network_operation
+- name: isolate_host
+  parameters:
+    action: isolate
+    host_ip: '{{target_ip}}'
+  type: host_operation
+- name: collect_logs
+  parameters:
+    action: collect
+    log_sources:
+    - firewall
+    - ids
+    - system
+    time_range: 1h
+  type: log_collection
+- name: analyze_traffic
+  parameters:
+    action: analyze
+    source_ip: '{{source_ip}}'
+    target_ip: '{{target_ip}}'
+  type: network_analysis
+conditions:
+- field: severity
+  operator: '>='
+  value: HIGH
+- field: attack_type
+  operator: in
+  value:
+  - port_scan
+  - brute_force
+  - lateral_movement
+description: 自動回應網路入侵
+name: Network Intrusion Response
+triggers:
+- network_intrusion
+version: '1.0'

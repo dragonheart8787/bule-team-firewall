@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MITRE ATT&CK Coverage Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft JhengHei', 'Segoe UI', Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .stat-full { border-top: 4px solid #28a745; }
+        .stat-partial { border-top: 4px solid #ffc107; }
+        .stat-detect { border-top: 4px solid #fd7e14; }
+        .stat-none { border-top: 4px solid #dc3545; }
+        .stat-total { border-top: 4px solid #667eea; }
+        .tactic-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tactic-header {
+            font-size: 20px;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+        td {
+            font-size: 13px;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-FULL { background: #28a745; color: white; }
+        .status-PARTIAL { background: #ffc107; color: black; }
+        .status-DETECT_ONLY { background: #fd7e14; color: white; }
+        .status-NO_COVERAGE { background: #dc3545; color: white; }
+        .check-yes { color: #28a745; font-weight: bold; }
+        .check-no { color: #dc3545; }
+        .methods {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+        }
+        .evidence-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 11px;
+        }
+        .evidence-link:hover {
+            text-decoration: underline;
+        }
+        .progress-bar {
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 MITRE ATT&CK Coverage Report</h1>
+        <p>Generated: 2025-10-12T08:26:37.170241+00:00</p>
+        <p>System: Defense-Grade Web Security System v1.0</p>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card stat-total">
+            <div class="stat-label">Total Techniques</div>
+            <div class="stat-number">58</div>
+        </div>
+        <div class="stat-card stat-full">
+            <div class="stat-label">Full Coverage</div>
+            <div class="stat-number">58</div>
+            <div class="stat-label">100.0%</div>
+        </div>
+        <div class="stat-card stat-partial">
+            <div class="stat-label">Partial Coverage</div>
+            <div class="stat-number">0</div>
+            <div class="stat-label">0.0%</div>
+        </div>
+        <div class="stat-card stat-detect">
+            <div class="stat-label">Detection Only</div>
+            <div class="stat-number">0</div>
+            <div class="stat-label">0.0%</div>
+        </div>
+        <div class="stat-card stat-none">
+            <div class="stat-label">No Coverage</div>
+            <div class="stat-number">0</div>
+            <div class="stat-label">0.0%</div>
+        </div>
+    </div>
+    
+    <div class="stat-card" style="margin-bottom: 30px;">
+        <div class="stat-label">Overall Coverage Rate</div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100.0%">
+                100.0%
+            </div>
+        </div>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Collection (4 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1005</strong></td>
+                    <td>Data from Local System</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Sensitive Data Access Logs<br>File Access Monitoring<br>DLP Integration</td>
+                    <td><a href="#evidence-T1005" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1039</strong></td>
+                    <td>Data from Network Shared Drive</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Network Share Access<br>SMB Monitoring<br>DLP</td>
+                    <td><a href="#evidence-T1039" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1114</strong></td>
+                    <td>Email Collection</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Email Access Logs<br>IMAP/POP3 Monitoring<br>DLP</td>
+                    <td><a href="#evidence-T1114" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1560</strong></td>
+                    <td>Archive Collected Data</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Archive Creation Detection<br>Compression Activity<br>Suspicious Archive Blocking</td>
+                    <td><a href="#evidence-T1560" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Command and Control (6 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1071.001</strong></td>
+                    <td>Web Protocols</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">WAF HTTP Analysis<br>Beaconing Detection<br>PCAP Analysis</td>
+                    <td><a href="#evidence-T1071.001" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1071.004</strong></td>
+                    <td>DNS</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">DNS Tunneling Detection<br>Long Subdomain Analysis<br>High Query Rate</td>
+                    <td><a href="#evidence-T1071.004" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1090</strong></td>
+                    <td>Proxy</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Proxy Detection<br>Unusual Port Monitoring</td>
+                    <td><a href="#evidence-T1090" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1095</strong></td>
+                    <td>Non-Application Layer Protocol</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Non-HTTP/DNS Protocol<br>Raw Socket Detection<br>DPI</td>
+                    <td><a href="#evidence-T1095" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1105</strong></td>
+                    <td>Ingress Tool Transfer</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">File Upload Monitoring<br>Large POST Detection</td>
+                    <td><a href="#evidence-T1105" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1573</strong></td>
+                    <td>Encrypted Channel</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">TLS Analysis<br>Certificate Validation<br>JA3 Fingerprinting<br>SSL/TLS Inspection Blocking</td>
+                    <td><a href="#evidence-T1573" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Credential Access (5 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1003.001</strong></td>
+                    <td>LSASS Memory</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">LSASS Process Access<br>Memory Forensics<br>Credential Dumping Alert</td>
+                    <td><a href="#evidence-T1003.001" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1056</strong></td>
+                    <td>Input Capture</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Keystroke Pattern Analysis<br>Input Monitoring<br>Behavioral Blocking</td>
+                    <td><a href="#evidence-T1056" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1110</strong></td>
+                    <td>Brute Force</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Failed Login Monitoring<br>Account Lockout<br>Rate Limiting</td>
+                    <td><a href="#evidence-T1110" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1555</strong></td>
+                    <td>Credentials from Password Stores</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Password Store Access<br>Credential File Monitoring</td>
+                    <td><a href="#evidence-T1555" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1558</strong></td>
+                    <td>Steal or Forge Kerberos Tickets</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Kerberos Ticket Anomaly<br>Event 4768/4769<br>Signature IPS</td>
+                    <td><a href="#evidence-T1558" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Defense Evasion (6 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1027</strong></td>
+                    <td>Obfuscated Files or Information</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">File Entropy Analysis<br>Obfuscation Detection<br>Zero-Day Protection</td>
+                    <td><a href="#evidence-T1027" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1036</strong></td>
+                    <td>Masquerading</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Process Name Analysis<br>Path Anomaly Detection<br>ML Detection</td>
+                    <td><a href="#evidence-T1036" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1070</strong></td>
+                    <td>Indicator Removal</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Log Deletion Monitoring<br>Event 1102 Alert<br>SIEM Integration</td>
+                    <td><a href="#evidence-T1070" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1140</strong></td>
+                    <td>Deobfuscate/Decode Files</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Decode Activity Detection<br>Base64 Pattern<br>DPI</td>
+                    <td><a href="#evidence-T1140" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1218</strong></td>
+                    <td>System Binary Proxy Execution</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">LOLBin Detection<br>Suspicious Binary Execution<br>Behavioral Analysis</td>
+                    <td><a href="#evidence-T1218" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1562.001</strong></td>
+                    <td>Disable or Modify Tools</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Security Tool Modification<br>Service Stop Detection<br>Automated Blocking</td>
+                    <td><a href="#evidence-T1562.001" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Discovery (6 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1018</strong></td>
+                    <td>Remote System Discovery</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Network Discovery Command<br>ARP Scan Detection<br>Anomaly IPS</td>
+                    <td><a href="#evidence-T1018" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1046</strong></td>
+                    <td>Network Service Scanning</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Port Scan Detection<br>Network Sweep Monitoring</td>
+                    <td><a href="#evidence-T1046" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1069</strong></td>
+                    <td>Permission Groups Discovery</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Group Enumeration<br>Privilege Query Detection<br>Behavioral Analysis</td>
+                    <td><a href="#evidence-T1069" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1082</strong></td>
+                    <td>System Information Discovery</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">System Command Detection<br>whoami/systeminfo Detection</td>
+                    <td><a href="#evidence-T1082" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1083</strong></td>
+                    <td>File and Directory Discovery</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">File Enumeration Pattern<br>Directory Traversal Detection</td>
+                    <td><a href="#evidence-T1083" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1087</strong></td>
+                    <td>Account Discovery</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Account Enumeration Detection<br>User List Query Blocking</td>
+                    <td><a href="#evidence-T1087" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Execution (5 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1059.001</strong></td>
+                    <td>PowerShell</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">PowerShell Execution Logging<br>Script Block Logging<br>Deep Packet Inspection</td>
+                    <td><a href="#evidence-T1059.001" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1059.003</strong></td>
+                    <td>Windows Command Shell</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Command Injection Detection<br>Shell Command Logging</td>
+                    <td><a href="#evidence-T1059.003" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1059.006</strong></td>
+                    <td>Python</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Python Process Monitoring<br>Script Execution Logging</td>
+                    <td><a href="#evidence-T1059.006" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1106</strong></td>
+                    <td>Native API</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Suspicious API Pattern Detection<br>Process Monitoring<br>API Call Blocking</td>
+                    <td><a href="#evidence-T1106" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1204</strong></td>
+                    <td>User Execution</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">User Click Monitoring<br>Malicious File Execution<br>Sandboxing</td>
+                    <td><a href="#evidence-T1204" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Exfiltration (4 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1020</strong></td>
+                    <td>Automated Exfiltration</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Automated Transfer Pattern<br>Scheduled Exfiltration</td>
+                    <td><a href="#evidence-T1020" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1041</strong></td>
+                    <td>Exfiltration Over C2 Channel</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">C2 Traffic Analysis<br>Large Data Transfer Detection</td>
+                    <td><a href="#evidence-T1041" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1048</strong></td>
+                    <td>Exfiltration Over Alternative Protocol</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Alternative Protocol Detection<br>Uncommon Port Monitoring</td>
+                    <td><a href="#evidence-T1048" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1567</strong></td>
+                    <td>Exfiltration Over Web Service</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Web Upload Detection<br>Cloud Storage Monitoring</td>
+                    <td><a href="#evidence-T1567" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Impact (5 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1485</strong></td>
+                    <td>Data Destruction</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Mass File Deletion<br>Data Wipe Pattern</td>
+                    <td><a href="#evidence-T1485" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1486</strong></td>
+                    <td>Data Encrypted for Impact</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Rapid File Modification<br>Ransomware Pattern</td>
+                    <td><a href="#evidence-T1486" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1490</strong></td>
+                    <td>Inhibit System Recovery</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Backup Deletion Alert<br>Shadow Copy Monitoring</td>
+                    <td><a href="#evidence-T1490" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1498</strong></td>
+                    <td>Network Denial of Service</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Network Rate Limiting<br>Traffic Volume Analysis</td>
+                    <td><a href="#evidence-T1498" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1499</strong></td>
+                    <td>Endpoint Denial of Service</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Endpoint Rate Limiting<br>IP Blocking<br>Connection Limiting</td>
+                    <td><a href="#evidence-T1499" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Initial Access (4 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1133</strong></td>
+                    <td>External Remote Services</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">VPN Login Monitoring<br>Remote Access Logs<br>Geo-location Analysis</td>
+                    <td><a href="#evidence-T1133" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1189</strong></td>
+                    <td>Drive-by Compromise</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">WAF XSS Detection<br>Malicious Script Blocking</td>
+                    <td><a href="#evidence-T1189" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1190</strong></td>
+                    <td>Exploit Public-Facing Application</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">WAF SQL Injection<br>WAF XSS<br>WAF Path Traversal<br>WAF Command Injection</td>
+                    <td><a href="#evidence-T1190" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1566</strong></td>
+                    <td>Phishing</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Email Gateway Scanning<br>Attachment Analysis<br>URL Reputation Check</td>
+                    <td><a href="#evidence-T1566" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Lateral Movement (4 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1021.001</strong></td>
+                    <td>Remote Desktop Protocol</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">RDP Login Monitoring<br>Event 4624 Type 10<br>Anomaly Detection</td>
+                    <td><a href="#evidence-T1021.001" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1021.002</strong></td>
+                    <td>SMB/Windows Admin Shares</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">SMB Traffic Analysis<br>Admin Share Access<br>DPI</td>
+                    <td><a href="#evidence-T1021.002" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1550</strong></td>
+                    <td>Use Alternate Authentication Material</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Pass-the-Hash Detection<br>NTLM Anomaly<br>Signature IPS</td>
+                    <td><a href="#evidence-T1550" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1563</strong></td>
+                    <td>Remote Service Session Hijacking</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Session Hijacking Detection<br>Unusual Session Activity<br>Anomaly Detection</td>
+                    <td><a href="#evidence-T1563" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Persistence (5 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1053.005</strong></td>
+                    <td>Scheduled Task</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Scheduled Task Creation<br>Event 4698<br>Task Scheduler Monitoring</td>
+                    <td><a href="#evidence-T1053.005" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1098</strong></td>
+                    <td>Account Manipulation</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Account Modification Alert<br>Privilege Change<br>Automated Response</td>
+                    <td><a href="#evidence-T1098" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1136</strong></td>
+                    <td>Create Account</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">New Account Creation Alert<br>Event 4720<br>Automated Response</td>
+                    <td><a href="#evidence-T1136" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1543.003</strong></td>
+                    <td>Windows Service</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Service Installation<br>Event 7045<br>Service Registry Monitoring</td>
+                    <td><a href="#evidence-T1543.003" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1547.001</strong></td>
+                    <td>Registry Run Keys</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Registry Run Key Monitoring<br>Startup Modification</td>
+                    <td><a href="#evidence-T1547.001" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tactic-section">
+        <h2 class="tactic-header">Privilege Escalation (4 techniques)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique ID</th>
+                    <th>Name</th>
+                    <th>Detection</th>
+                    <th>Blocking</th>
+                    <th>Response</th>
+                    <th>Methods</th>
+                    <th>Evidence</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>T1055</strong></td>
+                    <td>Process Injection</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Process Injection Detection<br>Memory Scanning<br>CreateRemoteThread Monitoring</td>
+                    <td><a href="#evidence-T1055" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1068</strong></td>
+                    <td>Exploitation for Privilege Escalation</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Exploit Detection<br>Vulnerability Scanner Integration<br>Abnormal Privilege Change</td>
+                    <td><a href="#evidence-T1068" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1078</strong></td>
+                    <td>Valid Accounts</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Login Monitoring<br>Failed Attempts Tracking<br>Account Lockout</td>
+                    <td><a href="#evidence-T1078" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+                <tr>
+                    <td><strong>T1134</strong></td>
+                    <td>Access Token Manipulation</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="check-yes">✓</td>
+                    <td class="methods">Token Manipulation Detection<br>Privilege Escalation Alert</td>
+                    <td><a href="#evidence-T1134" class="evidence-link">View</a></td>
+                    <td><span class="status-badge status-FULL">FULL</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

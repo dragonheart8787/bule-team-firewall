@@ -1,0 +1,121 @@
+{
+  "timestamp": "2025-10-08T20:14:17.161943",
+  "test_suite": "Quick Test Suite",
+  "version": "1.0",
+  "results": {
+    "connectivity": [
+      {
+        "service": "Target App",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.049017
+      },
+      {
+        "service": "SIEM",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.07173
+      },
+      {
+        "service": "WAF",
+        "status": "PASS",
+        "status_code": 200,
+        "response_time": 2.067584
+      }
+    ],
+    "protection": {
+      "total_tests": 4,
+      "blocked_count": 1,
+      "protection_rate": 25.0,
+      "results": [
+        {
+          "test": "SQL注入",
+          "blocked": false,
+          "status_code": 200,
+          "response_time": 2.560733
+        },
+        {
+          "test": "XSS攻擊",
+          "blocked": false,
+          "status_code": 200,
+          "response_time": 2.588528
+        },
+        {
+          "test": "管理員路徑",
+          "blocked": true,
+          "status_code": 403,
+          "response_time": 2.033778
+        },
+        {
+          "test": "路徑遍歷",
+          "blocked": false,
+          "status_code": 200,
+          "response_time": 2.593597
+        }
+      ]
+    },
+    "performance": {
+      "total_requests": 10,
+      "successful_requests": 10,
+      "error_count": 0,
+      "success_rate": 100.0,
+      "avg_response_time": 2.568898391723633,
+      "max_response_time": 2.587858200073242,
+      "min_response_time": 2.546727180480957,
+      "response_times": [
+        2.562586784362793,
+        2.587858200073242,
+        2.5731709003448486,
+        2.5633251667022705,
+        2.5771923065185547,
+        2.546727180480957,
+        2.563652276992798,
+        2.5623888969421387,
+        2.5868539810180664,
+        2.565228223800659
+      ]
+    },
+    "siem": {
+      "total_endpoints": 4,
+      "successful_endpoints": 4,
+      "success_rate": 100.0,
+      "results": [
+        {
+          "endpoint": "/healthz",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.056878
+        },
+        {
+          "endpoint": "/alerts",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.056499
+        },
+        {
+          "endpoint": "/dashboard",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.047616
+        },
+        {
+          "endpoint": "/metrics",
+          "status": "PASS",
+          "status_code": 200,
+          "response_time": 2.060752
+        }
+      ]
+    },
+    "stability": {
+      "total_requests": 8,
+      "successful_requests": 8,
+      "stability_rate": 100.0
+    }
+  },
+  "summary": {
+    "total_tests": 7,
+    "passed_tests": 6,
+    "overall_success_rate": 85.71428571428571,
+    "overall_status": "PASS"
+  }
+}

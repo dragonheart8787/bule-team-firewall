@@ -1,0 +1,9 @@
+{
+  "system_initialization": false,
+  "module_startup": false,
+  "module_health": false,
+  "individual_modules": {},
+  "system_reporting": false,
+  "configuration_loading": true,
+  "external_tools": 0
+}

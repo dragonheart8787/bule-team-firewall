@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Incident Report - INC-20251012-41d988ab</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        .severity-HIGH { color: #dc3545; font-weight: bold; }
+        .severity-MEDIUM { color: #ffc107; font-weight: bold; }
+        .severity-LOW { color: #28a745; font-weight: bold; }
+        .status-CLOSED { color: #28a745; font-weight: bold; }
+        .recommendations {
+            list-style-type: none;
+            padding: 0;
+        }
+        .recommendations li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Final Incident Report</h1>
+        <p><strong>Incident ID:</strong> INC-20251012-41d988ab</p>
+        <p><strong>Generated:</strong> 2025-10-12T05:11:01.052018+00:00</p>
+    </div>
+    
+    <div class="section">
+        <h2>Incident Summary</h2>
+        <table>
+            <tr>
+                <th>Type</th>
+                <td>SQL_INJECTION</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>Detected SQL injection attempt on /api/login endpoint</td>
+            </tr>
+            <tr>
+                <th>Severity</th>
+                <td class="severity-HIGH">HIGH</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td class="status-CLOSED">CLOSED</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>2025-10-12T05:11:00.978164+00:00</td>
+            </tr>
+            <tr>
+                <th>Closed</th>
+                <td>2025-10-12T05:11:01.052018+00:00</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>0.00 hours</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Evidence Summary</h2>
+        <table>
+            <tr>
+                <th>Total Evidence Items</th>
+                <td>2</td>
+            </tr>
+            <tr>
+                <th>Total Size</th>
+                <td>271 bytes</td>
+            </tr>
+            <tr>
+                <th>All Verified</th>
+                <td>Yes</td>
+            </tr>
+        </table>
+        
+        <h3>Evidence Types</h3>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Count</th>
+            </tr>
+            <tr><td>logs</td><td>1</td></tr><tr><td>text</td><td>1</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Chain of Custody</h2>
+        <p><strong>Total Transfers:</strong> 6</p>
+        <p><strong>Custodians:</strong> SYSTEM, SOC Analyst, SOC Analyst John, SIEM System, WAF System, Incident Manager Jane</p>
+        
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>Custodian</th>
+                <th>Action</th>
+            </tr>
+            <tr><td>2025-10-12T05:11:00.978164+00:00</td><td>SYSTEM</td><td>Incident created and evidence collection initiated</td></tr><tr><td>2025-10-12T05:11:00.992670+00:00</td><td>WAF System</td><td>Evidence collected: logs - Attack request log from WAF</td></tr><tr><td>2025-10-12T05:11:01.006485+00:00</td><td>SIEM System</td><td>Evidence collected: text - WAF alert message</td></tr><tr><td>2025-10-12T05:11:01.018346+00:00</td><td>SOC Analyst John</td><td>Evidence manifest generated and signed</td></tr><tr><td>2025-10-12T05:11:01.027951+00:00</td><td>SOC Analyst</td><td>Evidence manifest generated and signed</td></tr><tr><td>2025-10-12T05:11:01.052018+00:00</td><td>Incident Manager Jane</td><td>Incident closed. Summary: SQL injection attempt successfully blocked by WAF. Attacker IP has been added to blocklist. No data compromise detected.</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Recommendations</h2>
+        <ul class="recommendations">
+            <li>Implement parameterized queries</li><li>Update WAF rules</li><li>Conduct security code review</li><li>Review and update security monitoring rules</li><li>Conduct team training on incident response</li><li>Update incident response playbooks</li>
+        </ul>
+    </div>
+</body>
+</html>

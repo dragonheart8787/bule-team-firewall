@@ -1,0 +1,15 @@
+
+# C2 Beaconing Detection
+alert tcp any any -> any any (msg:"C2 Beaconing - Regular TCP connections"; flow:established; threshold:type both,track by_src,count 10,seconds 300; sid:1000001; rev:1;)
+
+# DNS Tunneling Detection
+alert udp any any -> any 53 (msg:"DNS Tunneling - Suspicious long domain"; dns_query; content:"|20|"; depth:50; sid:1000002; rev:1;)
+
+# Data Exfiltration Detection
+alert tcp any any -> any any (msg:"Data Exfiltration - Large data transfer"; flow:established; byte_test:4,>,1000000,0; sid:1000003; rev:1;)
+
+# Lateral Movement Detection
+alert tcp any any -> any 445 (msg:"Lateral Movement - SMB access"; flow:established; content:"SMB"; sid:1000004; rev:1;)
+
+# Malware Communication Detection
+alert tcp any any -> any any (msg:"Malware Communication - Suspicious user agent"; http_header; content:"User-Agent"; content:"bot|spider|crawler"; nocase; sid:1000005; rev:1;)

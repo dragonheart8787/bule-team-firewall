@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Incident Report - INC-20260318-7251e456</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        .severity-HIGH { color: #dc3545; font-weight: bold; }
+        .severity-MEDIUM { color: #ffc107; font-weight: bold; }
+        .severity-LOW { color: #28a745; font-weight: bold; }
+        .status-CLOSED { color: #28a745; font-weight: bold; }
+        .recommendations {
+            list-style-type: none;
+            padding: 0;
+        }
+        .recommendations li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Final Incident Report</h1>
+        <p><strong>Incident ID:</strong> INC-20260318-7251e456</p>
+        <p><strong>Generated:</strong> 2026-03-18T06:56:40.067176+00:00</p>
+    </div>
+    
+    <div class="section">
+        <h2>Incident Summary</h2>
+        <table>
+            <tr>
+                <th>Type</th>
+                <td>ADVANCED_PERSISTENT_THREAT</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>Suspected APT attack with credential theft and lateral movement</td>
+            </tr>
+            <tr>
+                <th>Severity</th>
+                <td class="severity-CRITICAL">CRITICAL</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td class="status-CLOSED">CLOSED</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>2026-03-18T06:56:39.951528+00:00</td>
+            </tr>
+            <tr>
+                <th>Closed</th>
+                <td>2026-03-18T06:56:40.066526+00:00</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>0.00 hours</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Evidence Summary</h2>
+        <table>
+            <tr>
+                <th>Total Evidence Items</th>
+                <td>3</td>
+            </tr>
+            <tr>
+                <th>Total Size</th>
+                <td>870 bytes</td>
+            </tr>
+            <tr>
+                <th>All Verified</th>
+                <td>Yes</td>
+            </tr>
+        </table>
+        
+        <h3>Evidence Types</h3>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Count</th>
+            </tr>
+            <tr><td>text</td><td>2</td></tr><tr><td>logs</td><td>1</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Chain of Custody</h2>
+        <p><strong>Total Transfers:</strong> 7</p>
+        <p><strong>Custodians:</strong> Log Collector, Chief Forensics Analyst, Forensics Tool, SYSTEM, Network Analyst, SOC Analyst</p>
+        
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>Custodian</th>
+                <th>Action</th>
+            </tr>
+            <tr><td>2026-03-18T06:56:39.951596+00:00</td><td>SYSTEM</td><td>Incident created and evidence collection initiated</td></tr><tr><td>2026-03-18T06:56:39.971668+00:00</td><td>Forensics Tool</td><td>Evidence collected: text - Memory dump analysis - Volatility results</td></tr><tr><td>2026-03-18T06:56:39.981816+00:00</td><td>Network Analyst</td><td>Evidence collected: text - Network traffic analysis - PCAP results</td></tr><tr><td>2026-03-18T06:56:39.995193+00:00</td><td>Log Collector</td><td>Evidence collected: logs - System event logs - Windows & Sysmon</td></tr><tr><td>2026-03-18T06:56:40.010084+00:00</td><td>Chief Forensics Analyst</td><td>Evidence manifest generated and signed</td></tr><tr><td>2026-03-18T06:56:40.025995+00:00</td><td>SOC Analyst</td><td>Evidence manifest generated and signed</td></tr><tr><td>2026-03-18T06:56:40.066540+00:00</td><td>Chief Forensics Analyst</td><td>Incident closed. Summary: APT attack confirmed. Credential theft via Mimikatz, C2 communication to 203.0.113.50, and data exfiltration detected. All evidence collected and preserved with full chain of custody.</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>Recommendations</h2>
+        <ul class="recommendations">
+            <li>Review and update security monitoring rules</li><li>Conduct team training on incident response</li><li>Update incident response playbooks</li>
+        </ul>
+    </div>
+</body>
+</html>

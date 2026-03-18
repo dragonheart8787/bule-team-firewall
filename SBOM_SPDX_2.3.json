@@ -1,0 +1,105 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "National-Defense-Firewall-SBOM",
+  "documentNamespace": "https://defense-system.local/sbom/29e9f47b-3fba-4771-a9aa-3a25af6c8dfc",
+  "creationInfo": {
+    "created": "2025-10-12T18:24:37.863284Z",
+    "creators": [
+      "Tool: SBOM-Generator-v1.0",
+      "Organization: Blue Team Defense System"
+    ],
+    "licenseListVersion": "3.21"
+  },
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-NDF",
+      "name": "National-Defense-Firewall",
+      "versionInfo": "7.0.0",
+      "supplier": "Organization: Blue Team Defense System",
+      "originator": "Organization: Blue Team Defense System",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": true,
+      "verificationCode": {
+        "verificationCodeValue": "473fb7732200b112427eaff17bbc88f6ac8252fc"
+      },
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "Copyright (c) 2025 Blue Team Defense System",
+      "summary": "國防級防火牆系統 with MITRE ATT&CK 100% Full Coverage"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Python",
+      "name": "Python",
+      "versionInfo": "3.11.0",
+      "supplier": "Organization: Python Software Foundation",
+      "downloadLocation": "https://www.python.org/downloads/",
+      "filesAnalyzed": false,
+      "licenseConcluded": "PSF-2.0",
+      "licenseDeclared": "PSF-2.0",
+      "copyrightText": "Copyright (c) 2001-2024 Python Software Foundation"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Flask",
+      "name": "Flask",
+      "versionInfo": "3.0.0",
+      "supplier": "Organization: Pallets",
+      "downloadLocation": "https://pypi.org/project/Flask/",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "PLACEHOLDER_HASH"
+        }
+      ],
+      "licenseConcluded": "BSD-3-Clause",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:pypi/flask@3.0.0"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Requests",
+      "name": "requests",
+      "versionInfo": "2.31.0",
+      "supplier": "Organization: Python Requests",
+      "downloadLocation": "https://pypi.org/project/requests/",
+      "licenseConcluded": "Apache-2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-FastAPI",
+      "name": "fastapi",
+      "versionInfo": "0.104.0",
+      "supplier": "Organization: Sebastián Ramírez",
+      "downloadLocation": "https://pypi.org/project/fastapi/",
+      "licenseConcluded": "MIT"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Uvicorn",
+      "name": "uvicorn",
+      "versionInfo": "0.24.0",
+      "downloadLocation": "https://pypi.org/project/uvicorn/",
+      "licenseConcluded": "BSD-3-Clause"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-NDF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-NDF",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-Python"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-NDF",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-Flask"
+    }
+  ]
+}

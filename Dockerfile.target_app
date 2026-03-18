@@ -1,0 +1,25 @@
+# 使用輕量級的 Python 官方映像
+FROM python:3.11-slim
+
+# 設定工作目錄
+WORKDIR /app
+
+# 複製依賴檔並安裝
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 複製應用程式程式碼
+COPY target_app.py .
+
+# 建立非 root 使用者以增強安全性
+RUN useradd --create-home appuser
+USER appuser
+WORKDIR /home/appuser
+COPY --chown=appuser:appuser target_app.py .
+
+# 暴露應用程式監聽的埠號
+EXPOSE 5000
+
+# 容器啟動時執行的命令
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+

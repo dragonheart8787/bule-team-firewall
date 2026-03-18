@@ -1,0 +1,2 @@
+{"timestamp": "2025-10-10T14:12:35.142766", "username": "SYSTEM", "action": "SHUTDOWN", "result": "SUCCESS", "details": "Graceful shutdown", "ip": "127.0.0.1"}
+{"timestamp": "2025-10-10T14:13:47.422837", "username": "SYSTEM", "action": "SHUTDOWN", "result": "SUCCESS", "details": "Graceful shutdown", "ip": "127.0.0.1"}

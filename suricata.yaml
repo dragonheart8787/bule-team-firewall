@@ -1,0 +1,37 @@
+
+%YAML 1.1
+---
+# Suricata configuration file
+
+default-log-dir: /var/log/suricata/
+default-rule-path: /etc/suricata/rules
+rule-files:
+  - custom.rules
+
+# Logging configuration
+logging:
+  default-log-level: info
+  outputs:
+    - console:
+        enabled: yes
+    - file:
+        enabled: yes
+        filename: suricata.log
+    - syslog:
+        enabled: no
+
+# Network configuration
+af-packet:
+  - interface: eth0
+    cluster-id: 99
+    cluster-type: cluster_flow
+    defrag: yes
+    use-mmap: yes
+    tpacket-v3: yes
+
+# Detection configuration
+detect:
+  profile: medium
+  custom-values:
+    toclient-groups: 2
+    toserver-groups: 25
