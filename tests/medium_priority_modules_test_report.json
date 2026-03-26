@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-03-18T20:38:34.793709",
+  "modules": {
+    "cloud_native_security": {
+      "name": "雲原生安全模組",
+      "available": false,
+      "error": "No module named 'real_cloud_native_security'"
+    },
+    "iot_device_management": {
+      "name": "IoT設備管理模組",
+      "available": false,
+      "error": "No module named 'real_iot_device_management'"
+    },
+    "ai_adversarial_defense": {
+      "name": "AI對抗防禦模組",
+      "available": false,
+      "error": "No module named 'real_ai_adversarial_defense'"
+    }
+  },
+  "summary": {
+    "main_system_loaded": false,
+    "error": "No module named 'real_ultimate_military_defense_system'",
+    "overall_success": false,
+    "module_success_rate": 0.0
+  }
+}

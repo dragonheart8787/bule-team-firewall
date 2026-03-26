@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-03-18T20:38:34.786997",
+  "modules": {
+    "behavioral_analytics": {
+      "name": "行為分析引擎",
+      "available": false,
+      "error": "No module named 'real_behavioral_analytics'"
+    },
+    "incident_playbooks": {
+      "name": "事件回應劇本系統",
+      "available": false,
+      "error": "No module named 'real_incident_playbooks'"
+    },
+    "threat_hunting_queries": {
+      "name": "威脅獵捕查詢庫",
+      "available": false,
+      "error": "No module named 'real_threat_hunting_queries'"
+    }
+  },
+  "summary": {
+    "main_system_loaded": false,
+    "error": "No module named 'real_ultimate_military_defense_system'",
+    "overall_success": false,
+    "module_success_rate": 0.0
+  }
+}

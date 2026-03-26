@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-03-18T20:37:21.610421",
+  "modules": {
+    "compliance_frameworks": {
+      "name": "合規框架模組",
+      "available": false,
+      "error": "No module named 'real_compliance_frameworks'"
+    }
+  },
+  "summary": {
+    "main_system_loaded": false,
+    "error": "No module named 'real_ultimate_military_defense_system'",
+    "overall_success": false,
+    "module_success_rate": 0.0
+  }
+}

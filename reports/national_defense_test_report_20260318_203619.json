@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-03-18T20:36:19.252387",
+  "test_suite": "Custom Firewall Test",
+  "classification": "高安全等級",
+  "total_tests": 121,
+  "passed": 121,
+  "failed": 0,
+  "success_rate": 100.0,
+  "grade": "認證通過 (高安全等級)",
+  "certification": "符合安全標準",
+  "critical_failures": [],
+  "requirements": {
+    "min_detection_rate": 99.9,
+    "max_false_positive_rate": 0.1,
+    "max_response_time_ms": 100,
+    "zero_day_detection_rate": 95.0,
+    "apt_detection_rate": 98.0,
+    "encryption_strength": 256,
+    "log_retention_days": 365,
+    "failover_time_seconds": 5,
+    "availability": 99.999
+  }
+}

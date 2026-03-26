@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-03-18T20:37:21.614710",
+  "modules": {
+    "ctf_attack_simulation": {
+      "name": "CTF攻擊模擬系統",
+      "available": false,
+      "error": "No module named 'real_ctf_attack_simulation'"
+    },
+    "ctf_challenge_generator": {
+      "name": "CTF挑戰生成器",
+      "available": false,
+      "error": "No module named 'real_ctf_challenge_generator'"
+    },
+    "ctf_competition_manager": {
+      "name": "CTF競賽管理系統",
+      "available": false,
+      "error": "No module named 'real_ctf_competition_manager'"
+    }
+  },
+  "summary": {
+    "overall_success": false,
+    "module_success_rate": 0.0
+  }
+}

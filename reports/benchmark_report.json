@@ -2,59 +2,59 @@
   "throughput": {
     "single_thread": {
       "mode": "single_thread",
-      "duration_sec": 0.13227379999443656,
+      "duration_sec": 0.16736330000276212,
       "packets_processed": 500000,
       "bytes_processed": 750000000,
-      "packets_per_second": 3780038.0,
-      "bytes_per_second": 5670057109.0,
-      "gbps": 45.36,
+      "packets_per_second": 2987513.0,
+      "bytes_per_second": 4481269191.0,
+      "gbps": 35.85,
       "target_10gbps_achieved": true
     },
     "multi_thread": {
       "mode": "multi_thread",
       "num_threads": 8,
-      "duration_sec": 0.87,
+      "duration_sec": 1.07,
       "packets_processed": 2500000,
       "bytes_processed": 3750000000,
-      "packets_per_second": 2858922.0,
-      "gbps": 34.31,
+      "packets_per_second": 2334029.0,
+      "gbps": 28.01,
       "target_10gbps_achieved": true
     },
     "multi_process": {
       "mode": "multi_process",
       "num_processes": 8,
-      "duration_sec": 0.43,
+      "duration_sec": 0.56,
       "packets_processed": 4166664,
       "bytes_processed": 6249996000,
-      "packets_per_second": 9700203.0,
-      "gbps": 116.4,
+      "packets_per_second": 7421780.0,
+      "gbps": 89.06,
       "target_10gbps_achieved": true
     }
   },
   "concurrent": {
     "connection_sim": {
       "connections_created": 100000,
-      "duration_sec": 0.08,
-      "connections_per_second": 1310784.0,
+      "duration_sec": 0.06,
+      "connections_per_second": 1680630.0,
       "target_1m": false
     },
     "connection_1m": {
       "connections_created": 1000000,
-      "duration_sec": 0.59,
-      "connections_per_second": 1696682.0,
+      "duration_sec": 0.61,
+      "connections_per_second": 1650011.0,
       "target_1m": true
     },
     "asyncio": {
       "mode": "asyncio",
       "connections_simulated": 50000,
-      "duration_sec": 0.2,
-      "connections_per_second": 249539.0
+      "duration_sec": 0.21,
+      "connections_per_second": 234418.0
     },
     "thread_pool": {
       "mode": "thread_pool",
       "tasks_completed": 100000,
-      "duration_sec": 1.86,
-      "tasks_per_second": 53706.0
+      "duration_sec": 2.12,
+      "tasks_per_second": 47199.0
     }
   },
   "engines": {
@@ -67,11 +67,11 @@
     "packets_captured": 20,
     "packets_dropped": 0,
     "bytes_captured": 1200,
-    "start_time": 1773833283.9896011,
-    "last_packet_time": 1773833286.0002046,
-    "duration_seconds": 2.010896682739258,
-    "packets_per_second": 9.945811821995676,
-    "bytes_per_second": 596.7487093197406,
-    "mbps": 0.0047739896745579245
+    "start_time": 1773837399.0117884,
+    "last_packet_time": 1773837401.0226595,
+    "duration_seconds": 2.0112061500549316,
+    "packets_per_second": 9.944281444969599,
+    "bytes_per_second": 596.656886698176,
+    "mbps": 0.004773255093585408
   }
 }
