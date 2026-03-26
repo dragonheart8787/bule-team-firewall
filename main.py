@@ -17,8 +17,10 @@ import threading
 from datetime import datetime
 from typing import Dict, Any
 
-# 添加當前目錄到Python路徑
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# 添加 src/ 目錄到 Python 路徑（核心模組所在位置）
+_ROOT = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_ROOT, "src"))
+sys.path.insert(0, _ROOT)
 
 # 導入所有模組
 from military_firewall import MilitaryFirewall
